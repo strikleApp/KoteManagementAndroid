@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="labelColor">#606C38</color>
+    <color name="primaryColor">#606C38</color>
     <color name="cardColor">#FEFAE0</color>
     <color name="labelColor2">#DDA15E</color>
 

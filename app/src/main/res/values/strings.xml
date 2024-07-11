@@ -6,5 +6,17 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="already_have_an_account">Already have an account?</string>
+    <string name="users_text">USERS</string>
+    <string name="add_user_text">ADD USER</string>
+    <string name="user_id_hint">User ID</string>
+    <string name="user_name_hint">User Name</string>
+    <string name="date_of_joining_text">Date of Joining</string>
+    <string name="add_user_btn">Add User</string>
+    <string name="user_can_tap_to_open_add_user_screen_text">User can tap to open add user screen</string>
+    <string name="add_user_bottom_nav">Add User</string>
+    <string name="view_user_bottom_nav">View User</string>
+    <string name="remove_user_bottom_nav">Remove User</string>
+    <string name="bottom_nav_view_user">bottom nav view user</string>
+    <string name="bottom_nav_remove_user">Bottom nav remove user</string>
 
 </resources>
