@@ -18,5 +18,13 @@
     <string name="remove_user_bottom_nav">Remove User</string>
     <string name="bottom_nav_view_user">bottom nav view user</string>
     <string name="bottom_nav_remove_user">Bottom nav remove user</string>
+    <string name="view_user_title">Users</string>
+    <string name="delete_user_text">Delete User</string>
+    <string name="delete_user_hint">User ID</string>
+    <string name="btn_text_search">Search</string>
+    <string name="name_text">Name:</string>
+    <string name="delete_btn">Delete</string>
+    <string name="id_text">ID:</string>
+    <string name="rank_text">Rank:</string>
 
 </resources>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeleteUserActivity">
+
+
+    <!--Top Navigation Bar-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTopNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/primaryColor"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/menu"
+            android:popupTheme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        Add weight-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/users_text"
+            android:textColor="@color/cardColor"
+            android:textFontWeight="700"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="parent"
+
+
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- BODY -->
+
+    <TextView
+        android:id="@+id/tvDeleteUserTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:text="@string/delete_user_text"
+        android:textColor="@color/primaryColor"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clTopNavBar"
+
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tlSearchUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        android:hint="@string/delete_user_hint"
+        app:layout_constraintTop_toBottomOf="@id/tvDeleteUserTitle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearchUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="12dp"
+        android:text="@string/btn_text_search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tlSearchUser" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/border"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="30dp"
+        app:layout_constraintTop_toBottomOf="@id/btnSearch">
+
+
+        <!--        CONSTANTS-->
+
+        <TextView
+            android:id="@+id/tvNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_text"
+            android:textColor="@color/primaryColor"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tvIDText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_text"
+            android:textColor="@color/primaryColor"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNameText"
+            android:layout_marginTop="15dp"
+            />
+
+        <TextView
+            android:id="@+id/tvRankText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_text"
+            android:textColor="@color/primaryColor"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvIDText"
+            android:layout_marginTop="15dp"/>
+
+
+        <TextView
+            android:id="@+id/tvDateOfJoiningText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_of_joining_text"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/btnDelete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRankText"
+            android:layout_marginTop="15dp"
+
+            />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="12dp"
+            android:text="@string/delete_btn"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDateOfJoiningText"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/red"
+            />
+
+
+<!--        VARIABLES-->
+
+
+
+
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name_text"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/tvID"
+            app:layout_constraintTop_toTopOf="@id/tvNameText"
+            app:layout_constraintBottom_toBottomOf="@id/tvNameText"
+            />
+
+
+
+        <TextView
+            android:id="@+id/tvID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/id_text"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/tvRank"
+            app:layout_constraintTop_toTopOf="@id/tvIDText"
+            app:layout_constraintBottom_toBottomOf="@id/tvIDText"
+            />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/tvRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank_text"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/tvDateOfJoining"
+            app:layout_constraintTop_toTopOf="@id/tvRankText"
+            app:layout_constraintBottom_toBottomOf="@id/tvRankText"
+            />
+
+
+
+
+
+
+
+        <TextView
+            android:id="@+id/tvDateOfJoining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/date_of_joining_text"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/tvDateOfJoiningText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/tvDateOfJoiningText"
+            app:layout_constraintTop_toTopOf="@id/tvDateOfJoiningText"
+            android:layout_marginStart="5dp"
+            />
+
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--   Bottom Navigation Bar-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBottomNavBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#606C38"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!--Add user-->
+
+
+        <ImageView
+            android:id="@+id/person_add_alt_1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/person_add_alt_1"
+            android:contentDescription="@string/user_can_tap_to_open_add_user_screen_text"
+            app:layout_constraintEnd_toStartOf="@id/remove_red_eye"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAddUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_user_bottom_nav"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/person_add_alt_1"
+            app:layout_constraintStart_toStartOf="@id/person_add_alt_1"
+            app:layout_constraintTop_toBottomOf="@id/person_add_alt_1" />
+
+        <!--        View User-->
+
+        <ImageView
+            android:id="@+id/remove_red_eye"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/remove_red_eye"
+            android:contentDescription="@string/bottom_nav_view_user"
+            app:layout_constraintEnd_toStartOf="@id/person_remove_alt_1"
+            app:layout_constraintStart_toEndOf="@id/person_add_alt_1"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <TextView
+            android:id="@+id/tvViewUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/view_user_bottom_nav"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/remove_red_eye"
+            app:layout_constraintStart_toStartOf="@id/remove_red_eye"
+            app:layout_constraintTop_toBottomOf="@id/remove_red_eye" />
+
+        <!--        Remove User-->
+        <ImageView
+            android:id="@+id/person_remove_alt_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/icon_container"
+            android:contentDescription="@string/bottom_nav_remove_user"
+            android:foreground="@drawable/person_remove_alt_colored"
+            android:foregroundGravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/remove_red_eye"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <TextView
+            android:id="@+id/tvRemoveUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove_user_bottom_nav"
+            android:textColor="@color/labelColor2"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@id/person_remove_alt_1"
+            app:layout_constraintStart_toStartOf="@id/person_remove_alt_1"
+            app:layout_constraintTop_toBottomOf="@id/person_remove_alt_1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

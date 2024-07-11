@@ -5,7 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddUserActivity">
+    tools:context=".ViewUserActivity">
+
+
     <!--Top Navigation Bar-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clTopNavBar"
@@ -42,120 +44,25 @@
 
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--Body-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clBody"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:background="@drawable/border"
-        android:paddingHorizontal="15dp"
-        android:paddingVertical="35dp"
-        app:layout_constraintBottom_toTopOf="@id/btnAddUser"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clTopNavBar">
-        <!--        Add weight-->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_user_text"
-            android:textColor="#606C38"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlUserID"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/border"
-            android:hint="@string/user_id_hint"
-            app:boxBackgroundColor="@color/cardColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvTitle">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/teUserID"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                />
 
 
-        </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- BODY -->
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlUserName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="@string/user_name_hint"
-            app:boxBackgroundColor="@color/cardColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tlUserID">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/teUserName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <Spinner
-            android:id="@+id/spinnerRank"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/border"
-            android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tlUserName" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlDateOfJoining"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:hint="@string/date_of_joining_text"
-            app:boxBackgroundColor="@color/cardColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinnerRank">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/teDateOfJoining"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Button
-        android:id="@+id/btnAddUser"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#606C38"
-        android:paddingHorizontal="40dp"
-        android:paddingVertical="10dp"
-        android:text="@string/add_user_btn"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/view_user_title"
+        app:layout_constraintTop_toBottomOf="@id/clTopNavBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/clBottomNavBar"
-        app:layout_constraintTop_toBottomOf="@id/clBody" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="35sp"
+        android:textColor="@color/primaryColor"
+        android:layout_marginTop="10dp"
+        />
+
+
+
 
     <!--   Bottom Navigation Bar-->
 
@@ -174,12 +81,10 @@
 
         <ImageView
             android:id="@+id/person_add_alt_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/icon_container"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:contentDescription="@string/user_can_tap_to_open_add_user_screen_text"
-            android:foreground="@drawable/person_add_alt_colored"
-            android:foregroundGravity="center"
+            android:background="@drawable/person_add_alt_1"
             app:layout_constraintEnd_toStartOf="@id/remove_red_eye"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -189,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_user_bottom_nav"
-            android:textColor="@color/labelColor2"
+            android:textColor="@color/white"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/person_add_alt_1"
             app:layout_constraintStart_toStartOf="@id/person_add_alt_1"
@@ -199,10 +104,12 @@
 
         <ImageView
             android:id="@+id/remove_red_eye"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:background="@drawable/remove_red_eye"
+            android:background="@drawable/icon_container"
+            android:foregroundGravity="center"
+            android:foreground="@drawable/remove_red_eye_colored"
             android:contentDescription="@string/bottom_nav_view_user"
             app:layout_constraintEnd_toStartOf="@id/person_remove_alt_1"
             app:layout_constraintStart_toEndOf="@id/person_add_alt_1"
@@ -215,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/view_user_bottom_nav"
-            android:textColor="@color/white"
+            android:textColor="@color/labelColor2"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/remove_red_eye"
             app:layout_constraintStart_toStartOf="@id/remove_red_eye"
@@ -240,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/remove_user_bottom_nav"
-            android:textColor="@color/white"
+            android:textColor="#ffffff"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/person_remove_alt_1"
             app:layout_constraintStart_toStartOf="@id/person_remove_alt_1"
