@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.KoteManagement" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/labelColor</item>
+        <item name="colorPrimaryVariant">@color/secondaryColor</item>
+        <item name="colorOnPrimary">@color/cardColor</item>
+
+        <item name="colorSecondary">@color/secondaryTextColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryColor</item>
+        <item name="colorOnSecondary">@color/textColor</item>
+        <item name="backgroundColor">@color/white</item>
+        <!-- Status bar color. -->
+
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

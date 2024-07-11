@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">KoteManagement</string>
+    <string name="welcome">Welcome to KOTE</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="create_new_admin">Create New Admin</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="already_have_an_account">Already have an account?</string>
+
+</resources>
