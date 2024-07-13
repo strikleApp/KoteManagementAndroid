@@ -13,7 +13,7 @@
         android:layout_height="80dp"
         android:background="@color/primaryColor"
         app:layout_constraintTop_toTopOf="parent">
-
+<!--Motion layout-->
         <Toolbar
             android:id="@+id/toolbar"
             android:layout_width="wrap_content"
