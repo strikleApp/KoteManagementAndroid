@@ -3,10 +3,11 @@ plugins {
 }
 
 android {
+
     namespace = "com.android.kotemanagement"
     compileSdk = 34
 
-    buildFeatures{
+    buildFeatures {
         viewBinding = true
     }
 
@@ -41,6 +42,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    compileOnly("com.android.support:design:28.0.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

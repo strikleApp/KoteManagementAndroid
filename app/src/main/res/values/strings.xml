@@ -26,5 +26,8 @@
     <string name="delete_btn">Delete</string>
     <string name="id_text">ID:</string>
     <string name="rank_text">Rank:</string>
+    <string name="dashboard_text">Dashboard</string>
+    <string name="open">NavBar</string>
+    <string name="close">NavBar</string>
 
 </resources>

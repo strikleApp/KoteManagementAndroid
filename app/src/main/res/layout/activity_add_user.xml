@@ -4,44 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddUserActivity">
+    android:layout_height="match_parent">
     <!--Top Navigation Bar-->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clTopNavBar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/primaryColor"
-        app:layout_constraintTop_toTopOf="parent">
-<!--Motion layout-->
-        <Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:background="@drawable/menu"
-            android:popupTheme="@style/Theme.AppCompat.Light.Dialog.Alert"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/clTopNavBar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:background="@color/primaryColor"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+<!--&lt;!&ndash;Motion layout&ndash;&gt;-->
+<!--        <Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="15dp"-->
+<!--            android:background="@drawable/menu"-->
+<!--            android:popupTheme="@style/Theme.AppCompat.Light.Dialog.Alert"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <!--        Add weight-->
+<!--        &lt;!&ndash;        Add weight&ndash;&gt;-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/users_text"
-            android:textColor="@color/cardColor"
-            android:textFontWeight="700"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/toolbar"
-            app:layout_constraintTop_toTopOf="parent"
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/users_text"-->
+<!--            android:textColor="@color/cardColor"-->
+<!--            android:textFontWeight="700"-->
+<!--            android:textSize="30sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="@id/toolbar"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
 
 
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--            />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
     <!--Body-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +54,8 @@
         app:layout_constraintBottom_toTopOf="@id/btnAddUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clTopNavBar">
+        app:layout_constraintTop_toTopOf="parent"
+        >
         <!--        Add weight-->
         <TextView
             android:id="@+id/tvTitle"

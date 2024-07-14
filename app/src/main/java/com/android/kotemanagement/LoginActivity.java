@@ -3,6 +3,7 @@ package com.android.kotemanagement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.android.kotemanagement.databinding.ActivityLoginBinding;
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding bindingLogin;
+    Button btnLoginButton ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,22 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
+
+
         bindingLogin.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnLoginButton = findViewById(R.id.btnLoginBtn);
+        btnLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
             }
         });
     }

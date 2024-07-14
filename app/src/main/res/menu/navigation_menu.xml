@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/remove_red_eye"
+        android:title="Dashboard">
+    </item>
+    <item
+        android:id="@+id/users"
+        android:icon="@drawable/person_remove_alt_colored"
+        android:title="Users">
+
+    </item>
+    <item
+        android:id="@+id/inventory"
+        android:icon="@drawable/person_remove_alt_1"
+        android:title="Inventory">
+
+    </item>
+    <item
+        android:id="@+id/records"
+        android:icon="@drawable/person_remove_alt_1"
+        android:title="Records">
+
+    </item>
+
+
+</menu>
