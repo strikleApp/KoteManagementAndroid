@@ -37,7 +37,10 @@
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        app:itemIconTint="@color/primaryColor"
+        app:itemTextColor="@color/primaryColor"
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header"
+       android:background="@color/cardColor"
         app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

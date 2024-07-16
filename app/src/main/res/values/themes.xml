@@ -1,31 +1,47 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.KoteManagement" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.KoteManagement" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/labelColor</item>
         <item name="colorPrimaryVariant">@color/secondaryColor</item>
         <item name="colorOnPrimary">@color/cardColor</item>
-
         <item name="colorSecondary">@color/secondaryTextColor</item>
         <item name="colorSecondaryVariant">@color/secondaryColor</item>
         <item name="colorOnSecondary">@color/textColor</item>
         <item name="backgroundColor">@color/white</item>
+        <item name="colorButtonNormal">@color/primaryColor</item>
+        <item name="buttonStyle">@style/AppTheme.Button</item>
         <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/primaryColor</item>
 
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.Home.KoteManagement" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/labelColor</item>
-        <item name="colorPrimaryVariant">@color/secondaryColor</item>
-        <item name="colorOnPrimary">@color/cardColor</item>
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 
-        <item name="colorSecondary">@color/secondaryTextColor</item>
-        <item name="colorSecondaryVariant">@color/secondaryColor</item>
-        <item name="colorOnSecondary">@color/textColor</item>
-        <item name="backgroundColor">@color/white</item>
 
-        <!-- Status bar color. -->
+    <style name="BottomNavigationTheme">
+        <item name="android:background">@color/primaryColor</item>
+        <item name="itemIconTint">@drawable/bottom_nav_icon_selector</item>
+        <item name="itemTextColor">@drawable/bottom_nav_text_selector</item>
+        <item name="itemTextAppearanceActive">@style/BottomNavActiveText</item>
+        <item name="itemTextAppearanceInactive">@style/BottomNavInactiveText</item>
+    </style>
 
-        <!-- Customize your theme here. -->
+    <!-- Text appearance for active item -->
+    <style name="BottomNavActiveText">
+        <item name="android:textColor">@color/cardColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Text appearance for inactive items -->
+    <style name="BottomNavInactiveText">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
+        <item name="android:textColor">@color/cardColor</item>
     </style>
 </resources>
