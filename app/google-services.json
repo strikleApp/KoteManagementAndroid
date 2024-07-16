@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "858953993235",
+    "project_id": "kotemanagement",
+    "storage_bucket": "kotemanagement.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858953993235:android:afe59098e14d250e9443e6",
+        "android_client_info": {
+          "package_name": "com.android.kotemanagement"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBVNWCALaQdJIY1CV4YCEuV1Up1_WVf3cc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
