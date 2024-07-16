@@ -15,7 +15,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.android.kotemanagement.fragments.dashboard.DashboardActivity;
-import com.android.kotemanagement.fragments.users.AddUserActivity;
+import com.android.kotemanagement.fragments.users.AddUserFragment;
+import com.android.kotemanagement.fragments.users.UsersActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
@@ -55,34 +56,34 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     navView.setNavigationItemSelectedListener(
-            item -> {
-              Fragment selectedFragment = null;
-              String title = "Dashboard";
-              int id = item.getItemId();
+        item -> {
+          Fragment selectedFragment = null;
+          String title = "Dashboard";
+          int id = item.getItemId();
 
-              if (id == R.id.dashboard) {
-                selectedFragment = new DashboardActivity();
-              } else if (id == R.id.users) {
-                selectedFragment = new AddUserActivity();
-                title = "Users";
-              } else if (id == R.id.inventory) {
-                selectedFragment = new AddUserActivity();
-                title = "Inventory";
-              } else if (id == R.id.records) {
-                selectedFragment = new AddUserActivity();
-                title = "Records";
-              }
+          if (id == R.id.dashboard) {
+            selectedFragment = new DashboardActivity();
+          } else if (id == R.id.users) {
+            selectedFragment = new UsersActivity();
+            title = "Users";
+          } else if (id == R.id.inventory) {
+            selectedFragment = new AddUserFragment();
+            title = "Inventory";
+          } else if (id == R.id.records) {
+            selectedFragment = new AddUserFragment();
+            title = "Records";
+          }
 
-              if (selectedFragment != null) {
-                getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentLayout, selectedFragment)
-                    .commit();
-                toolbar.setTitle(title);
-              }
-              drawerLayout.closeDrawers();
-              return true;
-            });
+          if (selectedFragment != null) {
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentLayout, selectedFragment)
+                .commit();
+            toolbar.setTitle(title);
+          }
+          drawerLayout.closeDrawers();
+          return true;
+        });
   }
 
   @Override

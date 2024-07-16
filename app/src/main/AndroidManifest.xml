@@ -15,12 +15,12 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false"
-            android:theme="@style/Theme.Home.KoteManagement"/>
+            android:theme="@style/Theme.KoteManagement"/>
         <activity
-            android:name=".fragments.users.DeleteUserActivity"
+            android:name=".fragments.users.DeleteUserFragment"
             android:exported="false" />
         <activity
-            android:name=".fragments.users.ViewUserActivity"
+            android:name=".fragments.users.ViewUserFragment"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"

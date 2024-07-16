@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.kotemanagement.R;
 
-public class AddUserActivity extends Fragment {
+public class AddUserFragment extends Fragment {
 
   @Nullable
   @Override
@@ -19,6 +19,7 @@ public class AddUserActivity extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.activity_add_user, container, false);
+    View view = inflater.inflate(R.layout.fragment_add_user, container, false);
+    return view;
   }
 }
