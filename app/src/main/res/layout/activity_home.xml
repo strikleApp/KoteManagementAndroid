@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    tools:openDrawer="start"
+    >
 
 
     <RelativeLayout
@@ -22,7 +24,9 @@
             android:background="@color/primaryColor"
             app:title="@string/dashboard_text"
             app:titleCentered="true"
-            app:titleTextColor="@color/cardColor" />
+            app:titleTextColor="@color/cardColor"
+
+            />
 
         <FrameLayout
             android:id="@+id/fragmentLayout"
@@ -37,10 +41,14 @@
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:itemIconTint="@color/primaryColor"
-        app:itemTextColor="@color/primaryColor"
         android:layout_gravity="start"
+        android:background="@color/cardColor"
         app:headerLayout="@layout/navigation_header"
-       android:background="@color/cardColor"
+        app:itemIconTint="@color/primaryColor"
+        android:foregroundGravity="center_vertical"
+        app:itemTextColor="@color/primaryColor"
+        app:itemIconSize="50dp"
+        app:itemTextAppearance="@style/NavDrawerTextStyle"
+        app:itemVerticalPadding="25dp"
         app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

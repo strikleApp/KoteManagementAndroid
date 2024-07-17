@@ -11,6 +11,7 @@
         <item name="colorButtonNormal">@color/primaryColor</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationTheme</item>
         <item name="buttonStyle">@style/AppTheme.Button</item>
+        <item name="colorControlNormal">@color/cardColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/primaryColor</item>
 
@@ -44,5 +45,10 @@
 
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button">
         <item name="android:textColor">@color/cardColor</item>
+    </style>
+
+    <style name="NavDrawerTextStyle">
+        <item name="android:textSize">25sp</item>
+
     </style>
 </resources>
