@@ -17,8 +17,7 @@
         app:layout_constraintBottom_toTopOf="@id/btnAddUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
         <!--        Add weight-->
         <TextView
             android:id="@+id/tvTitle"
@@ -33,12 +32,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tlUserID"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:background="@drawable/border"
             android:hint="@string/user_id_hint"
-            app:boxBackgroundColor="@color/cardColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle">
@@ -46,9 +44,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teUserID"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                />
+                android:layout_height="match_parent" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -56,11 +52,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tlUserName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
+
             android:hint="@string/user_name_hint"
-            app:boxBackgroundColor="@color/cardColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tlUserID">
@@ -73,26 +70,34 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <Spinner
-            android:id="@+id/spinnerRank"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            style="@style/Widget.MaterialComponents.CardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/border"
-            android:padding="16dp"
-            app:layout_constraintTop_toBottomOf="@id/tlUserName" />
+            android:layout_marginTop="10dp"
+            app:cardBackgroundColor="@color/cardColor"
+            android:foreground="@drawable/inputborder"
+            app:layout_constraintTop_toBottomOf="@id/tlUserName">
+
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinnerRank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="18dp" />
+        </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tlDateOfJoining"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="@string/date_of_joining_text"
-            app:boxBackgroundColor="@color/cardColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinnerRank">
+            app:layout_constraintTop_toBottomOf="@id/cardView">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/teDateOfJoining"
@@ -115,12 +120,10 @@
         android:paddingVertical="10dp"
         android:text="@string/add_user_btn"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clBody"
-        />
-
+        app:layout_constraintTop_toBottomOf="@id/clBody" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

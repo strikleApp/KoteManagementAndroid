@@ -29,5 +29,18 @@
     <string name="dashboard_text">Dashboard</string>
     <string name="open">NavBar</string>
     <string name="close">NavBar</string>
+    <string name="search_user">Search User</string>
+    <string name="enter_user_id">Enter User ID</string>
 
+
+<!--    Add user Dropdown menu items ranks-->
+    <string-array name="ranks_array">
+        <item>Corporal</item>
+        <item>Sergeant</item>
+        <item>Lieutenant</item>
+        <item>Captain</item>
+        <item>Major</item>
+        <item>Colonel</item>
+        <item>General</item>
+    </string-array>
 </resources>

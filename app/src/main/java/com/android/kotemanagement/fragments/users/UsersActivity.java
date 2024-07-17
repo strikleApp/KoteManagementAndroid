@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.kotemanagement.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +18,9 @@ public class UsersActivity extends Fragment
     implements BottomNavigationView.OnNavigationItemSelectedListener {
 
   BottomNavigationView bottomNavigationView;
+  private final Fragment viewUserFragment = new ViewUserFragment ();
+  private final Fragment addUserFragment = new AddUserFragment();
+  private final Fragment deleteUserFragment = new DeleteUserFragment();
 
   @Nullable
   @Override
@@ -29,36 +33,52 @@ public class UsersActivity extends Fragment
     bottomNavigationView = view.findViewById(R.id.bnvBottomNavBar);
     bottomNavigationView.setOnNavigationItemSelectedListener(this);
     bottomNavigationView.setSelectedItemId(R.id.add_user);
+
     if (savedInstanceState == null) {
-      getChildFragmentManager()
-          .beginTransaction()
-          .replace(R.id.flFragment, AddUserFragment.class, null)
-          .commit();
+      getChildFragmentManager().beginTransaction()
+              .add(R.id.flFragment, addUserFragment, "addUserFragment")
+              .add(R.id.flFragment, viewUserFragment, "viewUserFragment")
+              .add(R.id.flFragment, deleteUserFragment, "deleteUserFragment")
+              .hide(viewUserFragment)
+              .hide(deleteUserFragment)
+              .commit();
     }
+
     return view;
   }
 
   @Override
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-    Fragment selectedFragment = null;
 
     if (item.getItemId() == R.id.add_user) {
 
-      selectedFragment = new AddUserFragment();
+      showFragment(addUserFragment);
+      return true;
     } else if (item.getItemId() == R.id.view_user) {
-      selectedFragment = new ViewUserFragment();
+      showFragment(viewUserFragment);
+      return true;
     } else if (item.getItemId() == R.id.delete_user) {
-      selectedFragment = new DeleteUserFragment();
-    }
-
-    if (selectedFragment != null) {
-      getChildFragmentManager()
-          .beginTransaction()
-          .replace(R.id.flFragment, selectedFragment)
-          .commit();
+      showFragment(deleteUserFragment);
       return true;
     }
 
+
+
     return false;
+  }
+
+  private void showFragment(Fragment fragment) {
+    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+    if (fragment == addUserFragment) {
+      transaction.hide(viewUserFragment);
+      transaction.hide(deleteUserFragment);
+    } else if (fragment == viewUserFragment) {
+      transaction.hide(addUserFragment);
+      transaction.hide(deleteUserFragment);
+    } else if (fragment == deleteUserFragment) {
+      transaction.hide(addUserFragment);
+      transaction.hide(viewUserFragment);
+    }
+    transaction.show(fragment).commit();
   }
 }
