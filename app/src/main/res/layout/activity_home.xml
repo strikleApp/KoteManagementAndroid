@@ -10,7 +10,6 @@
     tools:openDrawer="start"
     >
 
-
     <RelativeLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -36,7 +35,6 @@
 
 
     </RelativeLayout>
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"

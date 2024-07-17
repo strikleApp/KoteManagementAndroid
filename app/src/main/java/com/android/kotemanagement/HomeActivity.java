@@ -13,8 +13,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.kotemanagement.fragments.dashboard.DashboardActivity;
+import com.android.kotemanagement.fragments.inventory.InventoryActivity;
+import com.android.kotemanagement.fragments.records.RecordsActivity;
 import com.android.kotemanagement.fragments.users.AddUserFragment;
 import com.android.kotemanagement.fragments.users.UsersActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -22,6 +26,11 @@ import com.google.android.material.navigation.NavigationView;
 public class HomeActivity extends AppCompatActivity {
   private DrawerLayout drawerLayout;
   private ActionBarDrawerToggle actionBarDrawerToggle;
+  private Toolbar toolbar;
+  private Fragment dashboardActivity = new DashboardActivity();
+  private Fragment usersActivity = new UsersActivity();
+  private Fragment inventoryActivity = new InventoryActivity();
+  private Fragment recordsActivity = new RecordsActivity();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
           v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
           return insets;
         });
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
     drawerLayout = findViewById(R.id.dlSideMenu);
@@ -51,39 +60,64 @@ public class HomeActivity extends AppCompatActivity {
     if (savedInstanceState == null) {
       getSupportFragmentManager()
           .beginTransaction()
-          .replace(R.id.fragmentLayout, DashboardActivity.class, null)
+          .add(R.id.fragmentLayout, dashboardActivity, "dashboard")
+          .add(R.id.fragmentLayout, usersActivity, "users")
+          .add(R.id.fragmentLayout, inventoryActivity, "inventory")
+          .add(R.id.fragmentLayout, recordsActivity, "records")
+          .hide(usersActivity)
+          .hide(inventoryActivity)
+          .hide(recordsActivity)
+          .show(dashboardActivity)
           .commit();
+      setTitle("Dashboard");
     }
 
     navView.setNavigationItemSelectedListener(
         item -> {
-          Fragment selectedFragment = null;
           String title = "Dashboard";
           int id = item.getItemId();
 
           if (id == R.id.dashboard) {
-            selectedFragment = new DashboardActivity();
+            showFragment(dashboardActivity);
+
           } else if (id == R.id.users) {
-            selectedFragment = new UsersActivity();
+            showFragment(usersActivity);
             title = "Users";
           } else if (id == R.id.inventory) {
-            selectedFragment = new AddUserFragment();
+            showFragment(inventoryActivity);
             title = "Inventory";
           } else if (id == R.id.records) {
-            selectedFragment = new AddUserFragment();
+            showFragment(recordsActivity);
             title = "Records";
           }
+          toolbar.setTitle(title);
 
-          if (selectedFragment != null) {
-            getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentLayout, selectedFragment)
-                .commit();
-            toolbar.setTitle(title);
-          }
           drawerLayout.closeDrawers();
           return true;
         });
+  }
+
+  private void showFragment(Fragment fragment) {
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    if (fragment == dashboardActivity) {
+      fragmentTransaction.hide(usersActivity);
+      fragmentTransaction.hide(inventoryActivity);
+      fragmentTransaction.hide(recordsActivity);
+    } else if (fragment == usersActivity) {
+      fragmentTransaction.hide(dashboardActivity);
+      fragmentTransaction.hide(inventoryActivity);
+      fragmentTransaction.hide(recordsActivity);
+    } else if (fragment == inventoryActivity) {
+      fragmentTransaction.hide(usersActivity);
+      fragmentTransaction.hide(dashboardActivity);
+      fragmentTransaction.hide(recordsActivity);
+    } else if (fragment == recordsActivity) {
+      fragmentTransaction.hide(usersActivity);
+      fragmentTransaction.hide(inventoryActivity);
+      fragmentTransaction.hide(dashboardActivity);
+    }
+    fragmentTransaction.show(fragment).commit();
   }
 
   @Override

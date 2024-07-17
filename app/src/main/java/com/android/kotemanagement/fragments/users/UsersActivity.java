@@ -1,6 +1,7 @@
 package com.android.kotemanagement.fragments.users;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +30,6 @@ public class UsersActivity extends Fragment
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.activity_user, container, false);
-
     bottomNavigationView = view.findViewById(R.id.bnvBottomNavBar);
     bottomNavigationView.setOnNavigationItemSelectedListener(this);
     bottomNavigationView.setSelectedItemId(R.id.add_user);
