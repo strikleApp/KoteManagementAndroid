@@ -29,5 +29,6 @@
     <string name="dashboard_text">Dashboard</string>
     <string name="open">NavBar</string>
     <string name="close">NavBar</string>
+    <string name="search_user">Search User</string>
 
 </resources>

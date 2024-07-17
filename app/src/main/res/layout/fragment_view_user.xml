@@ -3,12 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="10dp">
 
 
     <!-- BODY -->
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -18,98 +21,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        android:hint="@string/search_user"
+        app:endIconDrawable="@drawable/search"
+        app:endIconMode="custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/etSearchUser"
+
+            />
 
 
-    <!--     Bottom Navigation Bar-->
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:id="@+id/clBottomNavBar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:background="#606C38"-->
-    <!--        android:padding="15dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent">-->
-
-    <!--        &lt;!&ndash;Add user&ndash;&gt;-->
-
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/person_add_alt_1"-->
-    <!--            android:layout_width="30dp"-->
-    <!--            android:layout_height="30dp"-->
-    <!--            android:contentDescription="@string/user_can_tap_to_open_add_user_screen_text"-->
-    <!--            android:background="@drawable/person_add_alt_1"-->
-    <!--            app:layout_constraintEnd_toStartOf="@id/remove_red_eye"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/tvAddUser"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="@string/add_user_bottom_nav"-->
-    <!--            android:textColor="@color/white"-->
-    <!--            android:textSize="12sp"-->
-    <!--            app:layout_constraintEnd_toEndOf="@id/person_add_alt_1"-->
-    <!--            app:layout_constraintStart_toStartOf="@id/person_add_alt_1"-->
-    <!--            app:layout_constraintTop_toBottomOf="@id/person_add_alt_1" />-->
-
-    <!--        &lt;!&ndash;        View User&ndash;&gt;-->
-
-    <!--        <ImageView-->
-    <!--            android:id="@+id/remove_red_eye"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="15dp"-->
-    <!--            android:background="@drawable/icon_container"-->
-    <!--            android:foregroundGravity="center"-->
-    <!--            android:foreground="@drawable/remove_red_eye_colored"-->
-    <!--            android:contentDescription="@string/bottom_nav_view_user"-->
-    <!--            app:layout_constraintEnd_toStartOf="@id/person_remove_alt_1"-->
-    <!--            app:layout_constraintStart_toEndOf="@id/person_add_alt_1"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-
-    <!--            />-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/tvViewUser"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="@string/view_user_bottom_nav"-->
-    <!--            android:textColor="@color/labelColor2"-->
-    <!--            android:textSize="12sp"-->
-    <!--            app:layout_constraintEnd_toEndOf="@id/remove_red_eye"-->
-    <!--            app:layout_constraintStart_toStartOf="@id/remove_red_eye"-->
-    <!--            app:layout_constraintTop_toBottomOf="@id/remove_red_eye" />-->
-
-    <!--        &lt;!&ndash;        Remove User&ndash;&gt;-->
-    <!--        <ImageView-->
-    <!--            android:id="@+id/person_remove_alt_1"-->
-    <!--            android:layout_width="30dp"-->
-    <!--            android:layout_height="30dp"-->
-    <!--            android:layout_marginStart="15dp"-->
-    <!--            android:background="@drawable/person_remove_alt_1"-->
-    <!--            android:contentDescription="@string/bottom_nav_remove_user"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toEndOf="@id/remove_red_eye"-->
-    <!--            app:layout_constraintTop_toTopOf="parent"-->
-
-    <!--            />-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/tvRemoveUser"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:text="@string/remove_user_bottom_nav"-->
-    <!--            android:textColor="#ffffff"-->
-    <!--            android:textSize="12sp"-->
-    <!--            app:layout_constraintEnd_toEndOf="@id/person_remove_alt_1"-->
-    <!--            app:layout_constraintStart_toStartOf="@id/person_remove_alt_1"-->
-    <!--            app:layout_constraintTop_toBottomOf="@id/person_remove_alt_1" />-->
-
-
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

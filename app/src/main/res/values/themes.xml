@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.KoteManagement" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.KoteManagement" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/labelColor</item>
         <item name="colorPrimaryVariant">@color/secondaryColor</item>
         <item name="colorOnPrimary">@color/cardColor</item>
@@ -9,6 +9,7 @@
         <item name="colorOnSecondary">@color/textColor</item>
         <item name="backgroundColor">@color/white</item>
         <item name="colorButtonNormal">@color/primaryColor</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationTheme</item>
         <item name="buttonStyle">@style/AppTheme.Button</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/primaryColor</item>
@@ -22,7 +23,7 @@
     </style>
 
 
-    <style name="BottomNavigationTheme">
+    <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@color/primaryColor</item>
         <item name="itemIconTint">@drawable/bottom_nav_icon_selector</item>
         <item name="itemTextColor">@drawable/bottom_nav_text_selector</item>
