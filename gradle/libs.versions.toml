@@ -16,6 +16,7 @@ firebaseCrashlytics = "19.0.3"
 googleFirebaseCrashlytics = "3.0.2"
 materialVersion = "1.12.0"
 
+
 [libraries]
 
 design = { module = "com.android.support:design", version.ref = "designVersion" }
@@ -31,4 +32,6 @@ firebase-database = { group = "com.google.firebase", name = "firebase-database",
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
+google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
 
