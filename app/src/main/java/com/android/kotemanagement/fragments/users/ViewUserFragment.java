@@ -35,7 +35,6 @@ public class ViewUserFragment extends Fragment {
     rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
     rvUsers.setAdapter(viewUserAdapter);
     Log.d("TAG", "onCreateView: " + viewUserModalList.size());
-
     return view;
   }
 
