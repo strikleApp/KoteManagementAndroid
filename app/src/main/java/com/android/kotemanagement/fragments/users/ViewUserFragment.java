@@ -48,4 +48,5 @@ public class ViewUserFragment extends Fragment {
 
     return view;
   }
+
 }
