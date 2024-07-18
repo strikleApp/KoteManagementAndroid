@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,16 +31,21 @@ public class ViewUserFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_view_user, container, false);
+
+    ViewUserModal user1 = new ViewUserModal("1", "Aashish", "Captain", "05/07/2020");
+    ViewUserModal user2 = new ViewUserModal("2", "Abhijeet", "Major", "18/09/2024");
+    ViewUserModal user3 = new ViewUserModal("3", "Vikash", "Sergeant", "09/10/2023");
+    ViewUserModal user4 = new ViewUserModal("4", "Alina", "Corporal", "02/07/2022");
+    viewUserModalList.add(user1);
+    viewUserModalList.add(user2);
+    viewUserModalList.add(user3);
+    viewUserModalList.add(user4);
+
     rvUsers = (RecyclerView) view.findViewById(R.id.rvUsers);
     viewUserAdapter = new ViewUserAdapter(viewUserModalList);
     rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
     rvUsers.setAdapter(viewUserAdapter);
-    Log.d("TAG", "onCreateView: " + viewUserModalList.size());
-    return view;
-  }
 
-  @Override
-  public void onResume() {
-    super.onResume();
+    return view;
   }
 }
