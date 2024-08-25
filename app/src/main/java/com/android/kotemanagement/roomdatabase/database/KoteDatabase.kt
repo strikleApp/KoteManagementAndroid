@@ -15,7 +15,7 @@ abstract class KoteDatabase : RoomDatabase() {
 
     abstract fun getSoldiersDao() : SoldiersDAO
 
-    //Singleton
+    //Singleton making
     companion object {
         @Volatile
         private var INSTANCE : KoteDatabase? = null
