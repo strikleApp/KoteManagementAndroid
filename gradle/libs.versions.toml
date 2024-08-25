@@ -1,5 +1,5 @@
 [versions]
-agp = "8.5.0"
+agp = "8.5.2"
 design = "28.0.0"
 designVersion = "28.0.0"
 junit = "4.13.2"
@@ -7,7 +7,7 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.9.0"
+activity = "1.9.1"
 constraintlayout = "2.1.4"
 googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.0.0"
@@ -15,6 +15,9 @@ firebaseDatabase = "21.0.0"
 firebaseCrashlytics = "19.0.3"
 googleFirebaseCrashlytics = "3.0.2"
 materialVersion = "1.12.0"
+kotlin = "2.0.20"
+coreKtx = "1.13.1"
+roomRuntime = "2.6.1"
 
 
 [libraries]
@@ -30,8 +33,18 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
+core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+room-guava = { module = "androidx.room:room-guava", version.ref = "roomRuntime" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+room-paging = { module = "androidx.room:room-paging", version.ref = "roomRuntime" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "roomRuntime" }
+room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomRuntime" }
+room-testing = { module = "androidx.room:room-testing", version.ref = "roomRuntime" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }
 google-firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "googleFirebaseCrashlytics" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
