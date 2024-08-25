@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         });
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
-
+   //aashish bhadwa h?
     drawerLayout = findViewById(R.id.dlSideMenu);
     actionBarDrawerToggle =
         new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
