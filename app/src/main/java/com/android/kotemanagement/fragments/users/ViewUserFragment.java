@@ -31,15 +31,16 @@ public class ViewUserFragment extends Fragment {
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_view_user, container, false);
-
     ViewUserModal user1 = new ViewUserModal("1", "Aashish", "Captain", "05/07/2020");
     ViewUserModal user2 = new ViewUserModal("2", "Abhijeet", "Major", "18/09/2024");
     ViewUserModal user3 = new ViewUserModal("3", "Vikash", "Sergeant", "09/10/2023");
     ViewUserModal user4 = new ViewUserModal("4", "Alina", "Corporal", "02/07/2022");
+    ViewUserModal user5 = new ViewUserModal("5", "Ashutosh", "Major", "05/11/2024");
     viewUserModalList.add(user1);
     viewUserModalList.add(user2);
     viewUserModalList.add(user3);
     viewUserModalList.add(user4);
+    viewUserModalList.add(user5);
 
     rvUsers = (RecyclerView) view.findViewById(R.id.rvUsers);
     viewUserAdapter = new ViewUserAdapter(viewUserModalList);
