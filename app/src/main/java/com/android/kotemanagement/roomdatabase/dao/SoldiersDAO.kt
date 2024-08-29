@@ -1,5 +1,6 @@
 package com.android.kotemanagement.roomdatabase.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,7 +22,7 @@ interface SoldiersDAO {
     fun update(soldier: Soldiers)
 
     @Query("SELECT * FROM soldiers_table")
-    fun getAllSoldiers() : Flow<List<Soldiers>>
+    fun getAllSoldiers() : LiveData<List<Soldiers>>
 
     @Query("SELECT * FROM soldiers_table WHERE armyNumber = :armyNumber")
     fun getSoldierByArmyNumber(armyNumber: String) : Soldiers

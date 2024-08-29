@@ -46,35 +46,35 @@ public class DeleteUserFragment extends Fragment {
     etSearchUser = view.findViewById(R.id.etSearchUser);
     btnDelete = view.findViewById(R.id.btnDelete);
 
-    btnSearch.setOnClickListener(
-        v -> {
-          String id = etSearchUser.getText().toString();
-          boolean isFound = false;
-          if (!id.isEmpty()) {
-            for (ViewUserModal userModal : ViewUserFragment.viewUserModalList) {
-              if (userModal.getId().equals(id)) {
-                tvName.setText(userModal.getName());
-                tvID.setText(userModal.getId());
-                tvRank.setText(userModal.getRank());
-                tvDateOfJoining.setText(userModal.getDateOfJoining());
-                clBody.setVisibility(View.VISIBLE);
-                isFound = true;
-                etSearchUser.setText("");
-              }
-            }
-            if (!isFound) {
-              Toast.makeText(view.getContext(), "User was found!", Toast.LENGTH_SHORT).show();
-            }
-          }
-        });
+//    btnSearch.setOnClickListener(
+//        v -> {
+//          String id = etSearchUser.getText().toString();
+//          boolean isFound = false;
+//          if (!id.isEmpty()) {
+//            for (ViewUserModal userModal : ViewUserFragment.viewUserModalList) {
+//              if (userModal.getId().equals(id)) {
+//                tvName.setText(userModal.getName());
+//                tvID.setText(userModal.getId());
+//                tvRank.setText(userModal.getRank());
+//                tvDateOfJoining.setText(userModal.getDateOfJoining());
+//                clBody.setVisibility(View.VISIBLE);
+//                isFound = true;
+//                etSearchUser.setText("");
+//              }
+//            }
+//            if (!isFound) {
+//              Toast.makeText(view.getContext(), "User was found!", Toast.LENGTH_SHORT).show();
+//            }
+//          }
+//        });
 
-    btnDelete.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Toast.makeText(view.getContext(), "User Deleted!", Toast.LENGTH_SHORT).show();
-        clBody.setVisibility(View.GONE);
-      }
-    });
+//    btnDelete.setOnClickListener(new View.OnClickListener() {
+//      @Override
+//      public void onClick(View v) {
+//        Toast.makeText(view.getContext(), "User Deleted!", Toast.LENGTH_SHORT).show();
+//        clBody.setVisibility(View.GONE);
+//      }
+//    });
 
     return view;
   }

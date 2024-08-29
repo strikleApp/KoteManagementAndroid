@@ -18,30 +18,15 @@ abstract class KoteDatabase : RoomDatabase() {
     //Singleton making
     companion object {
         @Volatile
-        private var INSTANCE : KoteDatabase? = null
+        private var instance : KoteDatabase? = null
 
-        fun getDatabase(context: Context, scope: CoroutineScope) : KoteDatabase{
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(context.applicationContext, KoteDatabase::class.java,
-                    "kote_database")
-                    .addCallback(KoteDatabaseCallback(scope))
-                    .build()
-
-                INSTANCE = instance
-                instance
-            }
-        }
-    }
-
-    private class KoteDatabaseCallback(private val coroutineScope: CoroutineScope) : Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-
-            INSTANCE?. let { koteDatabase ->
-                coroutineScope.launch {
-                    val soldiersDAO : SoldiersDAO = koteDatabase.getSoldiersDao()
-                    soldiersDAO.insert(Soldiers("Army1", "Major", "Abhijeet", "Mishra","03/03/1990", "Male"))
+        fun getDatabase(context: Context) : KoteDatabase{
+            synchronized(this) {
+                if(instance == null) {
+                    instance = Room.databaseBuilder(context.applicationContext, KoteDatabase::class.java,
+                        "kote_database").build()
                 }
+                return instance as KoteDatabase
             }
         }
     }

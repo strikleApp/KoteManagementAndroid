@@ -115,6 +115,18 @@
             app:layout_constraintTop_toTopOf="@id/tvRankText" />
 
         <TextView
+            android:id="@+id/tvFirstName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvRank"
+            app:layout_constraintStart_toStartOf="@id/tvDateOfJoining"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
             android:id="@+id/tvDateOfJoining"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -126,6 +138,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tvDateOfJoinText"
             app:layout_constraintTop_toTopOf="@id/tvDateOfJoinText" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

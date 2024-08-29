@@ -46,34 +46,34 @@ public class AddUserFragment extends Fragment {
         ArrayAdapter.createFromResource(
             view.getContext(), R.array.ranks_array, android.R.layout.simple_spinner_item);
     spinnerRank.setAdapter(arrayAdapter);
-    btnAddUser.setOnClickListener(
-        v -> {
-          String id = etUserID.getText().toString();
-          String name = etUserName.getText().toString();
-          String rank = spinnerRank.getSelectedItem().toString();
-          String dateOfJoining = etDateOfJoining.getText().toString();
-
-          if (!id.isEmpty() && !name.isEmpty() && !rank.isEmpty() && !dateOfJoining.isEmpty()) {
-            ViewUserModal viewUserModal = new ViewUserModal(id, name, rank, dateOfJoining);
-            boolean isUserExists = false;
-            for (ViewUserModal userModal : ViewUserFragment.viewUserModalList) {
-              if (userModal.getId().equals(id)) {
-                isUserExists = true;
-                break;
-              }
-            }
-            if (isUserExists) {
-              Toast.makeText(view.getContext(), "User Already Exists!", Toast.LENGTH_SHORT).show();
-            } else {
-              ViewUserFragment.viewUserModalList.add(viewUserModal);
-              etUserID.setText("");
-              etUserName.setText("");
-              etDateOfJoining.setText("");
-              spinnerRank.setSelection(0);
-              Toast.makeText(view.getContext(), "User Added!", Toast.LENGTH_SHORT).show();
-            }
-          }
-        });
+//    btnAddUser.setOnClickListener(
+//        v -> {
+//          String id = etUserID.getText().toString();
+//          String name = etUserName.getText().toString();
+//          String rank = spinnerRank.getSelectedItem().toString();
+//          String dateOfJoining = etDateOfJoining.getText().toString();
+//
+//          if (!id.isEmpty() && !name.isEmpty() && !rank.isEmpty() && !dateOfJoining.isEmpty()) {
+//            ViewUserModal viewUserModal = new ViewUserModal(id, name, rank, dateOfJoining);
+//            boolean isUserExists = false;
+//            for (ViewUserModal userModal : ViewUserFragment.viewUserModalList) {
+//              if (userModal.getId().equals(id)) {
+//                isUserExists = true;
+//                break;
+//              }
+//            }
+//            if (isUserExists) {
+//              Toast.makeText(view.getContext(), "User Already Exists!", Toast.LENGTH_SHORT).show();
+//            } else {
+//              ViewUserFragment.viewUserModalList.add(viewUserModal);
+//              etUserID.setText("");
+//              etUserName.setText("");
+//              etDateOfJoining.setText("");
+//              spinnerRank.setSelection(0);
+//              Toast.makeText(view.getContext(), "User Added!", Toast.LENGTH_SHORT).show();
+//            }
+//          }
+//        });
     return view;
   }
 }

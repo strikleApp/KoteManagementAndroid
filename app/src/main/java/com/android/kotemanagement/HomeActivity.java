@@ -15,15 +15,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.fragments.dashboard.DashboardActivity;
 import com.android.kotemanagement.fragments.inventory.InventoryActivity;
 import com.android.kotemanagement.fragments.records.RecordsActivity;
 import com.android.kotemanagement.fragments.users.AddUserFragment;
 import com.android.kotemanagement.fragments.users.UsersActivity;
+import com.android.kotemanagement.roomdatabase.viewmodel.SoldiersEntityViewModel;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity {
+
   private DrawerLayout drawerLayout;
   private ActionBarDrawerToggle actionBarDrawerToggle;
   private Toolbar toolbar;
@@ -31,6 +34,9 @@ public class HomeActivity extends AppCompatActivity {
   private Fragment usersActivity = new UsersActivity();
   private Fragment inventoryActivity = new InventoryActivity();
   private Fragment recordsActivity = new RecordsActivity();
+
+  //Room
+  private SoldiersEntityViewModel soldiersEntityViewModel;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +101,14 @@ public class HomeActivity extends AppCompatActivity {
           drawerLayout.closeDrawers();
           return true;
         });
+
+    //initializng view model
+      soldiersEntityViewModel = new ViewModelProvider(this).get(SoldiersEntityViewModel.class);
+
+
+
+
+
   }
 
   private void showFragment(Fragment fragment) {

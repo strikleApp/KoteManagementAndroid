@@ -40,8 +40,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -88,4 +88,9 @@ dependencies {
 
     // optional - Paging 3 Integration
     implementation(libs.room.paging)
+
+    //Lifecycle and live data
+    implementation(libs.lifecycle.viewmodel.ktx)
+    // LiveData
+    implementation(libs.lifecycle.livedata.ktx)
 }
