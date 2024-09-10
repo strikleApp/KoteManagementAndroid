@@ -1,5 +1,6 @@
 package com.android.kotemanagement.fragments.users;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.activities.AddUsersActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UsersActivity extends Fragment
@@ -51,8 +53,7 @@ public class UsersActivity extends Fragment
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
     if (item.getItemId() == R.id.add_user) {
-
-      showFragment(addUserFragment);
+     showFragment(addUserFragment);
       return true;
     } else if (item.getItemId() == R.id.view_user) {
       showFragment(viewUserFragment);

@@ -32,15 +32,26 @@
     <string name="search_user">Search User</string>
     <string name="enter_user_id">Enter User ID</string>
 
+    <string name="btn_upload">Upload</string>
+    <string name="army_number">Army Number</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="dob">Date Of Birth</string>
+    <string name="upload_image_content_description">Image View Upload</string>
 
-<!--    Add user Dropdown menu items ranks-->
-    <string-array name="ranks_array">
-        <item>Corporal</item>
-        <item>Sergeant</item>
+
+    <!--    Add user Dropdown menu items ranks-->
+    <string-array name="army_ranks">
         <item>Lieutenant</item>
         <item>Captain</item>
         <item>Major</item>
+        <item>Lieutenant Colonel</item>
         <item>Colonel</item>
+        <item>Brigadier</item>
+        <item>Major General</item>
+        <item>Lieutenant General</item>
         <item>General</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

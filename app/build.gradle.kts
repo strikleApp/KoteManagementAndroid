@@ -40,8 +40,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = "17"
@@ -69,7 +69,7 @@ dependencies {
     annotationProcessor(libs.room.compiler)
 
     // To use Kotlin Symbol Processing (KSP)
-    ksp(libs.room.compiler)
+    //ksp(libs.room.compiler)
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation(libs.room.ktx)
@@ -88,4 +88,7 @@ dependencies {
 
     // optional - Paging 3 Integration
     implementation(libs.room.paging)
+
+    implementation(libs.sdp.android)
+    implementation(libs.ssp.android)
 }

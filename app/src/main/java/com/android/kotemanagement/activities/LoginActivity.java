@@ -1,4 +1,4 @@
-package com.android.kotemanagement;
+package com.android.kotemanagement.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -41,12 +42,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+//        bindingLogin.btnLoginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(LoginActivity.this, AddUsersActivity.class));
+//                finish();
+//            }
+//        });
+
         btnLoginButton = findViewById(R.id.btnLoginBtn);
         btnLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-
+                finish();
             }
         });
     }

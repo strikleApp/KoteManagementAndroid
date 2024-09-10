@@ -1,9 +1,10 @@
-package com.android.kotemanagement;
+package com.android.kotemanagement.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,19 +12,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.android.kotemanagement.databinding.ActivityRegisterBinding;
+import com.android.kotemanagement.R;
+import com.android.kotemanagement.databinding.ActivitySplashScreenBinding;
 
-public class RegisterActivity extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
-    ActivityRegisterBinding registerBinding;
-
+    private ActivitySplashScreenBinding binding;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        registerBinding = ActivityRegisterBinding.inflate(getLayoutInflater());
-        View view = registerBinding.getRoot();
+        binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
         setContentView(view);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cl_registerLayout), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -31,15 +33,13 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-        registerBinding.btnLoginRegister.setOnClickListener(new View.OnClickListener() {
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            public void run() {
+                Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
-        });
-
-
+        }, 3000);
     }
 }

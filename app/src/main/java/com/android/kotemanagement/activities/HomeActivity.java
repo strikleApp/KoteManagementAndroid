@@ -1,4 +1,4 @@
-package com.android.kotemanagement;
+package com.android.kotemanagement.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,10 +16,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.android.kotemanagement.R;
 import com.android.kotemanagement.fragments.dashboard.DashboardActivity;
 import com.android.kotemanagement.fragments.inventory.InventoryActivity;
 import com.android.kotemanagement.fragments.records.RecordsActivity;
-import com.android.kotemanagement.fragments.users.AddUserFragment;
 import com.android.kotemanagement.fragments.users.UsersActivity;
 import com.google.android.material.navigation.NavigationView;
 

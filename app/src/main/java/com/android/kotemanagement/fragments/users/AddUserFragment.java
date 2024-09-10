@@ -44,7 +44,7 @@ public class AddUserFragment extends Fragment {
 
     ArrayAdapter<CharSequence> arrayAdapter =
         ArrayAdapter.createFromResource(
-            view.getContext(), R.array.ranks_array, android.R.layout.simple_spinner_item);
+            view.getContext(), R.array.army_ranks, android.R.layout.simple_spinner_item);
     spinnerRank.setAdapter(arrayAdapter);
     btnAddUser.setOnClickListener(
         v -> {

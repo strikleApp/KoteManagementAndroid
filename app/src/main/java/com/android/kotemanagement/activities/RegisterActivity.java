@@ -1,9 +1,7 @@
-package com.android.kotemanagement;
+package com.android.kotemanagement.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -12,19 +10,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.android.kotemanagement.databinding.ActivitySplashScreenBinding;
+import com.android.kotemanagement.R;
+import com.android.kotemanagement.databinding.ActivityRegisterBinding;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
-    private ActivitySplashScreenBinding binding;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    ActivityRegisterBinding registerBinding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
+        registerBinding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        View view = registerBinding.getRoot();
         setContentView(view);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.cl_registerLayout), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -32,13 +31,15 @@ public class SplashScreenActivity extends AppCompatActivity {
             return insets;
         });
 
-        handler.postDelayed(new Runnable() {
+        registerBinding.btnLoginRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                Intent intent = new Intent(SplashScreenActivity.this, LoginActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
-        }, 3000);
+        });
+
+
     }
 }
