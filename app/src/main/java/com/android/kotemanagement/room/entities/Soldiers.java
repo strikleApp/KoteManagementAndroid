@@ -13,13 +13,15 @@ public class Soldiers {
 
     public String firstName;
     public String lastName;
+    public String rank;
     public String dob;
 
-    public Soldiers(String image, @NotNull String armyNumber, String firstName, String lastName, String dob) {
+    public Soldiers(String image, @NotNull String armyNumber, String firstName, String lastName, String rank, String dob) {
         this.image = image;
         this.armyNumber = armyNumber;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.rank = rank;
         this.dob = dob;
     }
 }

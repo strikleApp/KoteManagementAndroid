@@ -89,6 +89,16 @@ dependencies {
     // optional - Paging 3 Integration
     implementation(libs.room.paging)
 
+    //Sdp and Ssp dependency
     implementation(libs.sdp.android)
     implementation(libs.ssp.android)
+
+    //Circular Image View
+    implementation(libs.circleimageview)
+
+
+    //View Model
+    implementation(libs.lifecycle.viewmodel)
+    // LiveData
+    implementation(libs.lifecycle.livedata)
 }

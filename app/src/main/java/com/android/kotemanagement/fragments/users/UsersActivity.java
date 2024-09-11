@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.kotemanagement.R;
-import com.android.kotemanagement.activities.AddUsersActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UsersActivity extends Fragment
@@ -36,15 +36,20 @@ public class UsersActivity extends Fragment
     bottomNavigationView.setOnNavigationItemSelectedListener(this);
     bottomNavigationView.setSelectedItemId(R.id.add_user);
 
-    if (savedInstanceState == null) {
-      getChildFragmentManager().beginTransaction()
-              .add(R.id.flFragment, addUserFragment, "addUserFragment")
-              .add(R.id.flFragment, viewUserFragment, "viewUserFragment")
-              .add(R.id.flFragment, deleteUserFragment, "deleteUserFragment")
-              .hide(viewUserFragment)
-              .hide(deleteUserFragment)
-              .commit();
-    }
+      FragmentManager fm = getChildFragmentManager();
+      FragmentTransaction ft = fm.beginTransaction();
+      ft.add(R.id.flFragment, viewUserFragment);
+      ft.commit();
+
+//    if (savedInstanceState == null) {
+//      getChildFragmentManager().beginTransaction()
+//              .add(R.id.flFragment, addUserFragment, "addUserFragment")
+//              .add(R.id.flFragment, viewUserFragment, "viewUserFragment")
+//              .add(R.id.flFragment, deleteUserFragment, "deleteUserFragment")
+//              .hide(viewUserFragment)
+//              .hide(deleteUserFragment)
+//              .commit();
+//    }
 
     return view;
   }

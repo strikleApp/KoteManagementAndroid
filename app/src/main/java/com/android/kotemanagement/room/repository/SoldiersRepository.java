@@ -2,6 +2,8 @@ package com.android.kotemanagement.room.repository;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.android.kotemanagement.room.dao.SoldiersDao;
 import com.android.kotemanagement.room.database.KoteDatabase;
 import com.android.kotemanagement.room.entities.Soldiers;
@@ -12,27 +14,29 @@ import java.util.concurrent.Executors;
 
 public class SoldiersRepository {
     private SoldiersDao soldiersDao;
-    private List<Soldiers> getAllSoldiersList;
+
+    private LiveData<List<Soldiers>> getAllSoldiersList;
+    private KoteDatabase koteDatabase;
 
     private Executor executor;
 
     public SoldiersRepository(Application application) {
-        KoteDatabase database = KoteDatabase.getDatabaseInstance(application);
-        soldiersDao = database.getSoldiersDao();
+        executor = Executors.newSingleThreadExecutor();
+        koteDatabase = KoteDatabase.getDatabaseInstance(application);
+        soldiersDao = koteDatabase.getSoldiersDao();
         getAllSoldiersList = soldiersDao.getAllSoldiersList();
 
-        executor = Executors.newSingleThreadExecutor();
     }
 
-    public void Insert(Soldiers soldiers) {
+    public void insert(Soldiers soldiers) {
         executor.execute(() -> soldiersDao.insert(soldiers));
     }
 
-    public void Update(Soldiers soldiers) {
+    public void update(Soldiers soldiers) {
         executor.execute(() -> soldiersDao.update(soldiers));
     }
 
-    public void Delete(Soldiers soldiers) {
+    public void delete(Soldiers soldiers) {
         executor.execute(() -> soldiersDao.delete(soldiers));
     }
 
@@ -40,7 +44,7 @@ public class SoldiersRepository {
         return soldiersDao.getSoldierByArmyNumber(armyNumber);
     }
 
-    public List<Soldiers> getAllSoldiersList() {
+    public LiveData<List<Soldiers>> getAllSoldiersList() {
         return getAllSoldiersList;
     }
 

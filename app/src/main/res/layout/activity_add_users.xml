@@ -37,7 +37,7 @@
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:src="@drawable/add_photos"
+            android:src="@drawable/soldierimage"
             android:contentDescription="@string/upload_image_content_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
@@ -160,7 +160,7 @@
         android:backgroundTint="#606C38"
         android:paddingHorizontal="40dp"
         android:paddingVertical="10dp"
-        android:text="@string/add_user_btn"
+        android:text="@string/add_soldier_btn"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

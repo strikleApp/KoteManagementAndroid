@@ -1,5 +1,6 @@
 package com.android.kotemanagement.room.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -21,8 +22,8 @@ public interface SoldiersDao {
     @Delete
     void delete(Soldiers soldiers);
 
-    @Query("SELECT * FROM soldiers_table ORDER BY firstName ASC")
-    List<Soldiers> getAllSoldiersList();
+    @Query("SELECT * FROM soldiers_table")
+    LiveData<List<Soldiers>> getAllSoldiersList();
 
     @Query("SELECT * FROM soldiers_table WHERE armyNumber = :armyNumber")
     Soldiers getSoldierByArmyNumber(String armyNumber);

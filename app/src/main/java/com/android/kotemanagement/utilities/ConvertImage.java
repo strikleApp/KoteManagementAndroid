@@ -31,4 +31,16 @@ public class ConvertImage {
         return bitmapImage;
     }
 
+    public static boolean isImageLessThan1MB(Bitmap bitmapImage) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        boolean resultCompress = bitmapImage.compress(Bitmap.CompressFormat.PNG, 90, byteArrayOutputStream);
+        if(resultCompress) {
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            if(byteArray.length > 1000000) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

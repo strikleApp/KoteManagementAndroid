@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "fd03f0af1a0ed8a1e82d0c1399392715",
+    "identityHash": "fe9051900f8dcfe22ed1eba79492bdf0",
     "entities": [
       {
         "tableName": "soldiers_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`image` TEXT, `armyNumber` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `dob` TEXT, PRIMARY KEY(`armyNumber`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`image` TEXT, `armyNumber` TEXT NOT NULL, `firstName` TEXT, `lastName` TEXT, `rank` TEXT, `dob` TEXT, PRIMARY KEY(`armyNumber`))",
         "fields": [
           {
             "fieldPath": "image",
@@ -33,6 +33,12 @@
             "notNull": false
           },
           {
+            "fieldPath": "rank",
+            "columnName": "rank",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "dob",
             "columnName": "dob",
             "affinity": "TEXT",
@@ -52,7 +58,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fd03f0af1a0ed8a1e82d0c1399392715')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fe9051900f8dcfe22ed1eba79492bdf0')"
     ]
   }
 }

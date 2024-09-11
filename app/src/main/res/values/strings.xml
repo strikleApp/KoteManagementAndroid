@@ -11,7 +11,7 @@
     <string name="user_id_hint">User ID</string>
     <string name="user_name_hint">User Name</string>
     <string name="date_of_joining_text">Date of Joining</string>
-    <string name="add_user_btn">Add User</string>
+    <string name="add_soldier_btn">Add Soldier</string>
     <string name="user_can_tap_to_open_add_user_screen_text">User can tap to open add user screen</string>
     <string name="add_user_bottom_nav">Add User</string>
     <string name="view_user_bottom_nav">View User</string>
@@ -31,6 +31,7 @@
     <string name="close">NavBar</string>
     <string name="search_user">Search User</string>
     <string name="enter_user_id">Enter User ID</string>
+    <string name="add_user_btn">Add User</string>
 
     <string name="btn_upload">Upload</string>
     <string name="army_number">Army Number</string>
@@ -54,4 +55,5 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="rank">Rank</string>
 </resources>

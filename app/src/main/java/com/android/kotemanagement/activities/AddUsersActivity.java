@@ -24,22 +24,31 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.ActivityAddUsersBinding;
+import com.android.kotemanagement.room.entities.Soldiers;
+import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
+import com.android.kotemanagement.utilities.ConvertImage;
 import com.android.kotemanagement.utilities.PermissionCheck;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AddUsersActivity extends AppCompatActivity {
 
     ActivityAddUsersBinding addUsersBinding;
     ActivityResultLauncher<Intent> activityResultLauncher;
-    private Bitmap selectedImage;
+    private Bitmap selectedImage = null;
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
+    SoldiersViewModel soldiersViewModel;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +81,15 @@ public class AddUsersActivity extends AppCompatActivity {
 
         //registerForActivityResultLauncher();
         pickVisualMediaResultLauncher();
+
+        //Initializing Soldiers View Model
+        soldiersViewModel = new ViewModelProvider(AddUsersActivity.this).get(SoldiersViewModel.class);
+
+        //inserting data
+        addUsersBinding.btnAddUser.setOnClickListener(v-> {
+            addUsersBinding.btnAddUser.setEnabled(false);
+            insertData();
+        });
 
     }
 
@@ -159,25 +177,82 @@ public class AddUsersActivity extends AppCompatActivity {
                 //Log.d("Photo Picker", "Selected URI: " + uri);
                 if(Build.VERSION.SDK_INT >= 28) {
                     ImageDecoder.Source imageSource = ImageDecoder.createSource(this.getContentResolver(), uri);
-                    try {
-                        selectedImage = ImageDecoder.decodeBitmap(imageSource);
-                        addUsersBinding.ivUpload.setImageBitmap(selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    executor.execute(() -> {
+                        try {
+                            selectedImage = ImageDecoder.decodeBitmap(imageSource);
+                        } catch (IOException e) {
+                            Log.d("Photo Picker", "Exception Ocurred");
+                            e.printStackTrace();
+                        }
+                    });
+                    addUsersBinding.btnAddUser.setEnabled(true);
                 } else {
-                    try {
-                        selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                        addUsersBinding.ivUpload.setImageBitmap(selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    executor.execute(() -> {
+                        try {
+                            selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                        } catch (IOException e) {
+                            Log.d("Photo Picker", "Exception Ocurred");
+                        }
+                    });
+                    addUsersBinding.btnAddUser.setEnabled(true);
                 }
+
+                executor.execute(() -> {
+                    if(ConvertImage.isImageLessThan1MB(selectedImage)) {
+
+                        runOnUiThread(() -> {
+                            addUsersBinding.ivUpload.setImageBitmap(selectedImage);
+                        });
+
+                    } else {
+                        runOnUiThread(() -> {
+                            Toast.makeText(this, "Image Size should be less than 1MB", Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                });
+
+
             } else {
                 Log.d("Photo Picker", "No media selected");
                 Toast.makeText(this, "No Images selected", Toast.LENGTH_SHORT).show();
+                addUsersBinding.btnAddUser.setEnabled(true);
             }
         });
+    }
+
+    private void insertData() {
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            String imageAsString = ConvertImage.convertToString(selectedImage, this);
+            String armyNumber = (addUsersBinding.etArmyNumber.getText()).toString();
+            String firstName = (addUsersBinding.etFirstName.getText()).toString();
+            String lastName = (addUsersBinding.etLastName.getText()).toString();
+            String rank = addUsersBinding.spinnerRank.getSelectedItem().toString();
+            String dob = addUsersBinding.etDob.getText().toString();
+
+            if(imageAsString != null) {
+                Soldiers soldiers = new Soldiers(
+                        imageAsString,
+                        armyNumber,
+                        firstName,
+                        lastName,
+                        rank,
+                        dob
+                );
+                soldiersViewModel.insert(soldiers);
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                });
+            } else {
+                runOnUiThread(() -> {
+                    Toast.makeText(getApplicationContext(), "Image is null", Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+        addUsersBinding.btnAddUser.setEnabled(true);
+        Intent intent = new Intent(AddUsersActivity.this, ViewSoldiersActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override

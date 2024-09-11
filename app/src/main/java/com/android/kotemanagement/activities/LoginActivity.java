@@ -42,21 +42,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        bindingLogin.btnLoginBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, AddUsersActivity.class));
-//                finish();
-//            }
-//        });
-
-        btnLoginButton = findViewById(R.id.btnLoginBtn);
-        btnLoginButton.setOnClickListener(new View.OnClickListener() {
+        bindingLogin.btnLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                startActivity(new Intent(LoginActivity.this, AddUsersActivity.class));
                 finish();
             }
         });
+
+//        btnLoginButton = findViewById(R.id.btnLoginBtn);
+//        btnLoginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+//                finish();
+//            }
+//        });
     }
 }
