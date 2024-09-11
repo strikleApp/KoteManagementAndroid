@@ -1,13 +1,18 @@
 package com.android.kotemanagement.adapter;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.kotemanagement.activities.ViewSoldiersActivity;
 import com.android.kotemanagement.databinding.ViewSoldiersListItemBinding;
+import com.android.kotemanagement.fragments.soldiers.ViewSoldiersDialogFragment;
 import com.android.kotemanagement.room.entities.Soldiers;
 import com.android.kotemanagement.utilities.ConvertImage;
 
@@ -17,6 +22,11 @@ import java.util.List;
 public class ViewSoldierAdapter extends RecyclerView.Adapter<ViewSoldierAdapter.ViewSoldierViewHolder> {
 
     List<Soldiers> soldiersList = new ArrayList<>();
+    ViewSoldiersActivity activity;
+
+    public ViewSoldierAdapter(ViewSoldiersActivity activity) {
+        this.activity = activity;
+    }
 
 
     static class ViewSoldierViewHolder extends RecyclerView.ViewHolder {
@@ -47,6 +57,23 @@ public class ViewSoldierAdapter extends RecyclerView.Adapter<ViewSoldierAdapter.
         holder.itemBinding.tvArmyNumber.setText(soldier.armyNumber);
         holder.itemBinding.tvRank.setText(soldier.rank);
         holder.itemBinding.tvSoldierName.setText(soldier.firstName + " " + soldier.lastName);
+
+        holder.itemBinding.materialCardView.setOnClickListener(v -> {
+            FragmentManager fragmentManager = activity.getSupportFragmentManager();
+            ViewSoldiersDialogFragment dialogFragment = new ViewSoldiersDialogFragment();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("image", soldier.image);
+            bundle.putString("firstName", soldier.firstName);
+            bundle.putString("lastName", soldier.lastName);
+            bundle.putString("rank", soldier.rank);
+            bundle.putString("armyNumber", soldier.armyNumber);
+            bundle.putString("dob", soldier.dob);
+
+            dialogFragment.setArguments(bundle);
+            dialogFragment.show(fragmentManager, "ViewSoldiersDialogFragment");
+        });
+
     }
 
     @Override

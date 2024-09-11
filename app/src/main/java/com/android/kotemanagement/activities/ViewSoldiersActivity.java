@@ -35,7 +35,7 @@ public class ViewSoldiersActivity extends AppCompatActivity {
         soldiersViewModel = new ViewModelProvider(this).get(SoldiersViewModel.class);
 
         binding.rvSoldiers.setLayoutManager(new LinearLayoutManager(this));
-        ViewSoldierAdapter adapter = new ViewSoldierAdapter();
+        ViewSoldierAdapter adapter = new ViewSoldierAdapter(this);
         binding.rvSoldiers.setAdapter(adapter);
 
         soldiersViewModel.getAllSoldiersList().observe(this, soldiersList -> {
