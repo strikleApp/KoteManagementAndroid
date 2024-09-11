@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:text="Name:"
         android:layout_marginTop="@dimen/_7sdp"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintTop_toBottomOf="@id/civSoldierImage"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_7sdp"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_14sdp"
         android:text="@string/first_name"
         app:layout_constraintTop_toBottomOf="@id/tv1"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Rank:"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintTop_toBottomOf="@id/tvName"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_7sdp"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_14sdp"
         android:text="@string/rank"
         app:layout_constraintTop_toBottomOf="@id/tv2"
         app:layout_constraintStart_toStartOf="parent" />
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Army Number:"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintTop_toBottomOf="@id/tvRank"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -72,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/army_number"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_7sdp"
         app:layout_constraintTop_toBottomOf="@id/tv3"
         app:layout_constraintStart_toStartOf="parent" />
@@ -83,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="DOB:"
-        android:textSize="@dimen/_20sdp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintTop_toBottomOf="@id/tvArmyNumberDF"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -92,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dob"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_7sdp"
         app:layout_constraintTop_toBottomOf="@id/tv4"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_15sdp"
         app:layout_constraintTop_toBottomOf="@id/tvDateOfBirth"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -112,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Delete"
-        android:textSize="@dimen/_18sdp"
+        android:textSize="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:layout_marginStart="@dimen/_10sdp"
         app:layout_constraintTop_toBottomOf="@id/tvDateOfBirth"

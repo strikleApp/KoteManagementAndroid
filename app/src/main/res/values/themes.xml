@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.KoteManagement" parent="Theme.Material3.DayNight.NoActionBar">
+
         <item name="colorPrimary">@color/labelColor</item>
         <item name="colorPrimaryVariant">@color/secondaryColor</item>
         <item name="colorOnPrimary">@color/cardColor</item>
