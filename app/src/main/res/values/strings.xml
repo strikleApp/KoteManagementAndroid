@@ -37,7 +37,7 @@
     <string name="army_number">Army Number</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
-    <string name="dob">Date Of Birth</string>
+    <string name="dob">Date Of Birth (dd/MM/yyyy)</string>
     <string name="upload_image_content_description">Image View Upload</string>
 
 

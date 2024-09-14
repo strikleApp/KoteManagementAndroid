@@ -74,6 +74,8 @@ public class AddUsersActivity extends AppCompatActivity {
             return insets;
         });
 
+        addUsersBinding.etDob.setEnabled(false);
+
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.army_ranks,
                 android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
@@ -81,12 +83,8 @@ public class AddUsersActivity extends AppCompatActivity {
 
         addUsersBinding.btnUpload.setOnClickListener(v -> checkingPermissions());
 
-        addUsersBinding.tlDob.setEndIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                materialDatePicker();
-            }
-        });
+        addUsersBinding.tlDob.setEndIconOnClickListener(v ->
+                materialDatePicker());
 
 
         //registerForActivityResultLauncher();
@@ -98,22 +96,8 @@ public class AddUsersActivity extends AppCompatActivity {
         addUsersBinding.btnAddUser.setOnClickListener(v-> {
             try {
                 getDataFromUser();
-                if(hasSelectedImage) {
-                    addUsersBinding.btnAddUser.setEnabled(false);
-                    insertDataToDatabase();
-                } else {
-                    Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), "Please select an image", Snackbar.LENGTH_SHORT);
-                    snackbar.setAction("Dismiss", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            snackbar.dismiss();
-                        }
-                    });
-
-                    snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.red));
-
-                    snackbar.show();
-                }
+                addUsersBinding.btnAddUser.setEnabled(false);
+                insertDataToDatabase();
             } catch(NullPointerException e) {
                 Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), "Please fill all the details", Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
@@ -122,7 +106,7 @@ public class AddUsersActivity extends AppCompatActivity {
                         snackbar.dismiss();
                     }
                 });
-
+                snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.red));
                 snackbar.show();
             }
         });
@@ -160,10 +144,13 @@ public class AddUsersActivity extends AppCompatActivity {
     private void materialDatePicker() {
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Date Of Birth")
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
+                .setTextInputFormat(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()))
                 .build();
         datePicker.addOnPositiveButtonClickListener(selection -> {
             addUsersBinding.etDob.setText(formatDate(selection));
         });
+
         datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
     }
 
@@ -174,37 +161,6 @@ public class AddUsersActivity extends AppCompatActivity {
         if(requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             checkingPermissions();
         }
-    }
-
-    private void registerForActivityResultLauncher() {
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result ->{
-            int resultCode = result.getResultCode();
-            Intent imageData = result.getData();
-
-            if(resultCode == RESULT_OK && imageData != null) {
-                Uri imageUri = imageData.getData();
-                if (imageUri != null) {
-                    if (Build.VERSION.SDK_INT >= 28) {
-                        ImageDecoder.Source imageSource = ImageDecoder.createSource(this.getContentResolver(), imageUri);
-                        try {
-                            selectedImage = ImageDecoder.decodeBitmap(imageSource);
-                            addUsersBinding.ivUpload.setImageBitmap(selectedImage);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        try {
-                            selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-                            addUsersBinding.ivUpload.setImageBitmap(selectedImage);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-
-        });
-
     }
 
     private void pickVisualMediaResultLauncher() {
