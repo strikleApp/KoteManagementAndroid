@@ -21,6 +21,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -33,6 +34,7 @@ import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
 import com.android.kotemanagement.utilities.ConvertImage;
 import com.android.kotemanagement.utilities.PermissionCheck;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -49,6 +51,14 @@ public class AddUsersActivity extends AppCompatActivity {
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     SoldiersViewModel soldiersViewModel;
     private Executor executor = Executors.newSingleThreadExecutor();
+    private boolean hasSelectedImage = false;
+
+    private String imageAsString;
+    private String armyNumber;
+    private String firstName;
+    private String lastName;
+    private String rank;
+    private String dob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +94,37 @@ public class AddUsersActivity extends AppCompatActivity {
 
         //Initializing Soldiers View Model
         soldiersViewModel = new ViewModelProvider(AddUsersActivity.this).get(SoldiersViewModel.class);
-
         //inserting data
         addUsersBinding.btnAddUser.setOnClickListener(v-> {
-            addUsersBinding.btnAddUser.setEnabled(false);
-            insertData();
+            try {
+                getDataFromUser();
+                if(hasSelectedImage) {
+                    addUsersBinding.btnAddUser.setEnabled(false);
+                    insertDataToDatabase();
+                } else {
+                    Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), "Please select an image", Snackbar.LENGTH_SHORT);
+                    snackbar.setAction("Dismiss", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            snackbar.dismiss();
+                        }
+                    });
+
+                    snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.red));
+
+                    snackbar.show();
+                }
+            } catch(NullPointerException e) {
+                Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), "Please fill all the details", Snackbar.LENGTH_SHORT);
+                snackbar.setAction("Dismiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+
+                snackbar.show();
+            }
         });
 
     }
@@ -202,6 +238,7 @@ public class AddUsersActivity extends AppCompatActivity {
 
                         runOnUiThread(() -> {
                             addUsersBinding.ivUpload.setImageBitmap(selectedImage);
+                            hasSelectedImage = true;
                         });
 
                     } else {
@@ -220,34 +257,24 @@ public class AddUsersActivity extends AppCompatActivity {
         });
     }
 
-    private void insertData() {
+    private void insertDataToDatabase() {
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            String imageAsString = ConvertImage.convertToString(selectedImage, this);
-            String armyNumber = (addUsersBinding.etArmyNumber.getText()).toString();
-            String firstName = (addUsersBinding.etFirstName.getText()).toString();
-            String lastName = (addUsersBinding.etLastName.getText()).toString();
-            String rank = addUsersBinding.spinnerRank.getSelectedItem().toString();
-            String dob = addUsersBinding.etDob.getText().toString();
 
-            if(imageAsString != null) {
-                Soldiers soldiers = new Soldiers(
-                        imageAsString,
-                        armyNumber,
-                        firstName,
-                        lastName,
-                        rank,
-                        dob
-                );
-                soldiersViewModel.insert(soldiers);
-                runOnUiThread(() -> {
-                    Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
-                });
-            } else {
-                runOnUiThread(() -> {
-                    Toast.makeText(getApplicationContext(), "Image is null", Toast.LENGTH_SHORT).show();
-                });
-            }
+            imageAsString = ConvertImage.convertToString(selectedImage, this);
+
+            Soldiers soldiers = new Soldiers(
+                    imageAsString,
+                    armyNumber,
+                    firstName,
+                    lastName,
+                    rank,
+                    dob
+            );
+            soldiersViewModel.insert(soldiers);
+            runOnUiThread(() -> {
+                Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
+            });
         });
         addUsersBinding.btnAddUser.setEnabled(true);
         Intent intent = new Intent(AddUsersActivity.this, ViewSoldiersActivity.class);
@@ -255,11 +282,16 @@ public class AddUsersActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
-        finish();
+    private void getDataFromUser() throws NullPointerException {
+        armyNumber = (Objects.requireNonNull(addUsersBinding.etArmyNumber.getText())).toString().trim();
+        firstName = (Objects.requireNonNull(addUsersBinding.etFirstName.getText())).toString().trim();
+        lastName = (Objects.requireNonNull(addUsersBinding.etLastName.getText())).toString().trim();
+        rank = addUsersBinding.spinnerRank.getSelectedItem().toString().trim();
+        dob = Objects.requireNonNull(addUsersBinding.etDob.getText()).toString().trim();
+
+        if(armyNumber.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || rank.isEmpty() || dob.isEmpty() || !hasSelectedImage) {
+            throw new NullPointerException();
+        }
+
     }
 }
