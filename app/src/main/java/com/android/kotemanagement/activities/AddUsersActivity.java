@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -29,8 +28,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.ActivityAddUsersBinding;
+import com.android.kotemanagement.exceptions.UserFieldBlankException;
+import com.android.kotemanagement.exceptions.UserFieldException;
+import com.android.kotemanagement.exceptions.UsersExistsException;
 import com.android.kotemanagement.room.entities.Soldiers;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
+import com.android.kotemanagement.utilities.CheckingUserInput;
 import com.android.kotemanagement.utilities.ConvertImage;
 import com.android.kotemanagement.utilities.PermissionCheck;
 import com.google.android.material.datepicker.MaterialDatePicker;
@@ -40,6 +43,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -52,6 +56,7 @@ public class AddUsersActivity extends AppCompatActivity {
     SoldiersViewModel soldiersViewModel;
     private Executor executor = Executors.newSingleThreadExecutor();
     private boolean hasSelectedImage = false;
+    private Soldiers soldier;
 
     private String imageAsString;
     private String armyNumber;
@@ -59,6 +64,8 @@ public class AddUsersActivity extends AppCompatActivity {
     private String lastName;
     private String rank;
     private String dob;
+
+    private boolean isImageLessThan1MB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +88,10 @@ public class AddUsersActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
         addUsersBinding.spinnerRank.setAdapter(arrayAdapter);
 
-        addUsersBinding.btnUpload.setOnClickListener(v -> checkingPermissions());
+        addUsersBinding.btnUpload.setOnClickListener(v-> {
+            addUsersBinding.btnUpload.setEnabled(false);
+            checkingPermissions();
+        });
 
         addUsersBinding.tlDob.setEndIconOnClickListener(v ->
                 materialDatePicker());
@@ -95,11 +105,10 @@ public class AddUsersActivity extends AppCompatActivity {
         //inserting data
         addUsersBinding.btnAddUser.setOnClickListener(v-> {
             try {
-                getDataFromUser();
-                addUsersBinding.btnAddUser.setEnabled(false);
+                getAndCheckDataFromUser();
                 insertDataToDatabase();
-            } catch(NullPointerException e) {
-                Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), "Please fill all the details", Snackbar.LENGTH_SHORT);
+            } catch(UserFieldBlankException e) {
+                Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -108,6 +117,28 @@ public class AddUsersActivity extends AppCompatActivity {
                 });
                 snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.red));
                 snackbar.show();
+            } catch (UserFieldException e) {
+                Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
+                snackbar.setAction("Dismiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+                snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.red));
+                snackbar.show();
+            } catch(UsersExistsException e) {
+                Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
+                snackbar.setAction("Dismiss", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        snackbar.dismiss();
+                    }
+                });
+                snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.red));
+                snackbar.show();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
@@ -163,63 +194,87 @@ public class AddUsersActivity extends AppCompatActivity {
         }
     }
 
-    private void pickVisualMediaResultLauncher() {
+    private void pickVisualMediaResultLauncher(){
         pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri-> {
             if(uri != null) {
                 //Log.d("Photo Picker", "Selected URI: " + uri);
                 if(Build.VERSION.SDK_INT >= 28) {
                     ImageDecoder.Source imageSource = ImageDecoder.createSource(this.getContentResolver(), uri);
+
+                    Executor executor = Executors.newSingleThreadExecutor();
+                    CountDownLatch latch = new CountDownLatch(1);
                     executor.execute(() -> {
                         try {
                             selectedImage = ImageDecoder.decodeBitmap(imageSource);
                         } catch (IOException e) {
                             Log.d("Photo Picker", "Exception Ocurred");
                             e.printStackTrace();
+                        } finally {
+                            latch.countDown();
                         }
                     });
-                    addUsersBinding.btnAddUser.setEnabled(true);
+                    try{
+                        latch.await();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    addUsersBinding.btnUpload.setEnabled(true);
                 } else {
+                    Executor executor = Executors.newSingleThreadExecutor();
+                    CountDownLatch latch = new CountDownLatch(1);
                     executor.execute(() -> {
                         try {
                             selectedImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                            latch.countDown();
                         } catch (IOException e) {
                             Log.d("Photo Picker", "Exception Ocurred");
                         }
                     });
-                    addUsersBinding.btnAddUser.setEnabled(true);
+                    try{
+                        latch.await();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    addUsersBinding.btnUpload.setEnabled(true);
                 }
 
+                Executor executor = Executors.newSingleThreadExecutor();
+                CountDownLatch latch = new CountDownLatch(1);
+
                 executor.execute(() -> {
-                    if(ConvertImage.isImageLessThan1MB(selectedImage)) {
-
-                        runOnUiThread(() -> {
-                            addUsersBinding.ivUpload.setImageBitmap(selectedImage);
-                            hasSelectedImage = true;
-                        });
-
-                    } else {
-                        runOnUiThread(() -> {
-                            Toast.makeText(this, "Image Size should be less than 1MB", Toast.LENGTH_SHORT).show();
-                        });
-                    }
+                    isImageLessThan1MB = ConvertImage.isImageLessThan1MB(selectedImage);
+                    latch.countDown();
                 });
+                try {
+                    latch.await();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-
+                if(isImageLessThan1MB) {
+                    addUsersBinding.ivUpload.setImageBitmap(selectedImage);
+                    hasSelectedImage = true;
+                    addUsersBinding.btnUpload.setEnabled(true);
+                } else {
+                    Toast.makeText(this, "Image Size should be less than 1MB", Toast.LENGTH_SHORT).show();
+                    addUsersBinding.btnUpload.setEnabled(true);
+                }
             } else {
                 Log.d("Photo Picker", "No media selected");
                 Toast.makeText(this, "No Images selected", Toast.LENGTH_SHORT).show();
-                addUsersBinding.btnAddUser.setEnabled(true);
+                addUsersBinding.btnUpload.setEnabled(true);
             }
         });
     }
 
-    private void insertDataToDatabase() {
+    private void insertDataToDatabase() throws InterruptedException {
         Executor executor = Executors.newSingleThreadExecutor();
+        CountDownLatch latch = new CountDownLatch(1);
         executor.execute(() -> {
 
             imageAsString = ConvertImage.convertToString(selectedImage, this);
 
-            Soldiers soldiers = new Soldiers(
+            Soldiers soldier = new Soldiers(
                     imageAsString,
                     armyNumber,
                     firstName,
@@ -227,27 +282,60 @@ public class AddUsersActivity extends AppCompatActivity {
                     rank,
                     dob
             );
-            soldiersViewModel.insert(soldiers);
-            runOnUiThread(() -> {
-                Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
-            });
+            soldiersViewModel.insert(soldier);
+            latch.countDown();
         });
+        latch.await();
         addUsersBinding.btnAddUser.setEnabled(true);
+        Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(AddUsersActivity.this, ViewSoldiersActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void getDataFromUser() throws NullPointerException {
+    private void getAndCheckDataFromUser() throws UserFieldBlankException, UserFieldException, UsersExistsException, NullPointerException {
         armyNumber = (Objects.requireNonNull(addUsersBinding.etArmyNumber.getText())).toString().trim();
         firstName = (Objects.requireNonNull(addUsersBinding.etFirstName.getText())).toString().trim();
         lastName = (Objects.requireNonNull(addUsersBinding.etLastName.getText())).toString().trim();
         rank = addUsersBinding.spinnerRank.getSelectedItem().toString().trim();
         dob = Objects.requireNonNull(addUsersBinding.etDob.getText()).toString().trim();
 
-        if(armyNumber.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || rank.isEmpty() || dob.isEmpty() || !hasSelectedImage) {
-            throw new NullPointerException();
+        if(armyNumber.isBlank() || firstName.isBlank() || lastName.isBlank() || rank.isBlank() || dob.isBlank() || !hasSelectedImage) {
+            throw new UserFieldBlankException();
+        } else if (CheckingUserInput.isArmyNumberHaveWhiteSpace(armyNumber) || CheckingUserInput.isArmyNumberHaveSpecialCharacters(armyNumber)) {
+            addUsersBinding.etArmyNumber.setError("Army Number should not contain any space or special characters.");
+            addUsersBinding.etArmyNumber.requestFocus();
+            throw new UserFieldException();
+        } else if (CheckingUserInput.isFirstNameHaveNumber(firstName) || CheckingUserInput.isFirstNameHaveSpecialCharacters(firstName)) {
+            addUsersBinding.etFirstName.setError("First Name should not contain any number or special characters..");
+            addUsersBinding.etFirstName.requestFocus();
+            throw new UserFieldException();
+        } else if (CheckingUserInput.isLastNameHaveNumber(lastName) || CheckingUserInput.isLastNameHaveSpecialCharacters(lastName)) {
+            addUsersBinding.etLastName.setError("Last Name should not contain any number or special characters.");
+            addUsersBinding.etLastName.requestFocus();
+            throw new UserFieldException();
+        } else {
+            try{
+                if(doesUserExists()) {
+                    throw new UsersExistsException();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Insertion Interrupted", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
+
+    private boolean doesUserExists() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        Executor executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+           soldier = soldiersViewModel.getSoldierByArmyNumber(armyNumber);
+           latch.countDown();
+       });
+       latch.await();
+       return soldier != null;
+    }
+
 }

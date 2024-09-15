@@ -28,5 +28,4 @@ public interface SoldiersDao {
     @Query("SELECT * FROM soldiers_table WHERE armyNumber = :armyNumber")
     Soldiers getSoldierByArmyNumber(String armyNumber);
 
-
 }

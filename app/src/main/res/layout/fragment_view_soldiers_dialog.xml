@@ -80,6 +80,7 @@
             android:layout_marginStart="@dimen/_7sdp"
             android:text="@string/army_number"
             android:textSize="@dimen/_14sdp"
+            android:contentDescription="@string/army_number_of_the_user"
             app:layout_constraintBottom_toBottomOf="@id/tv3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv3"
