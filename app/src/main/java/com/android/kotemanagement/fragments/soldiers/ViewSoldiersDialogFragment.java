@@ -1,5 +1,6 @@
 package com.android.kotemanagement.fragments.soldiers;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.activities.UpdateUsersActivity;
 import com.android.kotemanagement.databinding.FragmentViewSoldiersDialogBinding;
 import com.android.kotemanagement.utilities.ConvertImage;
 
@@ -39,6 +41,11 @@ public class ViewSoldiersDialogFragment extends DialogFragment {
         getAndSetData();
 
         binding.btnUpdate.setOnClickListener(v -> {
+            getParentFragmentManager().beginTransaction().remove(this).commit();
+
+            Intent intent = new Intent(requireActivity(), UpdateUsersActivity.class);
+            intent.putExtra("army_number", armyNumber);
+            startActivity(intent);
 
         });
 

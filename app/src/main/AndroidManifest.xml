@@ -19,6 +19,9 @@
         android:theme="@style/Theme.KoteManagement"
         tools:targetApi="31">
         <activity
+            android:name=".activities.UpdateUsersActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ViewSoldiersActivity"
             android:exported="false" />
         <activity

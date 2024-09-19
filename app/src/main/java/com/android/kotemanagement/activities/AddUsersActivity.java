@@ -85,7 +85,7 @@ public class AddUsersActivity extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(this, R.array.army_ranks,
                 android.R.layout.simple_spinner_item);
-        arrayAdapter.setDropDownViewResource(com.google.android.material.R.layout.support_simple_spinner_dropdown_item);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         addUsersBinding.spinnerRank.setAdapter(arrayAdapter);
 
         addUsersBinding.btnUpload.setOnClickListener(v-> {
@@ -213,6 +213,7 @@ public class AddUsersActivity extends AppCompatActivity {
                             latch.countDown();
                         }
                     });
+
                     try{
                         latch.await();
                     } catch (Exception e) {
@@ -307,7 +308,7 @@ public class AddUsersActivity extends AppCompatActivity {
             addUsersBinding.etArmyNumber.requestFocus();
             throw new UserFieldException();
         } else if (CheckingUserInput.isFirstNameHaveNumber(firstName) || CheckingUserInput.isFirstNameHaveSpecialCharacters(firstName)) {
-            addUsersBinding.etFirstName.setError("First Name should not contain any number or special characters..");
+            addUsersBinding.etFirstName.setError("First Name should not contain any number or special characters.");
             addUsersBinding.etFirstName.requestFocus();
             throw new UserFieldException();
         } else if (CheckingUserInput.isLastNameHaveNumber(lastName) || CheckingUserInput.isLastNameHaveSpecialCharacters(lastName)) {
