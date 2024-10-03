@@ -88,7 +88,7 @@ public class AddUsersActivity extends AppCompatActivity {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         addUsersBinding.spinnerRank.setAdapter(arrayAdapter);
 
-        addUsersBinding.btnUpload.setOnClickListener(v-> {
+        addUsersBinding.btnUpload.setOnClickListener(v -> {
             addUsersBinding.btnUpload.setEnabled(false);
             checkingPermissions();
         });
@@ -103,11 +103,11 @@ public class AddUsersActivity extends AppCompatActivity {
         //Initializing Soldiers View Model
         soldiersViewModel = new ViewModelProvider(AddUsersActivity.this).get(SoldiersViewModel.class);
         //inserting data
-        addUsersBinding.btnAddUser.setOnClickListener(v-> {
+        addUsersBinding.btnAddUser.setOnClickListener(v -> {
             try {
                 getAndCheckDataFromUser();
                 insertDataToDatabase();
-            } catch(UserFieldBlankException e) {
+            } catch (UserFieldBlankException e) {
                 Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
                     @Override
@@ -127,7 +127,7 @@ public class AddUsersActivity extends AppCompatActivity {
                 });
                 snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.red));
                 snackbar.show();
-            } catch(UsersExistsException e) {
+            } catch (UsersExistsException e) {
                 Snackbar snackbar = Snackbar.make(addUsersBinding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
                     @Override
@@ -146,11 +146,11 @@ public class AddUsersActivity extends AppCompatActivity {
 
     private void checkingPermissions() {
 
-        if(!PermissionCheck.checkPermissions(this)) {
-            if(Build.VERSION.SDK_INT >= 34) {
+        if (!PermissionCheck.checkPermissions(this)) {
+            if (Build.VERSION.SDK_INT >= 34) {
                 ActivityCompat.requestPermissions(AddUsersActivity.this,
                         new String[]{Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED, Manifest.permission.READ_MEDIA_IMAGES}, 1);
-            } else if(Build.VERSION.SDK_INT >= 33) {
+            } else if (Build.VERSION.SDK_INT >= 33) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_MEDIA_IMAGES}, 1);
             } else {
@@ -189,16 +189,16 @@ public class AddUsersActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             checkingPermissions();
         }
     }
 
-    private void pickVisualMediaResultLauncher(){
-        pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri-> {
-            if(uri != null) {
+    private void pickVisualMediaResultLauncher() {
+        pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+            if (uri != null) {
                 //Log.d("Photo Picker", "Selected URI: " + uri);
-                if(Build.VERSION.SDK_INT >= 28) {
+                if (Build.VERSION.SDK_INT >= 28) {
                     ImageDecoder.Source imageSource = ImageDecoder.createSource(this.getContentResolver(), uri);
 
                     Executor executor = Executors.newSingleThreadExecutor();
@@ -214,7 +214,7 @@ public class AddUsersActivity extends AppCompatActivity {
                         }
                     });
 
-                    try{
+                    try {
                         latch.await();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -231,7 +231,7 @@ public class AddUsersActivity extends AppCompatActivity {
                             Log.d("Photo Picker", "Exception Ocurred");
                         }
                     });
-                    try{
+                    try {
                         latch.await();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -252,7 +252,7 @@ public class AddUsersActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                if(isImageLessThan1MB) {
+                if (isImageLessThan1MB) {
                     addUsersBinding.ivUpload.setImageBitmap(selectedImage);
                     hasSelectedImage = true;
                     addUsersBinding.btnUpload.setEnabled(true);
@@ -301,7 +301,7 @@ public class AddUsersActivity extends AppCompatActivity {
         rank = addUsersBinding.spinnerRank.getSelectedItem().toString().trim();
         dob = Objects.requireNonNull(addUsersBinding.etDob.getText()).toString().trim();
 
-        if(armyNumber.isBlank() || firstName.isBlank() || lastName.isBlank() || rank.isBlank() || dob.isBlank() || !hasSelectedImage) {
+        if (armyNumber.isBlank() || firstName.isBlank() || lastName.isBlank() || rank.isBlank() || dob.isBlank() || !hasSelectedImage) {
             throw new UserFieldBlankException();
         } else if (CheckingUserInput.isArmyNumberHaveWhiteSpace(armyNumber) || CheckingUserInput.isArmyNumberHaveSpecialCharacters(armyNumber)) {
             addUsersBinding.etArmyNumber.setError("Army Number should not contain any space or special characters.");
@@ -316,8 +316,8 @@ public class AddUsersActivity extends AppCompatActivity {
             addUsersBinding.etLastName.requestFocus();
             throw new UserFieldException();
         } else {
-            try{
-                if(doesUserExists()) {
+            try {
+                if (doesUserExists()) {
                     throw new UsersExistsException();
                 }
             } catch (InterruptedException e) {
@@ -332,11 +332,11 @@ public class AddUsersActivity extends AppCompatActivity {
         CountDownLatch latch = new CountDownLatch(1);
         Executor executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-           soldier = soldiersViewModel.getSoldierByArmyNumber(armyNumber);
-           latch.countDown();
-       });
-       latch.await();
-       return soldier != null;
+            soldier = soldiersViewModel.getSoldierByArmyNumber(armyNumber);
+            latch.countDown();
+        });
+        latch.await();
+        return soldier != null;
     }
 
 }

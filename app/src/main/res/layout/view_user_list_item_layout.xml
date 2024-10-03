@@ -22,12 +22,13 @@
             android:id="@+id/tvNameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="Name: "
             android:textColor="@color/textColor"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tvDateOfJoinText"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/civSoldiers" />
 
 
         <TextView
@@ -36,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="ID: "
             android:textColor="@color/textColor"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tvDateOfJoinText"
             app:layout_constraintTop_toBottomOf="@id/tvNameText" />
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Rank: "
             android:textColor="@color/textColor"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/tvDateOfJoinText"
             app:layout_constraintTop_toBottomOf="@id/tvIDText" />
@@ -59,7 +60,7 @@
             android:layout_marginEnd="2dp"
             android:text="Date of Joining: "
             android:textColor="@color/textColor"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,6 +68,20 @@
 
 
         <!--    VARIABLES-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civSoldiers"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+
+            android:src="@drawable/soldierimage"
+            app:layout_constraintBottom_toTopOf="@id/tvNameText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
 
         <TextView
             android:id="@+id/tvName"
@@ -179,6 +194,8 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
