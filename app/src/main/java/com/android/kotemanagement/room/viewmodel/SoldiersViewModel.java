@@ -27,15 +27,24 @@ public class SoldiersViewModel extends AndroidViewModel {
     }
 
     public void insert(Soldiers soldiers) {
-        executor.execute(() -> soldiersRepository.insert(soldiers));
+        executor.execute(() -> {
+            soldiersRepository.insert(soldiers);
+            getAllSoldiersList = soldiersRepository.getAllSoldiersList();
+        });
     }
 
     public void update(Soldiers soldiers) {
-        executor.execute(() -> soldiersRepository.update(soldiers));
+        executor.execute(() -> {
+            soldiersRepository.update(soldiers);
+            getAllSoldiersList = soldiersRepository.getAllSoldiersList();
+        });
     }
 
     public void delete(Soldiers soldiers) {
-        executor.execute(() -> soldiersRepository.delete(soldiers));
+        executor.execute(() -> {
+            soldiersRepository.delete(soldiers);
+            getAllSoldiersList = soldiersRepository.getAllSoldiersList();
+        });
     }
 
     public Soldiers getSoldierByArmyNumber(String armyNumber) {
@@ -45,5 +54,4 @@ public class SoldiersViewModel extends AndroidViewModel {
     public LiveData<List<Soldiers>> getAllSoldiersList() {
         return getAllSoldiersList;
     }
-
 }

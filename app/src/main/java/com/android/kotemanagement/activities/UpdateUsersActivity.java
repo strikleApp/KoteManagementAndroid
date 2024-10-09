@@ -237,17 +237,24 @@ public class UpdateUsersActivity extends AppCompatActivity {
 
     private void getData() throws InterruptedException {
         String armyNumber = getIntent().getStringExtra("army_number");
-        if(armyNumber != null) {
+        if (armyNumber != null) {
             CountDownLatch latch = new CountDownLatch(1);
-            Executors.newSingleThreadExecutor().execute(() ->  {
+            Executors.newSingleThreadExecutor().execute(() -> {
                 soldier = soldiersViewModel.getSoldierByArmyNumber(armyNumber);
                 latch.countDown();
             });
             latch.await();
-            setDataToView();
+            if (soldier != null) {
+                setDataToView();
+            } else {
+                Toast.makeText(this, "Soldier not found", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        } else {
+            Toast.makeText(this, "Army number not found", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
-
     private void  setDataToView() {
         Bitmap selectedImage = ConvertImage.convertToBitmap(soldier.image);
         binding.ivUpload.setImageBitmap(selectedImage);
@@ -262,34 +269,42 @@ public class UpdateUsersActivity extends AppCompatActivity {
     }
 
     private void updateUserData() {
+        if (hasUpdatedImage) {
+            imageAsString = ConvertImage.convertToString(selectedImage, this);
+        } else {
+            imageAsString = soldier.image;
+        }
+
+        Soldiers updatedSoldier = new Soldiers(
+                imageAsString,
+                soldier.armyNumber,
+                firstName,
+                lastName,
+                rank,
+                dob
+        );
+
         CountDownLatch latch = new CountDownLatch(1);
         Executors.newSingleThreadExecutor().execute(() -> {
-            if(hasUpdatedImage) {
-                imageAsString = ConvertImage.convertToString(selectedImage, this);
-            } else {
-                imageAsString = soldier.image;
+            try {
+                soldiersViewModel.update(updatedSoldier);
+                latch.countDown();
+            } catch (Exception e) {
+                Log.d("Update User", "Error updating user", e);
+                latch.countDown();
             }
-
-            Soldiers soldier = new Soldiers(
-                    imageAsString,
-                    armyNumber,
-                    firstName,
-                    lastName,
-                    rank,
-                    dob
-            );
-
-            soldiersViewModel.update(soldier);
-            latch.countDown();
-
         });
         try {
             latch.await();
         } catch (InterruptedException e) {
-            Log.d("Update User", "Interrupted Exception Occurred");
+            Log.d("Update User", "Interrupted Exception Occurred", e);
         }
-        Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();
-        finish();
+        if (latch.getCount() == 0) {
+            Toast.makeText(this, "Data Updated", Toast.LENGTH_SHORT).show();
+            finish();
+        } else {
+            Toast.makeText(this, "Error updating data", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getAndCheckDataFromUser() throws UserFieldBlankException, UserFieldException, NullPointerException{

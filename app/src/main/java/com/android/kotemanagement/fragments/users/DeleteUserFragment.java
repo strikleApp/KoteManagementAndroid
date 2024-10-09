@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.modals.ViewUserModal;
+import com.android.kotemanagement.room.entities.Soldiers;
 
 public class DeleteUserFragment extends Fragment {
   ConstraintLayout clBody;
@@ -51,12 +52,12 @@ public class DeleteUserFragment extends Fragment {
           String id = etSearchUser.getText().toString();
           boolean isFound = false;
           if (!id.isEmpty()) {
-            for (ViewUserModal userModal : ViewUserFragment.viewUserModalList) {
-              if (userModal.getId().equals(id)) {
-                tvName.setText(userModal.getName());
-                tvID.setText(userModal.getId());
+            for (Soldiers userModal : ViewUserModal.viewUserModalList) {
+              if (userModal.getArmyNumber().equals(id)) {
+                tvName.setText(userModal.getFirstName());
+                tvID.setText(userModal.getArmyNumber());
                 tvRank.setText(userModal.getRank());
-                tvDateOfJoining.setText(userModal.getDateOfJoining());
+                tvDateOfJoining.setText(userModal.getDob());
                 clBody.setVisibility(View.VISIBLE);
                 isFound = true;
                 etSearchUser.setText("");

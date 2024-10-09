@@ -1,6 +1,12 @@
 package com.android.kotemanagement.modals;
 
+import com.android.kotemanagement.room.entities.Soldiers;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewUserModal {
+  static public List<Soldiers> viewUserModalList = new ArrayList<>();
   private final String id;
   private final String name;
   private final String rank;
