@@ -60,4 +60,6 @@
     <string name="update_soldier_btn">Update Soldier</string>
     <string name="return_string">Return</string>
     <string name="issue_string">Issue</string>
+    <string name="select_weapon_type">Select Weapon Type</string>
+    <string name="select_weapon">Select Weapon</string>
 </resources>

@@ -10,13 +10,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.databinding.IssueInventoryFragmentBinding;
 
 public class IssueInventoryFragment extends Fragment {
+
+    private IssueInventoryFragmentBinding binding;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.issue_inventory_fragment, container, false);
+        binding = IssueInventoryFragmentBinding.inflate(inflater, container, false);
 
-        return view;
+
+        return binding.getRoot();
     }
 }
