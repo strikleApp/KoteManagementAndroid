@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/flFragment"
-        app:menu="@menu/bottom_nav_menu">
+        app:menu="@menu/inventory_bottom_menu">
 
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

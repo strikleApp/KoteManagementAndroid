@@ -58,4 +58,6 @@
     <string name="rank">Rank</string>
     <string name="army_number_of_the_user">Army Number of the user.</string>
     <string name="update_soldier_btn">Update Soldier</string>
+    <string name="return_string">Return</string>
+    <string name="issue_string">Issue</string>
 </resources>

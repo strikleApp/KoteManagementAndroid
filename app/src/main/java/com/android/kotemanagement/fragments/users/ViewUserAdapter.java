@@ -1,6 +1,5 @@
 package com.android.kotemanagement.fragments.users;
 
-import static androidx.core.content.ContextCompat.startActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,10 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.kotemanagement.R;
-import com.android.kotemanagement.activities.LoginActivity;
-import com.android.kotemanagement.activities.RegisterActivity;
 import com.android.kotemanagement.activities.UpdateUsersActivity;
-import com.android.kotemanagement.modals.ViewUserModal;
 import com.android.kotemanagement.room.entities.Soldiers;
 
 import java.util.List;
