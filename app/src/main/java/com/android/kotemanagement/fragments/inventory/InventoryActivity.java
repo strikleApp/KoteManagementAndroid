@@ -45,12 +45,12 @@ public class InventoryActivity extends Fragment
             FragmentTransaction ft = fm.beginTransaction();
             ft.add(R.id.flFragment, issueInventoryFragment, "issueInventoryFragment")
                     .add(R.id.flFragment, returnInventoryFragment, "returnInventoryFragment")
-                    .hide(issueInventoryFragment)
+                    .hide(returnInventoryFragment)
                     .commit();
 
             // Set the default fragment
             bottomNavigationView.setSelectedItemId(R.id.issue_inventory);
-            showFragment(returnInventoryFragment);
+            showFragment(issueInventoryFragment);
         }
 
 
