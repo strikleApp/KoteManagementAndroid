@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/view_soldiers_dialog"
+    tools:context=".fragments.inventory.ReturnWeaponDialogFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_15sdp">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Serial Number:"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSerial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tv1"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginStart="@dimen/_40sdp"
+            app:layout_constraintTop_toTopOf="@id/tv1"
+            app:layout_constraintStart_toEndOf="@id/tv1"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weapon Type:"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv1"/>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWeaponType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tv2"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintTop_toTopOf="@id/tv2"
+            app:layout_constraintStart_toStartOf="@id/tvSerial"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weapon Name:"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv2"
+            app:layout_constraintEnd_toEndOf="@id/tv2"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWeaponName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tv3"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintTop_toTopOf="@id/tv3"
+            app:layout_constraintStart_toStartOf="@id/tvWeaponType"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Issued To:"
+            android:textSize="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv3"
+            app:layout_constraintEnd_toEndOf="@id/tv3"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvSoldier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="tv4"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintTop_toTopOf="@id/tv4"
+            app:layout_constraintStart_toStartOf="@id/tvWeaponName"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Return Weapon"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_15sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</HorizontalScrollView>

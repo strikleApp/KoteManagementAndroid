@@ -53,6 +53,52 @@
         <item>Lieutenant General</item>
         <item>General</item>
     </string-array>
+
+    <string-array name="weapon_type">
+        <item>Assault Rifle</item>
+        <item>Pistol</item>
+        <item>Sniper Rifle</item>
+        <item>SMG</item>
+        <item>LMG</item>
+    </string-array>
+
+    <string-array name="assault_rifle">
+        <item>INSAS</item>
+        <item>AK-47</item>
+        <item>AK-203</item>
+        <item>SIG Sauer 716</item>
+        <item>Tavor</item>
+    </string-array>
+
+    <string-array name="pistols">
+        <item>Pistol Auto 9mm 1A</item>
+        <item>Glock</item>
+    </string-array>
+
+    <string-array name="sub_machine_guns">
+        <item>Heckler &amp; Koch MP5</item>
+        <item>Micro-UZI</item>
+        <item>SAF Carbine 2A1</item>
+    </string-array>
+
+    <string-array name="light_machine_guns">
+        <item>INSAS LMG</item>
+        <item>IMI Negev NG7</item>
+        <item>MK 48</item>
+        <item>IMI Negev NG5</item>
+        <item>MG 2A1</item>
+    </string-array>
+
+    <string-array name="sniper_rifles">
+        <item>Dragunov SVD</item>
+        <item>Steyr SSG 69</item>
+        <item>IMI Galil</item>
+        <item>Barret M95</item>
+        <item>Vidhwansak</item>
+        <item>OSV-96</item>
+    </string-array>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="rank">Rank</string>
@@ -62,4 +108,5 @@
     <string name="issue_string">Issue</string>
     <string name="select_weapon_type">Select Weapon Type</string>
     <string name="select_weapon">Select Weapon</string>
+    <string name="enter_serial_number">Enter Serial Number</string>
 </resources>

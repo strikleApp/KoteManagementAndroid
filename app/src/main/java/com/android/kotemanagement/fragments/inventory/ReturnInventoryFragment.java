@@ -8,15 +8,34 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.databinding.ReturnInventoryFragmentBinding;
+
+import java.util.Objects;
 
 public class ReturnInventoryFragment extends Fragment {
+
+    private ReturnInventoryFragmentBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.return_inventory_fragment, container, false);
+        binding = ReturnInventoryFragmentBinding.inflate(inflater, container, false);
 
-        return view;
+        binding.tilSearch.setEndIconOnClickListener(v -> {
+            FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+            ReturnWeaponDialogFragment dialogFragment = new ReturnWeaponDialogFragment();
+            Bundle bundle = new Bundle();
+
+            String serialNumber = Objects.requireNonNull(binding.etSearch.getText()).toString();
+            if(serialNumber != null) {
+                bundle.putString("serial_number", serialNumber);
+                dialogFragment.setArguments(bundle);
+                dialogFragment.show(fragmentManager, "ReturnWeaponDialogFragment");
+            }
+        });
+
+        return binding.getRoot();
     }
 }
