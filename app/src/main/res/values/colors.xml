@@ -10,4 +10,5 @@
     <color name="secondaryTextColor">#76885B</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#F57E77</color>
+    <color name="black">#000000</color>
 </resources>

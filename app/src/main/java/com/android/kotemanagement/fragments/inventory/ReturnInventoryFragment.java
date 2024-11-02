@@ -9,15 +9,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.adapter.ItemOffsetDecoration;
+import com.android.kotemanagement.adapter.ViewIssueWeaponsAdapter;
 import com.android.kotemanagement.databinding.ReturnInventoryFragmentBinding;
+import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
 
 import java.util.Objects;
 
 public class ReturnInventoryFragment extends Fragment {
 
     private ReturnInventoryFragmentBinding binding;
+    private IssueWeaponsViewModel issueWeaponsViewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -34,6 +40,17 @@ public class ReturnInventoryFragment extends Fragment {
                 dialogFragment.setArguments(bundle);
                 dialogFragment.show(fragmentManager, "ReturnWeaponDialogFragment");
             }
+        });
+
+        ViewIssueWeaponsAdapter adapter = new ViewIssueWeaponsAdapter();
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(16);
+        binding.rcvReturn.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.rcvReturn.addItemDecoration(itemDecoration);
+        binding.rcvReturn.setAdapter(adapter);
+
+        issueWeaponsViewModel = new ViewModelProvider(this).get(IssueWeaponsViewModel.class);
+        issueWeaponsViewModel.getAllIssuedWeaponsList().observe(getViewLifecycleOwner(), issueWeaponsList -> {
+            adapter.setIssueWeaponsList(issueWeaponsList);
         });
 
         return binding.getRoot();
