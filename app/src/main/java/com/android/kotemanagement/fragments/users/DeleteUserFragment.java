@@ -1,5 +1,6 @@
 package com.android.kotemanagement.fragments.users;
 
+import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,20 +15,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.databinding.FragmentDeleteUserBinding;
 import com.android.kotemanagement.modals.ViewUserModal;
 import com.android.kotemanagement.room.entities.Soldiers;
+import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
+
+import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
 
 public class DeleteUserFragment extends Fragment {
-  ConstraintLayout clBody;
-  Button btnSearch;
-  TextView tvName;
-  TextView tvID;
-  TextView tvRank;
-  TextView tvDateOfJoining;
-  EditText etSearchUser;
-  Button btnDelete;
+  FragmentDeleteUserBinding binding;
+
+  Soldiers searchedSoldier;
+  SoldiersViewModel soldiersViewModel;
 
   @Nullable
   @Override
@@ -35,48 +39,53 @@ public class DeleteUserFragment extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    binding = FragmentDeleteUserBinding.inflate(inflater, container, false);
 
-    View view = inflater.inflate(R.layout.fragment_delete_user, container, false);
-    clBody = view.findViewById(R.id.clBody);
-    clBody.setVisibility(View.GONE);
-    btnSearch = view.findViewById(R.id.btnSearch);
-    tvName = view.findViewById(R.id.tvName);
-    tvID = view.findViewById(R.id.tvID);
-    tvRank = view.findViewById(R.id.tvRank);
-    tvDateOfJoining = view.findViewById(R.id.tvDateOfJoining);
-    etSearchUser = view.findViewById(R.id.etSearchUser);
-    btnDelete = view.findViewById(R.id.btnDelete);
+    binding.clBody.setVisibility(View.GONE);
 
-    btnSearch.setOnClickListener(
-        v -> {
-          String id = etSearchUser.getText().toString();
-          boolean isFound = false;
-          if (!id.isEmpty()) {
-            for (Soldiers userModal : ViewUserModal.viewUserModalList) {
-              if (userModal.getArmyNumber().equals(id)) {
-                tvName.setText(userModal.getFirstName());
-                tvID.setText(userModal.getArmyNumber());
-                tvRank.setText(userModal.getRank());
-                tvDateOfJoining.setText(userModal.getDob());
-                clBody.setVisibility(View.VISIBLE);
-                isFound = true;
-                etSearchUser.setText("");
-              }
-            }
-            if (!isFound) {
-              Toast.makeText(view.getContext(), "User was found!", Toast.LENGTH_SHORT).show();
-            }
-          }
-        });
+    soldiersViewModel = new ViewModelProvider(this).get(SoldiersViewModel.class);
 
-    btnDelete.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Toast.makeText(view.getContext(), "User Deleted!", Toast.LENGTH_SHORT).show();
-        clBody.setVisibility(View.GONE);
+    binding.tlSearchUser.setEndIconOnClickListener(v-> {
+      String armyNumber = Objects.requireNonNull(binding.etSearchUser.getText()).toString();
+
+      CountDownLatch latch = new CountDownLatch(1);
+      Executors.newSingleThreadExecutor().execute(() -> {
+        searchedSoldier = soldiersViewModel.getSoldierByArmyNumber(armyNumber);
+        latch.countDown();
+      });
+
+      try {
+        latch.await();
+      } catch (InterruptedException e) {
+        Log.e("Interrupted Exception", "Error occurred while searching for user in ViewUserFragment.java.");
+      }
+
+      if(searchedSoldier != null) {
+        binding.clBody.setVisibility(View.VISIBLE);
+
+        binding.tvName.setText(searchedSoldier.firstName + " " + searchedSoldier.lastName);
+        binding.tvRank.setText(searchedSoldier.rank);
+        binding.tvDateOfJoining.setText(searchedSoldier.dob);
+        binding.tvID.setText(searchedSoldier.armyNumber);
       }
     });
 
-    return view;
+    binding.btnDelete.setOnClickListener(v-> {
+      CountDownLatch latch = new CountDownLatch(1);
+      Executors.newSingleThreadExecutor().execute(() -> {
+        soldiersViewModel.delete(searchedSoldier);
+        latch.countDown();
+      });
+      try {
+        latch.await();
+        binding.clBody.setVisibility(View.GONE);
+        Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
+      } catch (InterruptedException e) {
+        Log.e("Interrupted Exception", "Error occurred while deleting user in DeleteUserFragment.java.");
+      }
+    });
+
+    return binding.getRoot();
   }
+  
 }

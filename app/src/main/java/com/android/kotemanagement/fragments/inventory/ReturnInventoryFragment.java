@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.activities.HomeActivity;
 import com.android.kotemanagement.adapter.ItemOffsetDecoration;
 import com.android.kotemanagement.adapter.ViewIssueWeaponsAdapter;
 import com.android.kotemanagement.databinding.ReturnInventoryFragmentBinding;
@@ -42,7 +43,7 @@ public class ReturnInventoryFragment extends Fragment {
             }
         });
 
-        ViewIssueWeaponsAdapter adapter = new ViewIssueWeaponsAdapter();
+        ViewIssueWeaponsAdapter adapter = new ViewIssueWeaponsAdapter((HomeActivity) getActivity());
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(16);
         binding.rcvReturn.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rcvReturn.addItemDecoration(itemDecoration);

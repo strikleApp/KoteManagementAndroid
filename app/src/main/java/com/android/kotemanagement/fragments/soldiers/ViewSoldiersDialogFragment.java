@@ -49,10 +49,6 @@ public class ViewSoldiersDialogFragment extends DialogFragment {
 
         });
 
-        binding.btnDeleteSoldier.setOnClickListener(v -> {
-
-        });
-
         return binding.getRoot();
     }
 

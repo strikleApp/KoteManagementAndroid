@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.kotemanagement.activities.HomeActivity;
 import com.android.kotemanagement.activities.ViewSoldiersActivity;
 import com.android.kotemanagement.databinding.ViewSoldiersListItemBinding;
 import com.android.kotemanagement.fragments.soldiers.ViewSoldiersDialogFragment;
@@ -22,9 +23,9 @@ import java.util.List;
 public class ViewSoldierAdapter extends RecyclerView.Adapter<ViewSoldierAdapter.ViewSoldierViewHolder> {
 
     List<Soldiers> soldiersList = new ArrayList<>();
-    ViewSoldiersActivity activity;
+    HomeActivity activity;
 
-    public ViewSoldierAdapter(ViewSoldiersActivity activity) {
+    public ViewSoldierAdapter(HomeActivity activity) {
         this.activity = activity;
     }
 

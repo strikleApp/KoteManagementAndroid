@@ -68,7 +68,9 @@
         android:paddingHorizontal="20dp"
         android:paddingVertical="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
 
         <!--        CONSTANTS-->
@@ -111,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="@string/date_of_joining_text"
+            android:text="@string/date_of_birth"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@id/btnDelete"
             app:layout_constraintStart_toStartOf="parent"
