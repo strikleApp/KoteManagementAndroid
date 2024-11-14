@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -25,16 +27,17 @@ public class IssueWeaponDetailsFragment extends DialogFragment {
     private String serialNumber;
     private IssueWeapons issuedWeapon;
     private IssueWeaponsViewModel viewModel;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentIssueWeaponDetailsBinding.inflate(inflater ,container, false);
+        binding = FragmentIssueWeaponDetailsBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(IssueWeaponsViewModel.class);
 
         getWeaponDetails();
 
-        binding.btnReturn.setOnClickListener(v-> {
+        binding.btnReturn.setOnClickListener(v -> {
             CountDownLatch latch = new CountDownLatch(1);
             Executors.newSingleThreadExecutor().execute(() -> {
                 viewModel.delete(issuedWeapon);
@@ -48,12 +51,15 @@ public class IssueWeaponDetailsFragment extends DialogFragment {
                 Log.e("ReturnError", "Error returning weapon in IssueWeaponDetailsFragment.java class.");
             }
         });
+        binding.btnBack.setOnClickListener(v -> {
+            dismiss();
+        });
         return binding.getRoot();
     }
 
-    private void getWeaponDetails(){
+    private void getWeaponDetails() {
         Bundle args = getArguments();
-        if(args != null) {
+        if (args != null) {
             serialNumber = args.getString("serialNumber");
             setWeaponDetails();
         }
@@ -66,7 +72,7 @@ public class IssueWeaponDetailsFragment extends DialogFragment {
             latch.countDown();
         });
 
-        try{
+        try {
             latch.await();
             binding.tvName.setText(issuedWeapon.weaponName);
             binding.tvSerialNum.setText(issuedWeapon.serialNumber);

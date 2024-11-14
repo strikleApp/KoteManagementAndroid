@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,7 @@ public class ViewIssueWeaponsAdapter extends RecyclerView.Adapter<ViewIssueWeapo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LiveViewWeaponsBinding itemBinding;
+
         public MyViewHolder(@NonNull LiveViewWeaponsBinding binding) {
             super(binding.getRoot());
             this.itemBinding = binding;
@@ -46,7 +48,7 @@ public class ViewIssueWeaponsAdapter extends RecyclerView.Adapter<ViewIssueWeapo
         IssueWeapons issuedWeapon = issueWeaponsList.get(position);
         holder.itemBinding.tvWeaponName.setText(issuedWeapon.weaponName);
         holder.itemBinding.tvSerialNumber.setText(issuedWeapon.serialNumber);
-        holder.itemBinding.cardView.setOnClickListener(v-> {
+        holder.itemBinding.btnView.setOnClickListener(v -> {
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
             IssueWeaponDetailsFragment dialogFragment = new IssueWeaponDetailsFragment();
             Bundle args = new Bundle();
@@ -54,6 +56,7 @@ public class ViewIssueWeaponsAdapter extends RecyclerView.Adapter<ViewIssueWeapo
             dialogFragment.setArguments(args);
             dialogFragment.show(fragmentManager, "IssueWeaponDetailsFragment");
         });
+
     }
 
     @Override
