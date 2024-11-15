@@ -31,11 +31,13 @@
             android:name=".activities.UpdateUsersActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.ViewSoldiersActivity"
-            android:exported="false" />
+            android:name=".fragments.users.AddUserFragment"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".activities.AddUsersActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
         <activity
             android:name=".activities.HomeActivity"
             android:exported="false"

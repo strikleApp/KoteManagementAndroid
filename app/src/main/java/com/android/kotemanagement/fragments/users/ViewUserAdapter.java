@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.activities.UpdateUsersActivity;
 import com.android.kotemanagement.room.entities.Soldiers;
+import com.android.kotemanagement.utilities.ConvertImage;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyViewHolder> {
 
@@ -55,6 +58,8 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
         holder.tvDOB.setText(modal.getDob());
         holder.tvShrinkID.setText(modal.getArmyNumber());
         holder.tvShrinkName.setText(modal.getFirstName());
+        holder.civSoldiers.setImageBitmap(ConvertImage.convertToBitmap(modal.getImage()));
+
         holder.clExpandedView.setVisibility(View.GONE);
 
         holder.clExpandedView.setOnClickListener(
@@ -74,8 +79,6 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
             Intent intent = new Intent(context, UpdateUsersActivity.class);
             intent.putExtra("army_number", modal.armyNumber);
             context.startActivity(intent);
-
-
         });
     }
 
@@ -95,6 +98,7 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
         TextView tvShrinkID;
         TextView tvShrinkName;
         Button btnUpdateUser;
+        CircleImageView civSoldiers;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,6 +112,7 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
             tvShrinkID = itemView.findViewById(R.id.tvShrinkID);
             tvShrinkName = itemView.findViewById(R.id.tvShrinkName);
             btnUpdateUser = itemView.findViewById(R.id.btnUpdateUser);
+            civSoldiers = itemView.findViewById(R.id.civSoldiers);
         }
     }
 }

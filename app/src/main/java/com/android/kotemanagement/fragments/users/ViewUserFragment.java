@@ -1,6 +1,8 @@
 package com.android.kotemanagement.fragments.users;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +16,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.kotemanagement.adapter.ItemOffsetDecoration;
 import com.android.kotemanagement.databinding.FragmentViewUserBinding;
+import com.android.kotemanagement.room.entities.Soldiers;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class ViewUserFragment extends Fragment {
     private FragmentViewUserBinding binding;
     private ViewUserAdapter adapter;
+    SoldiersViewModel soldiersViewModel;
 
     @Nullable
     @Override
@@ -35,7 +41,7 @@ public class ViewUserFragment extends Fragment {
         binding.rvUsers.addItemDecoration(new ItemOffsetDecoration(16));
 
 
-        SoldiersViewModel soldiersViewModel = new ViewModelProvider(this).get(SoldiersViewModel.class);
+        soldiersViewModel = new ViewModelProvider(this).get(SoldiersViewModel.class);
 
         soldiersViewModel.getAllSoldiersList().observe(getViewLifecycleOwner(), soldiersList -> {
             if (soldiersList != null && !soldiersList.isEmpty()) {
@@ -44,6 +50,24 @@ public class ViewUserFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             } else {
                 Log.e("ViewUser Fragment", "No soldiers found.");
+            }
+        });
+
+        binding.etSearchUser.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.e("before","Called");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filterSoldiers(editable.toString());
+            Log.e("after",editable.toString());
             }
         });
 
@@ -72,4 +96,34 @@ public class ViewUserFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+    private void filterSoldiers(String query) {
+        List<Soldiers> soldiersList = soldiersViewModel.getAllSoldiersList().getValue();
+        if (query.isEmpty()) {
+            // If the query is empty, show all soldiers
+            Log.e("empty", "called");
+            adapter.setSoldiersList(soldiersList);
+        } else {
+            // Otherwise, filter based on the query
+            List<Soldiers> filteredList = new ArrayList<>();
+            String lowerCaseQuery = query.toLowerCase();
+
+            for (Soldiers soldier : soldiersList) {
+                // Check if any of the soldier's fields match the query
+                if (soldier.getFirstName().toLowerCase().contains(lowerCaseQuery) ||
+                        soldier.getLastName().toLowerCase().contains(lowerCaseQuery) ||
+                        soldier.getRank().toLowerCase().contains(lowerCaseQuery) ||
+                        soldier.getArmyNumber().toLowerCase().contains(lowerCaseQuery) ||
+                        soldier.getDob().toLowerCase().contains(lowerCaseQuery)) {
+                    filteredList.add(soldier);
+                }
+            }
+
+            // Update the adapter with the filtered list
+            adapter.setSoldiersList(filteredList);
+        }
+        // Notify the adapter that the data has changed
+        adapter.notifyDataSetChanged();
+    }
+
 }
