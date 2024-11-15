@@ -101,4 +101,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel)
     // LiveData
     implementation(libs.lifecycle.livedata)
+
+    // Java language biometric implementation
+    implementation (libs.biometric)
 }

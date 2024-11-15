@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -14,10 +18,16 @@ import androidx.core.view.WindowInsetsCompat;
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.ActivityLoginBinding;
 
+import java.util.concurrent.Executor;
+
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding bindingLogin;
-    Button btnLoginButton ;
+
+    private Executor biometricExecutor;
+    private BiometricPrompt biometricPrompt;
+    private BiometricPrompt.PromptInfo promptInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
+        setBiometricExecutor();
+        setBiometricPromptInfo();
 
 
         bindingLogin.button.setOnClickListener(new View.OnClickListener() {
@@ -42,21 +54,45 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        bindingLogin.btnLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                finish();
-            }
-        });
+       bindingLogin.btnLoginBtn.setOnClickListener(v-> {
+           biometricPrompt.authenticate(promptInfo);
+       });
 
-//        btnLoginButton = findViewById(R.id.btnLoginBtn);
-//        btnLoginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-//                finish();
-//            }
-//        });
+    }
+
+    private void setBiometricExecutor() {
+        biometricExecutor = ContextCompat.getMainExecutor(this);
+        biometricPrompt = new BiometricPrompt(LoginActivity.this, biometricExecutor,
+                new BiometricPrompt.AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                        super.onAuthenticationError(errorCode, errString);
+                        Toast.makeText(getApplicationContext(),
+                                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
+                                .show();
+                    }
+
+                    @Override
+                    public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                        super.onAuthenticationSucceeded(result);
+                        Toast.makeText(getApplicationContext(), "Authentication succeeded!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        finish();
+                    }
+
+                    @Override
+                    public void onAuthenticationFailed() {
+                        super.onAuthenticationFailed();
+                        Toast.makeText(LoginActivity.this, "Failed to authenticate.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void setBiometricPromptInfo() {
+        promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Biometric Authentication")
+                .setSubtitle("Log in using your biometric credential")
+                .setNegativeButtonText("Cancel")
+                .build();
     }
 }
