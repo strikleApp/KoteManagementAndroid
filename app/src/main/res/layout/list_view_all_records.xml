@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--    INVENTORY-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inventory_records"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:paddingHorizontal="@dimen/_15ssp"
+        android:paddingVertical="@dimen/_10ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <!--CONSTANTS-->
+        <TextView
+            android:id="@+id/tvTypeTextInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Type:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvArmyNumberTextInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Army Number:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTypeTextInventory" />
+
+        <TextView
+            android:id="@+id/tvSerialNumberTextInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="S.No:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvArmyNumberTextInventory" />
+
+        <TextView
+            android:id="@+id/tvWeaponTextInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Weapon:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSerialNumberTextInventory" />
+
+        <TextView
+            android:id="@+id/tvDateTextInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvWeaponTextInventory" />
+
+        <!--    VARIABLE-->
+        <TextView
+            android:id="@+id/tvTypeInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:text="Inventory"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/tvArmyNumberTextInventory"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvArmyNumberInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+            app:layout_constraintTop_toTopOf="@id/tvArmyNumberTextInventory" />
+
+        <TextView
+            android:id="@+id/tvSerialNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+            app:layout_constraintTop_toTopOf="@id/tvSerialNumberTextInventory" />
+
+        <TextView
+            android:id="@+id/tvWeapon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+            app:layout_constraintTop_toTopOf="@id/tvWeaponTextInventory" />
+
+        <TextView
+            android:id="@+id/tvDateInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inventory"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+            app:layout_constraintTop_toTopOf="@id/tvDateTextInventory" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    USERS RECORDS-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/users_records"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:paddingHorizontal="@dimen/_15ssp"
+        android:paddingVertical="@dimen/_10ssp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <!--CONSTANTS-->
+        <TextView
+            android:id="@+id/tvTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Type:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvArmyNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Army Number:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTypeText" />
+
+        <TextView
+            android:id="@+id/tvNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Name:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvArmyNumberText" />
+
+        <TextView
+            android:id="@+id/tvRankText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Rank:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNameText" />
+
+        <TextView
+            android:id="@+id/tvDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRankText" />
+
+        <!--    VARIABLE-->
+        <TextView
+            android:id="@+id/tvType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:text="User"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/tvArmyNumberText"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvArmyNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/tvType"
+            app:layout_constraintTop_toTopOf="@id/tvArmyNumberText" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/tvType"
+            app:layout_constraintTop_toTopOf="@id/tvNameText" />
+
+        <TextView
+            android:id="@+id/tvRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/tvType"
+            app:layout_constraintTop_toTopOf="@id/tvRankText" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="@id/tvType"
+            app:layout_constraintTop_toTopOf="@id/tvDateText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

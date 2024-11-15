@@ -25,6 +25,7 @@ public class ReturnInventoryFragment extends Fragment {
 
     private ReturnInventoryFragmentBinding binding;
     private IssueWeaponsViewModel issueWeaponsViewModel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class ReturnInventoryFragment extends Fragment {
             Bundle bundle = new Bundle();
 
             String serialNumber = Objects.requireNonNull(binding.etSearch.getText()).toString();
-            if(serialNumber != null) {
+            if (serialNumber != null) {
                 bundle.putString("serial_number", serialNumber);
                 dialogFragment.setArguments(bundle);
                 dialogFragment.show(fragmentManager, "ReturnWeaponDialogFragment");

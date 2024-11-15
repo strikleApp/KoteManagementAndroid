@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.ActivityLoginBinding;
+import com.android.kotemanagement.fragments.dashboard.DashboardActivity;
 
 import java.util.concurrent.Executor;
 
@@ -42,6 +43,11 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
+        ///TODO: Comment this code to show login screen
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+        startActivity(intent);
+        ///
+
         setBiometricExecutor();
         setBiometricPromptInfo();
 
@@ -55,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
        bindingLogin.btnLoginBtn.setOnClickListener(v-> {
+
            biometricPrompt.authenticate(promptInfo);
        });
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/all_records"
+        android:icon="@drawable/remove_red_eye"
+        android:title="All" />
+    <item
+        android:id="@+id/inventory_records"
+        android:icon="@drawable/person_add_alt_1"
+        android:title="Inventory" />
+    <item
+        android:id="@+id/user_records"
+        android:icon="@drawable/person_remove_alt_1"
+        android:title="User" />
+</menu>
