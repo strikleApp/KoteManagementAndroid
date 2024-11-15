@@ -8,7 +8,8 @@ import org.jetbrains.annotations.NotNull;
 @Entity(tableName = "soldiers_table")
 public class Soldiers {
     public String image;
-    @PrimaryKey @NotNull
+    @PrimaryKey
+    @NotNull
     public String armyNumber;
 
     public String firstName;

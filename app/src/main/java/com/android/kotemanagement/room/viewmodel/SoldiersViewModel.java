@@ -16,35 +16,26 @@ import java.util.concurrent.Executors;
 public class SoldiersViewModel extends AndroidViewModel {
 
     private final SoldiersRepository soldiersRepository;
-    private LiveData<List<Soldiers>> getAllSoldiersList;
+    private final LiveData<List<Soldiers>> getAllSoldiersList;
     private final Executor executor;
 
     public SoldiersViewModel(@NonNull Application application) {
         super(application);
         executor = Executors.newSingleThreadExecutor();
         soldiersRepository = new SoldiersRepository(application);
-        getAllSoldiersList = soldiersRepository.getAllSoldiersList();
+        getAllSoldiersList = soldiersRepository.getAllSoldiersList(); // This should already be LiveData
     }
 
     public void insert(Soldiers soldiers) {
-        executor.execute(() -> {
-            soldiersRepository.insert(soldiers);
-            getAllSoldiersList = soldiersRepository.getAllSoldiersList();
-        });
+        executor.execute(() -> soldiersRepository.insert(soldiers));
     }
 
     public void update(Soldiers soldiers) {
-        executor.execute(() -> {
-            soldiersRepository.update(soldiers);
-            getAllSoldiersList = soldiersRepository.getAllSoldiersList();
-        });
+        executor.execute(() -> soldiersRepository.update(soldiers));
     }
 
     public void delete(Soldiers soldiers) {
-        executor.execute(() -> {
-            soldiersRepository.delete(soldiers);
-            getAllSoldiersList = soldiersRepository.getAllSoldiersList();
-        });
+        executor.execute(() -> soldiersRepository.delete(soldiers));
     }
 
     public Soldiers getSoldierByArmyNumber(String armyNumber) {

@@ -25,7 +25,6 @@ public interface SoldiersDao {
     @Query("SELECT * FROM soldiers_table")
     LiveData<List<Soldiers>> getAllSoldiersList();
 
-    @Query("SELECT * FROM soldiers_table WHERE armyNumber = :armyNumber")
+    @Query("SELECT * FROM soldiers_table WHERE armyNumber = :armyNumber LIMIT 1")
     Soldiers getSoldierByArmyNumber(String armyNumber);
-
 }

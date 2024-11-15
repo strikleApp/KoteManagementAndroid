@@ -13,12 +13,12 @@ import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.entities.Records; // Import the new entity
 import com.android.kotemanagement.room.entities.Soldiers;
 
-@Database(entities = {Soldiers.class, IssueWeapons.class, Records.class}, version = 2) // Increment version
+@Database(entities = {Soldiers.class, IssueWeapons.class, Records.class}, version = 1)
 public abstract class KoteDatabase extends RoomDatabase {
 
     abstract public SoldiersDao getSoldiersDao();
     abstract public IssueWeaponsDao getIssueWeaponsDao();
-    abstract public RecordsDao getRecordsDao(); // Add the new DAO method
+    abstract public RecordsDao getRecordsDao();
 
     private static volatile KoteDatabase instance = null;
 
@@ -26,7 +26,7 @@ public abstract class KoteDatabase extends RoomDatabase {
         synchronized (KoteDatabase.class) {
             if (instance == null) {
                 instance = Room.databaseBuilder(context.getApplicationContext(), KoteDatabase.class, "kote_database")
-                        .fallbackToDestructiveMigration() // Optional: handle migration
+                        .fallbackToDestructiveMigration()
                         .build();
             }
             return instance;

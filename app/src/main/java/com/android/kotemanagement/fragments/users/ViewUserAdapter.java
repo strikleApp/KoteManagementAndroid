@@ -29,8 +29,10 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
         this.context = context;
 
     }
+
     public void setSoldiersList(List<Soldiers> soldiersList) {
         this.list = soldiersList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -47,10 +49,10 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         Soldiers modal = list.get(position);
-        holder.tvName.setText(modal.getFirstName());
+        holder.tvName.setText(modal.getFirstName() + " " + modal.getLastName());
         holder.tvID.setText(modal.getArmyNumber());
         holder.tvRank.setText(modal.getRank());
-        holder.tvDateOfJoin.setText(modal.getDob());
+        holder.tvDOB.setText(modal.getDob());
         holder.tvShrinkID.setText(modal.getArmyNumber());
         holder.tvShrinkName.setText(modal.getFirstName());
         holder.clExpandedView.setVisibility(View.GONE);
@@ -87,7 +89,7 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
         TextView tvName;
         TextView tvID;
         TextView tvRank;
-        TextView tvDateOfJoin;
+        TextView tvDOB;
         ConstraintLayout clExpandedView;
         ConstraintLayout clShrinkView;
         TextView tvShrinkID;
@@ -100,7 +102,7 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
             tvName = itemView.findViewById(R.id.tvName);
             tvID = itemView.findViewById(R.id.tvID);
             tvRank = itemView.findViewById(R.id.tvRank);
-            tvDateOfJoin = itemView.findViewById(R.id.tvDateOfJoining);
+            tvDOB = itemView.findViewById(R.id.tvDOB);
             clExpandedView = itemView.findViewById(R.id.clExpandedView);
             clShrinkView = itemView.findViewById(R.id.clShrinkView);
             tvShrinkID = itemView.findViewById(R.id.tvShrinkID);

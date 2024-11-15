@@ -13,14 +13,14 @@
 //
 //import com.android.kotemanagement.R;
 //import com.android.kotemanagement.activities.UpdateUsersActivity;
-//import com.android.kotemanagement.databinding.;
+//import com.android.kotemanagement.databinding.ViewUserListItemLayoutBinding;
 //import com.android.kotemanagement.utilities.ConvertImage;
 //
 //import java.util.concurrent.Executors;
 //
 //public class ViewSoldiersDialogFragment extends DialogFragment {
 //
-//    private FragmentViewSoldiersDialogBinding binding;
+//    private ViewUserListItemLayoutBinding binding;
 //    private Bitmap selectedImage;
 //    String image;
 //    String firstName;
@@ -32,7 +32,7 @@
 //    @Override
 //    public View onCreateView(LayoutInflater inflater, ViewGroup container,
 //                             Bundle savedInstanceState) {
-//        binding = FragmentViewSoldiersDialogBinding.inflate(inflater, container, false);
+//        binding = ViewUserListItemLayoutBinding.inflate(inflater, container, false);
 //
 //        if(getDialog() != null && getDialog().getWindow() != null) {
 //            getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -40,7 +40,7 @@
 //
 //        getAndSetData();
 //
-//        binding.btnUpdate.setOnClickListener(v -> {
+//        binding.btnUpdateUser.setOnClickListener(v -> {
 //            getParentFragmentManager().beginTransaction().remove(this).commit();
 //
 //            Intent intent = new Intent(requireActivity(), UpdateUsersActivity.class);
@@ -66,11 +66,11 @@
 //
 //        selectedImage = ConvertImage.convertToBitmap(image);
 //
-//        binding.civSoldierImage.setImageBitmap(selectedImage);
+//        binding.civSoldiers.setImageBitmap(selectedImage);
 //        binding.tvName.setText(firstName + " " + lastName);
 //        binding.tvRank.setText(rank);
-//        binding.tvArmyNumberDF.setText(armyNumber);
-//        binding.tvDateOfBirth.setText(dob);
+//        binding.tvID.setText(armyNumber);
+//        binding.tvDOB.setText(dob);
 //
 //    }
 //

@@ -291,9 +291,9 @@ public class AddUsersActivity extends AppCompatActivity {
         latch.await();
         addUsersBinding.btnAddUser.setEnabled(true);
         Toast.makeText(this, "Data Inserted", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AddUsersActivity.this, ViewSoldiersActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(AddUsersActivity.this, ViewSoldiersActivity.class);
+//        startActivity(intent);
+//        finish();
     }
 
     private void getAndCheckDataFromUser() throws UserFieldBlankException, UserFieldException, UsersExistsException, NullPointerException {
