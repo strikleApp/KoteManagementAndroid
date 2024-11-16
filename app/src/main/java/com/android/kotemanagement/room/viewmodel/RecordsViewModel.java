@@ -4,10 +4,13 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 
+import com.android.kotemanagement.room.entities.RecordType;
 import com.android.kotemanagement.room.entities.Records;
 import com.android.kotemanagement.room.repository.RecordsRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecordsViewModel extends AndroidViewModel {
@@ -24,6 +27,38 @@ public class RecordsViewModel extends AndroidViewModel {
     public LiveData<List<Records>> getAllRecords() {
         return allRecords;
     }
+
+
+    public LiveData<List<Records>> getInventoryRecords() {
+        return Transformations.map(allRecords, records -> {
+            if (records == null) {
+                return new ArrayList<>();
+            }
+            List<Records> filteredRecords = new ArrayList<>();
+            for (Records record : records) {
+                if (record.getType() == RecordType.INVENTORY_RECORDS) {
+                    filteredRecords.add(record);
+                }
+            }
+            return filteredRecords;
+        });
+    }
+
+    public LiveData<List<Records>> getUserRecords() {
+        return Transformations.map(allRecords, records -> {
+            if (records == null) {
+                return new ArrayList<>();
+            }
+            List<Records> filteredRecords = new ArrayList<>();
+            for (Records record : records) {
+                if (record.getType() == RecordType.USERS_RECORDS) {
+                    filteredRecords.add(record);
+                }
+            }
+            return filteredRecords;
+        });
+    }
+
 
     public void insert(Records record) {
         repository.insert(record);

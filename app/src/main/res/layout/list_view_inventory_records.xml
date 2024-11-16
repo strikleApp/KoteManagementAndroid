@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/inventory_records"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_4ssp"
+    android:background="@drawable/border"
+    android:paddingHorizontal="@dimen/_15ssp"
+    android:paddingVertical="@dimen/_10ssp">
+
+
+    <!--CONSTANTS-->
+    <TextView
+        android:id="@+id/tvTypeTextInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Type:"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvArmyNumberTextInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Army Number:"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTypeTextInventory" />
+
+    <TextView
+        android:id="@+id/tvSerialNumberTextInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="S.No:"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvArmyNumberTextInventory" />
+
+    <TextView
+        android:id="@+id/tvWeaponTextInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Weapon:"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSerialNumberTextInventory" />
+
+    <TextView
+        android:id="@+id/tvDateTextInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date:"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvWeaponTextInventory" />
+
+    <TextView
+        android:id="@+id/tvActionTextInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Action:"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDateTextInventory" />
+
+    <!--    VARIABLE-->
+    <TextView
+        android:id="@+id/tvTypeInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_12sdp"
+        android:text="Inventory"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/tvArmyNumberTextInventory"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvArmyNumberInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventory"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+        app:layout_constraintTop_toTopOf="@id/tvArmyNumberTextInventory" />
+
+    <TextView
+        android:id="@+id/tvSerialNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventory"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+        app:layout_constraintTop_toTopOf="@id/tvSerialNumberTextInventory" />
+
+    <TextView
+        android:id="@+id/tvWeapon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventory"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+        app:layout_constraintTop_toTopOf="@id/tvWeaponTextInventory" />
+
+    <TextView
+        android:id="@+id/tvDateInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inventory"
+        android:textSize="@dimen/_14sdp"
+        app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+        app:layout_constraintTop_toTopOf="@id/tvDateTextInventory" />
+
+    <TextView
+        android:id="@+id/tvActionInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Retured"
+        android:textSize="@dimen/_14sdp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+        app:layout_constraintTop_toTopOf="@id/tvActionTextInventory" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

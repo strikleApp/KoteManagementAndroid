@@ -33,10 +33,6 @@ public class AllRecordsFragment extends Fragment {
 
         recordsViewModel.getAllRecords().observe(getViewLifecycleOwner(), records -> {
             if (records != null && !records.isEmpty()) {
-                records.forEach((records1 -> {
-                    Log.e("record", records1.getAction().toString());
-                }));
-
                 adapter.setRecordsList(records);
                 binding.rvAllRecords.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
