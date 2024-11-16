@@ -18,6 +18,7 @@ import com.android.kotemanagement.adapter.ItemOffsetDecoration;
 import com.android.kotemanagement.adapter.ViewIssueWeaponsAdapter;
 import com.android.kotemanagement.databinding.ReturnInventoryFragmentBinding;
 import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
+import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 
 import java.util.Objects;
 
@@ -25,6 +26,7 @@ public class ReturnInventoryFragment extends Fragment {
 
     private ReturnInventoryFragmentBinding binding;
     private IssueWeaponsViewModel issueWeaponsViewModel;
+
 
     @Nullable
     @Override

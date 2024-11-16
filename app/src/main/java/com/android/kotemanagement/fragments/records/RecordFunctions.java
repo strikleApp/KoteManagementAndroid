@@ -1,5 +1,7 @@
 package com.android.kotemanagement.fragments.records;
 
+import android.util.Log;
+
 import com.android.kotemanagement.room.entities.RecordAction;
 import com.android.kotemanagement.room.entities.RecordType;
 import com.android.kotemanagement.room.entities.Records;
@@ -34,6 +36,7 @@ public class RecordFunctions {
             String sno,
             String weaponName, RecordsViewModel recordsViewModel) {
         Records record = new Records(LocalDateTime.now().toString(), RecordType.INVENTORY_RECORDS, armyNumber, RecordAction.INVENTORY_RETURNED);
+        Log.e("Inventory Returned", "ISSUED CALLED");
         record.setSno(sno);
         record.setWeaponName(weaponName);
         recordsViewModel.insert(record);

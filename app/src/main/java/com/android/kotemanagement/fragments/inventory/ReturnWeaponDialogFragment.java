@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +14,10 @@ import android.widget.Toast;
 
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.FragmentReturnWeaponDialogBinding;
+import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
+import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -26,6 +29,7 @@ public class ReturnWeaponDialogFragment extends DialogFragment {
     IssueWeaponsViewModel issueWeaponsViewModel;
     IssueWeapons issuedWeapon;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,7 +37,7 @@ public class ReturnWeaponDialogFragment extends DialogFragment {
         binding = FragmentReturnWeaponDialogBinding.inflate(inflater, container, false);
 
         Bundle arguments = getArguments();
-        if(arguments != null) {
+        if (arguments != null) {
             serialNumber = arguments.getString("serial_number");
         }
 
@@ -41,7 +45,7 @@ public class ReturnWeaponDialogFragment extends DialogFragment {
 
         getIssuedWeapon();
 
-        if(issuedWeapon != null) {
+        if (issuedWeapon != null) {
             binding.tvSerial.setText(issuedWeapon.serialNumber);
             binding.tvWeaponType.setText(issuedWeapon.weaponType);
             binding.tvWeaponName.setText(issuedWeapon.weaponName);
@@ -55,10 +59,10 @@ public class ReturnWeaponDialogFragment extends DialogFragment {
                 public void run() {
                     issueWeaponsViewModel.delete(issuedWeapon);
                     latch.countDown();
+
                 }
             });
-
-            try {
+                try {
                 latch.await();
                 Toast.makeText(requireContext(), "Successfully returned weapon", Toast.LENGTH_SHORT).show();
             } catch (InterruptedException e) {
@@ -66,7 +70,6 @@ public class ReturnWeaponDialogFragment extends DialogFragment {
             }
 
         });
-
 
 
         return binding.getRoot();
@@ -78,8 +81,9 @@ public class ReturnWeaponDialogFragment extends DialogFragment {
             issuedWeapon = issueWeaponsViewModel.getWeaponBySerialNumber(serialNumber);
             latch.countDown();
         });
-        try{
-            latch.await();;
+        try {
+            latch.await();
+            ;
         } catch (InterruptedException e) {
             Toast.makeText(requireContext(), "Error in retrieving weapon details", Toast.LENGTH_SHORT).show();
         }

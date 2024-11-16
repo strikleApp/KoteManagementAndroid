@@ -16,7 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.IssueInventoryFragmentBinding;
+import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.IssueWeapons;
+import com.android.kotemanagement.room.entities.Records;
 import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
 import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 
@@ -56,7 +58,8 @@ public class IssueInventoryFragment extends Fragment {
         issueWeaponsViewModel = new ViewModelProvider(this).get(IssueWeaponsViewModel.class);
         recordsViewModel = new ViewModelProvider(this).get(RecordsViewModel.class);
         binding.btnIssue.setOnClickListener(v -> {
-            issueWeapons();
+            issueWeapons(recordsViewModel);
+
         });
 
         return binding.getRoot();
@@ -90,7 +93,7 @@ public class IssueInventoryFragment extends Fragment {
         }
     }
 
-    private void issueWeapons() {
+    private void issueWeapons(RecordsViewModel recordsViewModel) {
         String weaponType = binding.mtvWeaponType.getText().toString();
         String weapon = binding.mtvWeapon.getText().toString();
         String serialNumber = Objects.requireNonNull(binding.etSerialNumber.getText()).toString();
@@ -105,6 +108,7 @@ public class IssueInventoryFragment extends Fragment {
 
         try {
             latch.await();
+            RecordFunctions.addInventoryRecord(armyNumber, serialNumber, weapon, recordsViewModel);
             Toast.makeText(requireContext(), "Weapon Issued", Toast.LENGTH_SHORT).show();
             binding.mtvWeaponType.setText("");
             binding.mtvWeapon.setText("");
