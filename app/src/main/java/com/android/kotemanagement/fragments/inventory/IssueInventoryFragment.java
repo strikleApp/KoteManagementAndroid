@@ -18,8 +18,8 @@ import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.IssueInventoryFragmentBinding;
 import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
+import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -28,6 +28,7 @@ public class IssueInventoryFragment extends Fragment {
 
     private IssueInventoryFragmentBinding binding;
     private IssueWeaponsViewModel issueWeaponsViewModel;
+    private RecordsViewModel recordsViewModel;
     StringBuilder selectedWeaponType = new StringBuilder();
 
 
@@ -52,14 +53,9 @@ public class IssueInventoryFragment extends Fragment {
         });
 
 
-
-
-
-
-
         issueWeaponsViewModel = new ViewModelProvider(this).get(IssueWeaponsViewModel.class);
-
-        binding.btnIssue.setOnClickListener(v-> {
+        recordsViewModel = new ViewModelProvider(this).get(RecordsViewModel.class);
+        binding.btnIssue.setOnClickListener(v -> {
             issueWeapons();
         });
 
@@ -71,7 +67,7 @@ public class IssueInventoryFragment extends Fragment {
         binding.mtvWeapon.setText("");
         binding.etSerialNumber.setText("");
 
-        if(weaponType.equalsIgnoreCase("assault rifle")) {
+        if (weaponType.equalsIgnoreCase("assault rifle")) {
             ArrayAdapter<CharSequence> assaultRifleAdapter = ArrayAdapter.createFromResource(requireContext(),
                     R.array.assault_rifle, android.R.layout.simple_dropdown_item_1line);
             binding.mtvWeapon.setAdapter(assaultRifleAdapter);

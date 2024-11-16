@@ -66,6 +66,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvWeaponTextInventory" />
 
+        <TextView
+            android:id="@+id/tvActionTextInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Action:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDateTextInventory" />
+
         <!--    VARIABLE-->
         <TextView
             android:id="@+id/tvTypeInventory"
@@ -113,6 +122,16 @@
             android:textSize="@dimen/_14sdp"
             app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
             app:layout_constraintTop_toTopOf="@id/tvDateTextInventory" />
+
+        <TextView
+            android:id="@+id/tvActionInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Retured"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvTypeInventory"
+            app:layout_constraintTop_toTopOf="@id/tvActionTextInventory" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -178,6 +197,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvRankText" />
 
+        <TextView
+            android:id="@+id/tvActionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Action:"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDateText" />
+
         <!--    VARIABLE-->
         <TextView
             android:id="@+id/tvType"
@@ -225,6 +253,16 @@
             android:textSize="@dimen/_14sdp"
             app:layout_constraintStart_toStartOf="@id/tvType"
             app:layout_constraintTop_toTopOf="@id/tvDateText" />
+
+        <TextView
+            android:id="@+id/tvAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Added"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/tvType"
+            app:layout_constraintTop_toTopOf="@id/tvActionText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

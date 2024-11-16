@@ -1,25 +1,27 @@
 package com.android.kotemanagement.room.entities;
 
-import android.icu.util.LocaleData;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity(tableName = "records")
 public class Records {
-
-    private String type;
-
     @NonNull
     @PrimaryKey
     private String date;
+    private RecordType type;
     private String armyNumber;
+    private RecordAction action;
+
+    public Records(@NonNull String date, RecordType type, String armyNumber, RecordAction action) {
+        this.date = date;
+        this.type = type;
+        this.armyNumber = armyNumber;
+        this.action = action;
+    }
+
     //USER
     private String name;
     private String rank;
@@ -28,11 +30,11 @@ public class Records {
     private String weaponName;
 
 
-    public String getType() {
+    public RecordType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(RecordType type) {
         this.type = type;
     }
 
@@ -83,5 +85,13 @@ public class Records {
 
     public void setWeaponName(String weaponName) {
         this.weaponName = weaponName;
+    }
+
+    public RecordAction getAction() {
+        return action;
+    }
+
+    public void setAction(RecordAction action) {
+        this.action = action;
     }
 }

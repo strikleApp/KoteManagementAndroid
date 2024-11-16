@@ -27,7 +27,9 @@ import com.android.kotemanagement.databinding.FragmentAddUserBinding;
 import com.android.kotemanagement.exceptions.UserFieldBlankException;
 import com.android.kotemanagement.exceptions.UserFieldException;
 import com.android.kotemanagement.exceptions.UsersExistsException;
+import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.Soldiers;
+import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
 import com.android.kotemanagement.utilities.CheckingUserInput;
 import com.android.kotemanagement.utilities.ConvertImage;
@@ -49,6 +51,7 @@ public class AddUserFragment extends Fragment {
     FragmentAddUserBinding binding;
     SoldiersViewModel soldiersViewModel;
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
+    private RecordsViewModel recordsViewModel;
 
     private Bitmap selectedImage = null;
     private boolean hasSelectedImage = false;
@@ -79,6 +82,7 @@ public class AddUserFragment extends Fragment {
         binding = FragmentAddUserBinding.inflate(inflater, container, false);
 
         soldiersViewModel = new ViewModelProvider(this).get(SoldiersViewModel.class);
+        recordsViewModel = new ViewModelProvider(this).get(RecordsViewModel.class);
 
         //spinner
         binding.etDob.setEnabled(false);
@@ -92,10 +96,10 @@ public class AddUserFragment extends Fragment {
                 materialDatePicker());
 
 
-        binding.btnUpload.setOnClickListener(v-> {
+        binding.btnUpload.setOnClickListener(v -> {
 
-            if(!PermissionCheck.checkPermissions(requireContext())) {
-                Snackbar snackbar = Snackbar.make(binding.getRoot(),"Storage Permission is required for this app to function. Allow this in settings.", Snackbar.LENGTH_SHORT);
+            if (!PermissionCheck.checkPermissions(requireContext())) {
+                Snackbar snackbar = Snackbar.make(binding.getRoot(), "Storage Permission is required for this app to function. Allow this in settings.", Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -118,7 +122,7 @@ public class AddUserFragment extends Fragment {
             try {
                 getAndCheckDataFromUser();
                 insertDataToDatabase();
-
+                RecordFunctions.addUserRecord(armyNumber, firstName + " " + lastName, rank, recordsViewModel);
                 binding.ivUpload.setImageResource(R.drawable.soldierimage);
                 binding.etArmyNumber.setText("");
                 binding.etDob.setText("");
@@ -158,7 +162,6 @@ public class AddUserFragment extends Fragment {
                 e.printStackTrace();
             }
         });
-
 
 
         return binding.getRoot();
