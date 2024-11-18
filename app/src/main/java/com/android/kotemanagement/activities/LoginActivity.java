@@ -62,7 +62,9 @@ public class LoginActivity extends AppCompatActivity {
 
        bindingLogin.btnLoginBtn.setOnClickListener(v-> {
 
-           biometricPrompt.authenticate(promptInfo);
+           //biometricPrompt.authenticate(promptInfo);
+           startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+           finish();
        });
 
     }
