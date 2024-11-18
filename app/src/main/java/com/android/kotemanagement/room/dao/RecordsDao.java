@@ -23,7 +23,8 @@ public interface RecordsDao {
     @Delete
     void delete(Records record);
 
-    @Query("SELECT * FROM records") // Ensure your table name is correct
+    @Query("SELECT * FROM records")
+        // Ensure your table name is correct
     LiveData<List<Records>> getAllRecords();
 
     @Query("SELECT * FROM records WHERE armyNumber = :armyNumber LIMIT 1")

@@ -16,8 +16,10 @@ import android.widget.Toast;
 
 
 import com.android.kotemanagement.databinding.FragmentIssueWeaponDetailsBinding;
+import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
+import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -27,6 +29,7 @@ public class IssueWeaponDetailsFragment extends DialogFragment {
     private String serialNumber;
     private IssueWeapons issuedWeapon;
     private IssueWeaponsViewModel viewModel;
+    RecordsViewModel recordsViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -34,6 +37,7 @@ public class IssueWeaponDetailsFragment extends DialogFragment {
 
         binding = FragmentIssueWeaponDetailsBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(this).get(IssueWeaponsViewModel.class);
+        recordsViewModel = new ViewModelProvider(requireActivity()).get(RecordsViewModel.class);
 
         getWeaponDetails();
 
@@ -46,6 +50,7 @@ public class IssueWeaponDetailsFragment extends DialogFragment {
             try {
                 latch.await();
                 dismiss();
+                RecordFunctions.removeInventoryRecord(issuedWeapon.armyNumber, serialNumber, issuedWeapon.weaponName, recordsViewModel);
                 Toast.makeText(requireContext(), "Weapon returned successfully.", Toast.LENGTH_SHORT).show();
             } catch (InterruptedException e) {
                 Log.e("ReturnError", "Error returning weapon in IssueWeaponDetailsFragment.java class.");
