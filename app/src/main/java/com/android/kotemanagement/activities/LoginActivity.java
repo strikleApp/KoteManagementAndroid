@@ -44,28 +44,17 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         ///TODO: Comment this code to show login screen
-        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//        startActivity(intent);
         ///
 
         setBiometricExecutor();
         setBiometricPromptInfo();
 
-
-        bindingLogin.button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
+        bindingLogin.btnAdminLogin.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            finish();
         });
-
-       bindingLogin.btnLoginBtn.setOnClickListener(v-> {
-
-           //biometricPrompt.authenticate(promptInfo);
-           startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-           finish();
-       });
 
     }
 
