@@ -15,12 +15,6 @@ public class Records {
     private String armyNumber;
     private RecordAction action;
 
-    public Records(@NonNull String date, RecordType type, String armyNumber, RecordAction action) {
-        this.date = date;
-        this.type = type;
-        this.armyNumber = armyNumber;
-        this.action = action;
-    }
 
     //USER
     private String name;
@@ -29,6 +23,12 @@ public class Records {
     private String sno;
     private String weaponName;
 
+    public Records(@NonNull String date, RecordType type, String armyNumber, RecordAction action) {
+        this.date = date;
+        this.type = type;
+        this.armyNumber = armyNumber;
+        this.action = action;
+    }
 
     public RecordType getType() {
         return type;

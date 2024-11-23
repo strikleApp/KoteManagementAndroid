@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "ada5dfd2cf3991042de753041cb359c1",
+    "identityHash": "23d633c91bded3eae4f957ca41e9f1f4",
     "entities": [
       {
         "tableName": "soldiers_table",
@@ -153,12 +153,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "armory",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serialNumber` TEXT NOT NULL, `weaponType` TEXT, `weaponName` TEXT, PRIMARY KEY(`serialNumber`))",
+        "fields": [
+          {
+            "fieldPath": "serialNumber",
+            "columnName": "serialNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weaponType",
+            "columnName": "weaponType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "weaponName",
+            "columnName": "weaponName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "serialNumber"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ada5dfd2cf3991042de753041cb359c1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '23d633c91bded3eae4f957ca41e9f1f4')"
     ]
   }
 }

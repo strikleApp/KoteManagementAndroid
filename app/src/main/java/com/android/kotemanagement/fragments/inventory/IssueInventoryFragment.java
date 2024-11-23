@@ -21,9 +21,11 @@ import com.android.kotemanagement.exceptions.UserDoesNotExistsException;
 import com.android.kotemanagement.exceptions.UserFieldBlankException;
 import com.android.kotemanagement.exceptions.UserFieldException;
 import com.android.kotemanagement.exceptions.UsersExistsException;
+import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.entities.Soldiers;
 import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
+import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
 import com.android.kotemanagement.utilities.CheckingUserInput;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,13 +40,12 @@ public class IssueInventoryFragment extends Fragment {
     private IssueWeaponsViewModel issueWeaponsViewModel;
     private SoldiersViewModel soldiersViewModel;
     StringBuilder selectedWeaponType = new StringBuilder();
-
+    RecordsViewModel recordsViewModel;
     String weaponType;
     String weapon;
     String serialNumber;
     String armyNumber;
     Soldiers soldier;
-
 
 
     @Nullable
@@ -57,7 +58,6 @@ public class IssueInventoryFragment extends Fragment {
                 R.array.weapon_type, android.R.layout.simple_dropdown_item_1line);
         binding.mtvWeaponType.setAdapter(weaponTypeAdapter);
 
-
         binding.mtvWeaponType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -66,11 +66,11 @@ public class IssueInventoryFragment extends Fragment {
                 selectedWeaponType.delete(0, selectedWeaponType.length());
             }
         });
-
+        recordsViewModel = new ViewModelProvider(requireActivity()).get(RecordsViewModel.class);
         issueWeaponsViewModel = new ViewModelProvider(this).get(IssueWeaponsViewModel.class);
         soldiersViewModel = new ViewModelProvider(this).get(SoldiersViewModel.class);
 
-        binding.btnIssue.setOnClickListener(v-> {
+        binding.btnIssue.setOnClickListener(v -> {
             try {
                 weaponType = binding.mtvWeaponType.getText().toString();
                 weapon = binding.mtvWeapon.getText().toString();
@@ -78,7 +78,7 @@ public class IssueInventoryFragment extends Fragment {
                 armyNumber = Objects.requireNonNull(binding.etArmyNumber.getText()).toString();
 
                 isAllFieldsCorrect();
-                issueWeapons();
+                issueWeapons(recordsViewModel);
             } catch (UserFieldBlankException e) {
                 Snackbar snackbar = Snackbar.make(binding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
@@ -121,7 +121,7 @@ public class IssueInventoryFragment extends Fragment {
         binding.mtvWeapon.setText("");
         binding.etSerialNumber.setText("");
 
-        if(weaponType.equalsIgnoreCase("assault rifle")) {
+        if (weaponType.equalsIgnoreCase("assault rifle")) {
             ArrayAdapter<CharSequence> assaultRifleAdapter = ArrayAdapter.createFromResource(requireContext(),
                     R.array.assault_rifle, android.R.layout.simple_dropdown_item_1line);
             binding.mtvWeapon.setAdapter(assaultRifleAdapter);
@@ -144,8 +144,8 @@ public class IssueInventoryFragment extends Fragment {
         }
     }
 
-    private void issueWeapons() {
-
+    private void issueWeapons(RecordsViewModel recordsViewModel) {
+        RecordFunctions.addInventoryRecord(armyNumber, serialNumber, weapon, recordsViewModel);
         CountDownLatch latch = new CountDownLatch(1);
         Executors.newSingleThreadExecutor().execute(() -> {
             IssueWeapons issue = new IssueWeapons(serialNumber, weaponType, weapon, armyNumber);
@@ -168,7 +168,7 @@ public class IssueInventoryFragment extends Fragment {
 
     private void isAllFieldsCorrect() throws UserFieldBlankException, UserDoesNotExistsException, UserFieldException {
 
-        if(weaponType.isBlank() || weapon.isBlank() || serialNumber.isBlank() || armyNumber.isBlank()) {
+        if (weaponType.isBlank() || weapon.isBlank() || serialNumber.isBlank() || armyNumber.isBlank()) {
             throw new UserFieldBlankException();
         } else if (CheckingUserInput.isArmyNumberHaveWhiteSpace(armyNumber) || CheckingUserInput.isArmyNumberHaveSpecialCharacters(armyNumber)) {
             binding.etArmyNumber.setError("Army Number should not contain any space or special characters.");
@@ -187,7 +187,7 @@ public class IssueInventoryFragment extends Fragment {
 
             try {
                 latch.await();
-                if(soldier == null) {
+                if (soldier == null) {
                     throw new UserDoesNotExistsException();
                 }
             } catch (InterruptedException e) {

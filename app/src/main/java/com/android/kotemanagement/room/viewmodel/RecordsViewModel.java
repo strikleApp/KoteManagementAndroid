@@ -27,8 +27,6 @@ public class RecordsViewModel extends AndroidViewModel {
     public LiveData<List<Records>> getAllRecords() {
         return allRecords;
     }
-
-
     public LiveData<List<Records>> getInventoryRecords() {
         return Transformations.map(allRecords, records -> {
             if (records == null) {

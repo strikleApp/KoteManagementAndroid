@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "0f88d9acb63f7d4fa26bd7a6a8a45a47",
+    "identityHash": "23d633c91bded3eae4f957ca41e9f1f4",
     "entities": [
       {
         "tableName": "soldiers_table",
@@ -94,14 +94,8 @@
       },
       {
         "tableName": "records",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`type` TEXT, `date` TEXT NOT NULL, `armyNumber` TEXT, `name` TEXT, `rank` TEXT, `sno` TEXT, `weaponName` TEXT, PRIMARY KEY(`date`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`date` TEXT NOT NULL, `type` TEXT, `armyNumber` TEXT, `action` TEXT, `name` TEXT, `rank` TEXT, `sno` TEXT, `weaponName` TEXT, PRIMARY KEY(`date`))",
         "fields": [
-          {
-            "fieldPath": "type",
-            "columnName": "type",
-            "affinity": "TEXT",
-            "notNull": false
-          },
           {
             "fieldPath": "date",
             "columnName": "date",
@@ -109,8 +103,20 @@
             "notNull": true
           },
           {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "armyNumber",
             "columnName": "armyNumber",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "action",
+            "columnName": "action",
             "affinity": "TEXT",
             "notNull": false
           },
@@ -147,12 +153,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "armory",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serialNumber` TEXT NOT NULL, `weaponType` TEXT, `weaponName` TEXT, PRIMARY KEY(`serialNumber`))",
+        "fields": [
+          {
+            "fieldPath": "serialNumber",
+            "columnName": "serialNumber",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weaponType",
+            "columnName": "weaponType",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "weaponName",
+            "columnName": "weaponName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "serialNumber"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0f88d9acb63f7d4fa26bd7a6a8a45a47')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '23d633c91bded3eae4f957ca41e9f1f4')"
     ]
   }
 }

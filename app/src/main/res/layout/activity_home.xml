@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.HomeActivity"
-    tools:openDrawer="start"
-    >
+    tools:openDrawer="start">
 
     <RelativeLayout
         android:id="@+id/main"
@@ -25,11 +24,6 @@
             app:titleCentered="true"
             app:titleTextColor="@color/cardColor" />
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pieChart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        
 
         <FrameLayout
             android:id="@+id/fragmentLayout"
@@ -39,18 +33,19 @@
 
 
     </RelativeLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/cardColor"
-        app:headerLayout="@layout/navigation_header"
-        app:itemIconTint="@color/primaryColor"
         android:foregroundGravity="center_vertical"
-        app:itemTextColor="@color/primaryColor"
+        app:headerLayout="@layout/navigation_header"
         app:itemIconSize="50dp"
+        app:itemIconTint="@color/primaryColor"
         app:itemTextAppearance="@style/NavDrawerTextStyle"
+        app:itemTextColor="@color/primaryColor"
         app:itemVerticalPadding="25dp"
         app:menu="@menu/navigation_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

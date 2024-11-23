@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.ActivityLoginBinding;
 import com.android.kotemanagement.fragments.dashboard.DashboardActivity;
+//import com.android.kotemanagement.superAdmin.SuperAdminHome;
 
 import java.util.concurrent.Executor;
 
@@ -55,6 +56,11 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             finish();
         });
+//        bindingLogin.btnSuperAdminLogin.setOnClickListener(v -> {
+//            startActivity(new Intent(LoginActivity.this, SuperAdminHome.class));
+//            finish();
+//        });
+
 
     }
 

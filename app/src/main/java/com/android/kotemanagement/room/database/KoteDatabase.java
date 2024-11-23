@@ -15,7 +15,7 @@ import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.entities.Records; // Import the new entity
 import com.android.kotemanagement.room.entities.Soldiers;
 
-@Database(entities = {Soldiers.class, IssueWeapons.class, Records.class, Armory.class}, version = 1)
+@Database(entities = {Soldiers.class, IssueWeapons.class, Records.class, Armory.class}, version = 2)
 public abstract class KoteDatabase extends RoomDatabase {
 
     abstract public SoldiersDao getSoldiersDao();
