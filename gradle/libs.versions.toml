@@ -19,6 +19,7 @@ firebaseCrashlytics = "19.2.0"
 googleFirebaseCrashlytics = "3.0.2"
 kotlin = "2.0.20"
 coreKtx = "1.13.1"
+mpandroidchart = "v3.1.0"
 roomRuntime = "2.6.1"
 sdpAndroid = "1.1.1"
 sspAndroid = "1.1.1"
@@ -42,6 +43,7 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 room-guava = { module = "androidx.room:room-guava", version.ref = "roomRuntime" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }

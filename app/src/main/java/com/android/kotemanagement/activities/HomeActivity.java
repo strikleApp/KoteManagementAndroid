@@ -38,10 +38,12 @@ import com.android.kotemanagement.fragments.records.RecordsActivity;
 import com.android.kotemanagement.fragments.users.UsersActivity;
 import com.android.kotemanagement.utilities.ConvertImage;
 import com.android.kotemanagement.utilities.PermissionCheck;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -134,6 +136,8 @@ public class HomeActivity extends AppCompatActivity {
           drawerLayout.closeDrawers();
           return true;
         });
+
+
   }
 
   private void showFragment(Fragment fragment) {
@@ -293,4 +297,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    private void pieChart() {
+        ArrayList<PieEntry> entries = new ArrayList<>();
+
+
+    }
 }

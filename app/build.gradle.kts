@@ -104,4 +104,6 @@ dependencies {
 
     // Java language biometric implementation
     implementation (libs.biometric)
+
+    implementation(libs.mpandroidchart)
 }

@@ -6,19 +6,22 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.android.kotemanagement.room.dao.ArmoryDao;
 import com.android.kotemanagement.room.dao.IssueWeaponsDao;
 import com.android.kotemanagement.room.dao.RecordsDao; // Import the new DAO
 import com.android.kotemanagement.room.dao.SoldiersDao;
+import com.android.kotemanagement.room.entities.Armory;
 import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.entities.Records; // Import the new entity
 import com.android.kotemanagement.room.entities.Soldiers;
 
-@Database(entities = {Soldiers.class, IssueWeapons.class, Records.class}, version = 1)
+@Database(entities = {Soldiers.class, IssueWeapons.class, Records.class, Armory.class}, version = 1)
 public abstract class KoteDatabase extends RoomDatabase {
 
     abstract public SoldiersDao getSoldiersDao();
     abstract public IssueWeaponsDao getIssueWeaponsDao();
     abstract public RecordsDao getRecordsDao();
+    abstract public ArmoryDao getArmoryDao();
 
     private static volatile KoteDatabase instance = null;
 
