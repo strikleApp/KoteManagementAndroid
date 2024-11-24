@@ -168,7 +168,7 @@ public class HomeActivity extends AppCompatActivity {
     return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
   }
 
-    private void checkingPermissions() {
+  private void checkingPermissions() {
 
         if (!PermissionCheck.checkPermissions(this)) {
             if (Build.VERSION.SDK_INT >= 34) {
