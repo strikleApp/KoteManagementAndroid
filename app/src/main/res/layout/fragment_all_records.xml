@@ -58,8 +58,8 @@
             android:id="@+id/clFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/btnStartDate"
@@ -102,9 +102,24 @@
                 android:layout_marginStart="4dp"
                 android:onClick="onApplyClearClick"
                 android:text="Apply"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btnCancel"
                 app:layout_constraintStart_toEndOf="@id/btnEndDate"
                 app:layout_constraintTop_toTopOf="@id/btnStartDate" />
+
+            <ImageButton
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="Cancel"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                app:layout_constraintBottom_toBottomOf="@id/btnApplyClear"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnApplyClear"
+                app:layout_constraintTop_toTopOf="@id/btnApplyClear" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

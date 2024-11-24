@@ -80,6 +80,10 @@ public class AllRecordsFragment extends Fragment {
         binding.btnStartDate.setOnClickListener(view -> showDatePickerDialog(binding.btnStartDate, true));
         binding.btnEndDate.setOnClickListener(view -> showDatePickerDialog(binding.btnEndDate, false));
         binding.btnApplyClear.setOnClickListener(v -> onApplyClearClick());
+        binding.btnCancel.setOnClickListener(v -> {
+            binding.clSearchAndSort.setVisibility(View.VISIBLE);
+            binding.clFilter.setVisibility(View.GONE);
+        });
         binding.btnSort.setOnClickListener(view -> {
             binding.etSearchUser.setText("");
             binding.clSearchAndSort.setVisibility(View.GONE);
@@ -164,6 +168,7 @@ public class AllRecordsFragment extends Fragment {
                     List<Records> filteredByDate = filterRecordsByDateRange(cachedRecords, startDate, endDate);
                     adapter.setRecordsList(filteredByDate);
                     adapter.notifyDataSetChanged();
+                    binding.btnCancel.setVisibility(View.INVISIBLE);
                     binding.btnApplyClear.setText("Clear");
                 } catch (Exception e) {
                     Toast.makeText(getContext(), "Invalid date range or format.", Toast.LENGTH_SHORT).show();
