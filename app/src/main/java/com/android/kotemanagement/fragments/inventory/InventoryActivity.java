@@ -13,8 +13,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.kotemanagement.R;
-import com.android.kotemanagement.fragments.users.AddUserFragment;
-import com.android.kotemanagement.fragments.users.ViewUserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InventoryActivity extends Fragment
