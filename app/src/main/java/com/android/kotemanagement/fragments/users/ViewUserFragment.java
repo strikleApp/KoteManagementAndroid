@@ -125,32 +125,30 @@ public class ViewUserFragment extends Fragment {
     }
 
     private void filterSoldiers(String query) {
-        List<Soldiers> soldiersList = soldiersViewModel.getAllSoldiersList().getValue();
-        if (query.isEmpty()) {
-            // If the query is empty, show all soldiers
-            Log.e("empty", "called");
-            adapter.setSoldiersList(soldiersList);
-        } else {
-            // Otherwise, filter based on the query
-            List<Soldiers> filteredList = new ArrayList<>();
-            String lowerCaseQuery = query.toLowerCase();
+        soldiersViewModel.getAllSoldiersList().observe(this, soldiersList -> {
+            if (soldiersList == null) return;
 
-            for (Soldiers soldier : soldiersList) {
-                // Check if any of the soldier's fields match the query
-                if (soldier.getFirstName().toLowerCase().contains(lowerCaseQuery) ||
-                        soldier.getLastName().toLowerCase().contains(lowerCaseQuery) ||
-                        soldier.getRank().toLowerCase().contains(lowerCaseQuery) ||
-                        soldier.getArmyNumber().toLowerCase().contains(lowerCaseQuery) ||
-                        soldier.getDob().toLowerCase().contains(lowerCaseQuery)) {
-                    filteredList.add(soldier);
+            if (query.isEmpty()) {
+                Log.e("empty", "called");
+                adapter.setSoldiersList(soldiersList);
+            } else {
+                List<Soldiers> filteredList = new ArrayList<>();
+                String lowerCaseQuery = query.toLowerCase();
+
+                for (Soldiers soldier : soldiersList) {
+                    if (soldier.getFirstName().toLowerCase().contains(lowerCaseQuery) ||
+                            soldier.getLastName().toLowerCase().contains(lowerCaseQuery) ||
+                            soldier.getRank().toLowerCase().contains(lowerCaseQuery) ||
+                            soldier.getArmyNumber().toLowerCase().contains(lowerCaseQuery) ||
+                            soldier.getDob().toLowerCase().contains(lowerCaseQuery)) {
+                        filteredList.add(soldier);
+                    }
                 }
+                adapter.setSoldiersList(filteredList);
             }
-
-            // Update the adapter with the filtered list
-            adapter.setSoldiersList(filteredList);
-        }
-        // Notify the adapter that the data has changed
-        adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+        });
     }
+
 
 }

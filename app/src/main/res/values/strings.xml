@@ -118,5 +118,12 @@
     <string name="inventory">Inventory</string>
     <string name="maintenance">Maintenance</string>
 
+    <string name="super_register_admin">Register Admin</string>
+    <string name="super_users">Users</string>
+    <string name="super_inventory">Inventory</string>
+    <string name="super_maintenance">Maintenance</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 
 </resources>

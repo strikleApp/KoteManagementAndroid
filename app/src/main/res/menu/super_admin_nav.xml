@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/RegisterAdmin"
         android:icon="@drawable/person_add_alt_1"
-        android:title="@string/register_admin" />
+        android:title="@string/super_register_admin" />
     <item
         android:id="@+id/Users"
         android:icon="@drawable/users"
-        android:title="@string/users" />
+        android:title="@string/super_users" />
     <item
         android:id="@+id/Inventory"
         android:icon="@drawable/inventory"
-        android:title="@string/inventory" />
+        android:title="@string/super_inventory" />
     <item
         android:id="@+id/Maintenance"
         android:icon="@drawable/repair"
-        android:title="@string/maintenance" />
+        android:title="@string/super_maintenance" />
 </menu>
