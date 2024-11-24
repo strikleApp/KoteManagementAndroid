@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
+import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.FragmentIssueWeaponDetailsBinding;
 import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.IssueWeapons;
@@ -40,24 +41,45 @@ public class IssueWeaponDetailsFragment extends DialogFragment {
         getWeaponDetails();
 
         binding.btnReturn.setOnClickListener(v -> {
-            CountDownLatch latch = new CountDownLatch(1);
-            Executors.newSingleThreadExecutor().execute(() -> {
-                viewModel.delete(issuedWeapon);
-                latch.countDown();
-            });
-            try {
-                latch.await();
-                dismiss();
-                RecordFunctions.removeInventoryRecord(issuedWeapon.armyNumber, serialNumber, issuedWeapon.weaponName, recordsViewModel);
-                Toast.makeText(requireContext(), "Weapon returned successfully.", Toast.LENGTH_SHORT).show();
-            } catch (InterruptedException e) {
-                Log.e("ReturnError", "Error returning weapon in IssueWeaponDetailsFragment.java class.");
-            }
+            fingerprintAuth();
         });
         binding.btnBack.setOnClickListener(v -> {
             dismiss();
         });
         return binding.getRoot();
+    }
+
+
+    private void fingerprintAuth() {
+        // Initialize FingerprintAuthenticator
+        FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(getContext());
+
+        fingerprintAuthenticator.authenticate(getActivity(), isSuccess -> {
+            if (isSuccess) {
+                // Authentication success
+                Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
+                // Proceed with authenticated logic
+                CountDownLatch latch = new CountDownLatch(1);
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    viewModel.delete(issuedWeapon);
+                    latch.countDown();
+                });
+                try {
+                    latch.await();
+                    dismiss();
+                    RecordFunctions.removeInventoryRecord(issuedWeapon.armyNumber, serialNumber, issuedWeapon.weaponName, recordsViewModel);
+                    Toast.makeText(requireContext(), "Weapon returned successfully.", Toast.LENGTH_SHORT).show();
+                } catch (InterruptedException e) {
+                    Log.e("ReturnError", "Error returning weapon in IssueWeaponDetailsFragment.java class.");
+                }
+
+            } else {
+                // Authentication failed
+                Toast.makeText(getContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
+
+                // Handle failure logic
+            }
+        });
     }
 
     private void getWeaponDetails() {

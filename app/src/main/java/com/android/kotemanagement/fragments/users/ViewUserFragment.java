@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.kotemanagement.adapter.ItemOffsetDecoration;
+import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.FragmentViewUserBinding;
 import com.android.kotemanagement.room.entities.Soldiers;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
@@ -53,10 +55,14 @@ public class ViewUserFragment extends Fragment {
             }
         });
 
+        binding.btnVerifyFingerprint.setOnClickListener(v -> {
+            fingerprintAuth();
+        });
+
         binding.etSearchUser.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.e("before","Called");
+                Log.e("before", "Called");
             }
 
             @Override
@@ -67,7 +73,7 @@ public class ViewUserFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable editable) {
                 filterSoldiers(editable.toString());
-            Log.e("after",editable.toString());
+                Log.e("after", editable.toString());
             }
         });
 
@@ -95,6 +101,27 @@ public class ViewUserFragment extends Fragment {
 //        });
 
         return binding.getRoot();
+    }
+
+    private void fingerprintAuth() {
+        // Initialize FingerprintAuthenticator
+        FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(getContext());
+
+        fingerprintAuthenticator.authenticate(getActivity(), isSuccess -> {
+            if (isSuccess) {
+                // Authentication success
+                Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
+                // Proceed with authenticated logic
+                binding.clMainContent.setVisibility(View.VISIBLE);
+                binding.clFingerprintPrompt.setVisibility(View.INVISIBLE);
+
+            } else {
+                // Authentication failed
+                Toast.makeText(getContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
+                binding.tvAuthText.setText("Verification failed. Please verify again");
+                // Handle failure logic
+            }
+        });
     }
 
     private void filterSoldiers(String query) {

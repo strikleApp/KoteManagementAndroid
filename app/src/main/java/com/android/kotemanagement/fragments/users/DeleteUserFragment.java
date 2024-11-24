@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.FragmentDeleteUserBinding;
 import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.Soldiers;
@@ -51,23 +52,43 @@ public class DeleteUserFragment extends Fragment {
         });
 
         binding.btnDelete.setOnClickListener(v -> {
-            CountDownLatch latch = new CountDownLatch(1);
-            Executors.newSingleThreadExecutor().execute(() -> {
-                soldiersViewModel.delete(searchedSoldier);
-                latch.countDown();
-            });
-            try {
-                latch.await();
-                RecordFunctions.removeUserRecord(searchedSoldier.getArmyNumber(), searchedSoldier.getFirstName() + " " + searchedSoldier.getLastName(), searchedSoldier.getRank(), recordsViewModel);
-                binding.clBody.setVisibility(View.GONE);
-
-                Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
-            } catch (InterruptedException e) {
-                Log.e("Interrupted Exception", "Error occurred while deleting user in DeleteUserFragment.java.");
-            }
+            fingerprintAuth();
         });
 
         return binding.getRoot();
+    }
+
+    private void fingerprintAuth() {
+        // Initialize FingerprintAuthenticator
+        FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(getContext());
+
+        fingerprintAuthenticator.authenticate(getActivity(), isSuccess -> {
+            if (isSuccess) {
+                // Authentication success
+                // Proceed with authenticated logic
+                Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
+                CountDownLatch latch = new CountDownLatch(1);
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    soldiersViewModel.delete(searchedSoldier);
+                    latch.countDown();
+                });
+                try {
+                    latch.await();
+                    RecordFunctions.removeUserRecord(searchedSoldier.getArmyNumber(), searchedSoldier.getFirstName() + " " + searchedSoldier.getLastName(), searchedSoldier.getRank(), recordsViewModel);
+                    binding.clBody.setVisibility(View.GONE);
+
+                    Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                } catch (InterruptedException e) {
+                    Log.e("Interrupted Exception", "Error occurred while deleting user in DeleteUserFragment.java.");
+                }
+
+
+            } else {
+                // Authentication failed
+                Toast.makeText(getContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
+                // Handle failure logic
+            }
+        });
     }
 
     private void searchSoldierFunction() {

@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.FragmentAddUserBinding;
 import com.android.kotemanagement.exceptions.UserFieldBlankException;
 import com.android.kotemanagement.exceptions.UserFieldException;
@@ -80,6 +81,11 @@ public class AddUserFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
 
         binding = FragmentAddUserBinding.inflate(inflater, container, false);
+
+
+        binding.btnVerifyFingerprint.setOnClickListener(v -> {
+            fingerprintAuth();
+        });
 
         soldiersViewModel = new ViewModelProvider(this).get(SoldiersViewModel.class);
         recordsViewModel = new ViewModelProvider(this).get(RecordsViewModel.class);
@@ -165,6 +171,27 @@ public class AddUserFragment extends Fragment {
 
 
         return binding.getRoot();
+    }
+
+    private void fingerprintAuth() {
+        // Initialize FingerprintAuthenticator
+        FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(getContext());
+
+        fingerprintAuthenticator.authenticate(getActivity(), isSuccess -> {
+            if (isSuccess) {
+                // Authentication success
+                Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
+                // Proceed with authenticated logic
+                binding.scrollView.setVisibility(View.VISIBLE);
+                binding.clFingerprintPrompt.setVisibility(View.INVISIBLE);
+
+            } else {
+                // Authentication failed
+                Toast.makeText(getContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
+                binding.tvAuthText.setText("Verification failed. Please verify again");
+                // Handle failure logic
+            }
+        });
     }
 
     private String formatDate(long timeInMillis) {

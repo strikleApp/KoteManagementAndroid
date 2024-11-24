@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.kotemanagement.adapter.ItemOffsetDecoration;
 import com.android.kotemanagement.adapter.RecordsAdapter;
+import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.FragmentAllRecordsBinding;
 import com.android.kotemanagement.room.entities.Records;
 import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
@@ -77,6 +78,10 @@ public class AllRecordsFragment extends Fragment {
             }
         });
 
+        binding.btnVerifyFingerprint.setOnClickListener(v -> {
+            fingerprintAuth();
+        });
+
         binding.btnStartDate.setOnClickListener(view -> showDatePickerDialog(binding.btnStartDate, true));
         binding.btnEndDate.setOnClickListener(view -> showDatePickerDialog(binding.btnEndDate, false));
         binding.btnApplyClear.setOnClickListener(v -> onApplyClearClick());
@@ -91,6 +96,27 @@ public class AllRecordsFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void fingerprintAuth() {
+        // Initialize FingerprintAuthenticator
+        FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(getContext());
+
+        fingerprintAuthenticator.authenticate(getActivity(), isSuccess -> {
+            if (isSuccess) {
+                // Authentication success
+                Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
+                // Proceed with authenticated logic
+                binding.clMainContent.setVisibility(View.VISIBLE);
+                binding.clFingerprintPrompt.setVisibility(View.INVISIBLE);
+
+            } else {
+                // Authentication failed
+                Toast.makeText(getContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
+                binding.tvAuthText.setText("Verification failed. Please verify again");
+                // Handle failure logic
+            }
+        });
     }
 
     private void filterRecords(String query) {

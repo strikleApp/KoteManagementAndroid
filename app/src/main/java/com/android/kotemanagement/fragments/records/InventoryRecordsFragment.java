@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.kotemanagement.adapter.InventoryRecordsAdapter;
 import com.android.kotemanagement.adapter.ItemOffsetDecoration;
+import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.FragmentInventoryRecordsBinding;
 import com.android.kotemanagement.room.entities.Records;
 import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
@@ -38,6 +40,9 @@ public class InventoryRecordsFragment extends Fragment {
         adapter = new InventoryRecordsAdapter(getContext());
         binding.rvInventoryRecords.setLayoutManager(new LinearLayoutManager(requireContext()));
         binding.rvInventoryRecords.addItemDecoration(new ItemOffsetDecoration(16));
+        binding.btnVerifyFingerprint.setOnClickListener(v -> {
+            fingerprintAuth();
+        });
 
         recordsViewModel.getInventoryRecords().observe(getViewLifecycleOwner(), records -> {
             if (records != null && !records.isEmpty()) {
@@ -53,6 +58,27 @@ public class InventoryRecordsFragment extends Fragment {
         setupSearchFunction();
 
         return binding.getRoot();
+    }
+
+    private void fingerprintAuth() {
+        // Initialize FingerprintAuthenticator
+        FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(getContext());
+
+        fingerprintAuthenticator.authenticate(getActivity(), isSuccess -> {
+            if (isSuccess) {
+                // Authentication success
+                Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
+                // Proceed with authenticated logic
+                binding.clMainContent.setVisibility(View.VISIBLE);
+                binding.clFingerprintPrompt.setVisibility(View.INVISIBLE);
+
+            } else {
+                // Authentication failed
+                Toast.makeText(getContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
+                binding.tvAuthText.setText("Verification failed. Please verify again");
+                // Handle failure logic
+            }
+        });
     }
 
     private void setupSearchFunction() {

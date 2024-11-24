@@ -4,10 +4,6 @@
     android:layout_height="match_parent">
     <!--    MAKE CHART HERE!!-->
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

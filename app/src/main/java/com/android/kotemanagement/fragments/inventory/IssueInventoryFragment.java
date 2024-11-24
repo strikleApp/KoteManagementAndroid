@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.IssueInventoryFragmentBinding;
 import com.android.kotemanagement.exceptions.UserDoesNotExistsException;
 import com.android.kotemanagement.exceptions.UserFieldBlankException;
@@ -77,7 +78,7 @@ public class IssueInventoryFragment extends Fragment {
                 armyNumber = Objects.requireNonNull(binding.etArmyNumber.getText()).toString();
 
                 isAllFieldsCorrect();
-                issueWeapons(recordsViewModel);
+                fingerprintAuth();
             } catch (UserFieldBlankException e) {
                 Snackbar snackbar = Snackbar.make(binding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
@@ -113,6 +114,25 @@ public class IssueInventoryFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void fingerprintAuth() {
+        // Initialize FingerprintAuthenticator
+        FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(getContext());
+
+        fingerprintAuthenticator.authenticate(getActivity(), isSuccess -> {
+            if (isSuccess) {
+                // Authentication success
+                Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
+                // Proceed with authenticated logic
+                issueWeapons(recordsViewModel);
+
+            } else {
+                // Authentication failed
+                Toast.makeText(getContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
+                // Handle failure logic
+            }
+        });
     }
 
     private void checkSelectedWeaponType(String weaponType) {
