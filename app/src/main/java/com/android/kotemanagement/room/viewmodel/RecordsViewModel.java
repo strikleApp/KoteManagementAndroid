@@ -25,19 +25,29 @@ public class RecordsViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Records>> getAllRecords() {
-        return allRecords;
+        return Transformations.map(allRecords, records -> {
+            if (records == null) {
+                return new ArrayList<>();
+            }
+            // Sort all records in descending order by date
+            records.sort((r1, r2) -> r2.getDate().compareTo(r1.getDate()));
+            return records;
+        });
     }
+
     public LiveData<List<Records>> getInventoryRecords() {
         return Transformations.map(allRecords, records -> {
             if (records == null) {
                 return new ArrayList<>();
             }
+            // Filter and sort inventory records in descending order by date
             List<Records> filteredRecords = new ArrayList<>();
             for (Records record : records) {
                 if (record.getType() == RecordType.INVENTORY_RECORDS) {
                     filteredRecords.add(record);
                 }
             }
+            filteredRecords.sort((r1, r2) -> r2.getDate().compareTo(r1.getDate()));
             return filteredRecords;
         });
     }
@@ -47,15 +57,18 @@ public class RecordsViewModel extends AndroidViewModel {
             if (records == null) {
                 return new ArrayList<>();
             }
+            // Filter and sort user records in descending order by date
             List<Records> filteredRecords = new ArrayList<>();
             for (Records record : records) {
                 if (record.getType() == RecordType.USERS_RECORDS) {
                     filteredRecords.add(record);
                 }
             }
+            filteredRecords.sort((r1, r2) -> r2.getDate().compareTo(r1.getDate()));
             return filteredRecords;
         });
     }
+
 
 
     public void insert(Records record) {

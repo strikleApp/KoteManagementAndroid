@@ -20,7 +20,6 @@ import com.android.kotemanagement.databinding.IssueInventoryFragmentBinding;
 import com.android.kotemanagement.exceptions.UserDoesNotExistsException;
 import com.android.kotemanagement.exceptions.UserFieldBlankException;
 import com.android.kotemanagement.exceptions.UserFieldException;
-import com.android.kotemanagement.exceptions.UsersExistsException;
 import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.entities.Soldiers;

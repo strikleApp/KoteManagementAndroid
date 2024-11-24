@@ -13,7 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.databinding.FragmentDeleteUserBinding;
+import com.android.kotemanagement.fragments.records.RecordFunctions;
 import com.android.kotemanagement.room.entities.Soldiers;
+import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
 
 import java.util.Objects;
@@ -25,6 +27,7 @@ public class DeleteUserFragment extends Fragment {
 
     Soldiers searchedSoldier;
     SoldiersViewModel soldiersViewModel;
+    RecordsViewModel recordsViewModel;
 
     @Nullable
     @Override
@@ -33,6 +36,8 @@ public class DeleteUserFragment extends Fragment {
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         binding = FragmentDeleteUserBinding.inflate(inflater, container, false);
+        recordsViewModel = new ViewModelProvider(this).get(RecordsViewModel.class);
+
 
         binding.clBody.setVisibility(View.GONE);
 
@@ -53,7 +58,9 @@ public class DeleteUserFragment extends Fragment {
             });
             try {
                 latch.await();
+                RecordFunctions.removeUserRecord(searchedSoldier.getArmyNumber(), searchedSoldier.getFirstName() + " " + searchedSoldier.getLastName(), searchedSoldier.getRank(), recordsViewModel);
                 binding.clBody.setVisibility(View.GONE);
+
                 Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
             } catch (InterruptedException e) {
                 Log.e("Interrupted Exception", "Error occurred while deleting user in DeleteUserFragment.java.");

@@ -1,8 +1,6 @@
 package com.android.kotemanagement.fragments.users;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;

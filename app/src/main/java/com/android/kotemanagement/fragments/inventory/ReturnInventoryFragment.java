@@ -12,13 +12,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.android.kotemanagement.R;
 import com.android.kotemanagement.activities.HomeActivity;
 import com.android.kotemanagement.adapter.ItemOffsetDecoration;
 import com.android.kotemanagement.adapter.ViewIssueWeaponsAdapter;
 import com.android.kotemanagement.databinding.ReturnInventoryFragmentBinding;
 import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
-import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 
 import java.util.Objects;
 
