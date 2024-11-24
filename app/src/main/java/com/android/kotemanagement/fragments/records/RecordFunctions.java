@@ -21,6 +21,16 @@ public class RecordFunctions {
         recordsViewModel.insert(record);
     }
 
+    static public void removeUserRecord(
+            String armyNumber,
+            String name,
+            String rank, RecordsViewModel recordsViewModel) {
+        Records record = new Records(LocalDateTime.now().toString(), RecordType.USERS_RECORDS, armyNumber, RecordAction.USER_REMOVED);
+        record.setName(name);
+        record.setRank(rank);
+        recordsViewModel.insert(record);
+    }
+
     static public void addInventoryRecord(
             String armyNumber,
             String sno,
