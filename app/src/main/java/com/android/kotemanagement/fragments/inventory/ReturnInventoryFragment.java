@@ -53,6 +53,7 @@ public class ReturnInventoryFragment extends Fragment {
         issueWeaponsViewModel = new ViewModelProvider(this).get(IssueWeaponsViewModel.class);
         issueWeaponsViewModel.getAllIssuedWeaponsList().observe(getViewLifecycleOwner(), issueWeaponsList -> {
             adapter.setIssueWeaponsList(issueWeaponsList);
+            adapter.notifyDataSetChanged();
         });
 
         return binding.getRoot();
