@@ -80,7 +80,7 @@ public class DashboardActivity extends Fragment {
                 ContextCompat.getColor(requireContext(), R.color.red));
 
         PieData data = new PieData(dataSet);
-        data.setValueTextSize(16f);
+        data.setValueTextSize(12f);
         data.setValueTextColor(ContextCompat.getColor(requireContext(), R.color.black));
 
         binding.pieChart.setData(data);
@@ -94,7 +94,7 @@ public class DashboardActivity extends Fragment {
 
         Legend legend = binding.pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setTextSize(16f);
+        legend.setTextSize(12f);
         legend.setFormSize(20);
         legend.setFormToTextSpace(12);
 
