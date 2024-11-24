@@ -113,6 +113,10 @@
     <string name="weapon_type">Weapon Type</string>
     <string name="update">Update</string>
     <string name="date_of_birth">DOB:</string>
+    <string name="register_admin">Register Admin</string>
+    <string name="users">Users</string>
+    <string name="inventory">Inventory</string>
+    <string name="maintenance">Maintenance</string>
 
 
 </resources>

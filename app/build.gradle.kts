@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.firebase.database)
     implementation(libs.firebase.crashlytics)
     implementation(libs.core.ktx)
+    implementation(libs.navigation.fragment)
 //    compileOnly(libs.design)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

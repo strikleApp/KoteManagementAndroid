@@ -23,6 +23,7 @@ mpandroidchart = "v3.1.0"
 roomRuntime = "2.6.1"
 sdpAndroid = "1.1.1"
 sspAndroid = "1.1.1"
+navigationFragment = "2.8.4"
 
 
 [libraries]
@@ -54,6 +55,7 @@ room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomRunti
 room-testing = { module = "androidx.room:room-testing", version.ref = "roomRuntime" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 ssp-android = { module = "com.intuit.ssp:ssp-android", version.ref = "sspAndroid" }
+navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 google-gms-google-services = { id = "com.google.gms.google-services", version.ref = "googleGmsGoogleServices" }

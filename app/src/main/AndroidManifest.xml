@@ -19,6 +19,12 @@
         android:theme="@style/Theme.KoteManagement"
         tools:targetApi="31">
         <activity
+            android:name=".superadmin.activities.SuperAdminHome"
+            android:exported="false" />
+        <activity
+            android:name=".superadmin.activities.SuperAdminLogin"
+            android:exported="false" />
+        <activity
             android:name=".superAdmin.SuperAdminHome"
             android:exported="false" />
         <activity

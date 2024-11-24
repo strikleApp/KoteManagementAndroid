@@ -7,14 +7,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.HomeActivity"
+    tools:context=".superadmin.activities.SuperAdminHome"
     tools:openDrawer="start">
 
-    <RelativeLayout
-        android:id="@+id/main"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activities.HomeActivity">
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
@@ -23,8 +22,10 @@
             android:background="@color/primaryColor"
             app:title="@string/dashboard_text"
             app:titleCentered="true"
-            app:titleTextColor="@color/cardColor" />
-
+            app:titleTextColor="@color/cardColor"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <FrameLayout
             android:id="@+id/fragmentLayout"
@@ -33,7 +34,7 @@
             android:layout_below="@id/toolbar" />
 
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
@@ -48,5 +49,6 @@
         app:itemTextAppearance="@style/NavDrawerTextStyle"
         app:itemTextColor="@color/primaryColor"
         app:itemVerticalPadding="25dp"
-        app:menu="@menu/navigation_menu" />
+        app:menu="@menu/super_admin_nav" />
+
 </androidx.drawerlayout.widget.DrawerLayout>
