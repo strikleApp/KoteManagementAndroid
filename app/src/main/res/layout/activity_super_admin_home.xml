@@ -11,40 +11,38 @@
         android:layout_height="match_parent"
         tools:context=".superadmin.activities.SuperAdminHome">
 
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@color/primaryColor"
-            app:title="@string/dashboard_text"
+            app:title="Register Admin"
             app:titleCentered="true"
             app:titleTextColor="@color/cardColor" />
-
 
         <FrameLayout
             android:id="@+id/fragmentLayoutSuperAdmin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/toolbar"
-            android:layout_marginTop="8dp">
-
-            <com.google.android.material.navigation.NavigationView
-                android:id="@+id/nav_view"
-                android:layout_width="wrap_content"
-                android:layout_height="851dp"
-                android:layout_gravity="start"
-                android:background="@color/cardColor"
-                android:foregroundGravity="center_vertical"
-                app:headerLayout="@layout/navigation_header"
-                app:itemIconSize="50dp"
-                app:itemIconTint="@color/primaryColor"
-                app:itemTextAppearance="@style/NavDrawerTextStyle"
-                app:itemTextColor="@color/primaryColor"
-                app:itemVerticalPadding="25dp"
-                app:menu="@menu/super_admin_nav" />
-        </FrameLayout>
-
+            android:layout_marginTop="8dp" />
 
     </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/cardColor"
+        android:foregroundGravity="center_vertical"
+        app:headerLayout="@layout/navigation_header"
+        app:itemIconSize="50dp"
+        app:itemIconTint="@color/primaryColor"
+        app:itemTextAppearance="@style/NavDrawerTextStyle"
+        app:itemTextColor="@color/primaryColor"
+        app:itemVerticalPadding="25dp"
+        app:menu="@menu/super_admin_nav" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

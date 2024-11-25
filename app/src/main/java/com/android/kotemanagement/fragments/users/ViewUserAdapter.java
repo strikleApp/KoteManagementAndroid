@@ -41,9 +41,7 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view =
-                LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.view_user_list_item_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_user_list_item_layout, parent, false);
 
         return new MyViewHolder(view);
     }
@@ -62,20 +60,17 @@ public class ViewUserAdapter extends RecyclerView.Adapter<ViewUserAdapter.MyView
 
         holder.clExpandedView.setVisibility(View.GONE);
 
-        holder.clExpandedView.setOnClickListener(
-                v -> {
-                    holder.clExpandedView.setVisibility(View.GONE);
-                    holder.clShrinkView.setVisibility(View.VISIBLE);
-                });
+        holder.clExpandedView.setOnClickListener(v -> {
+            holder.clExpandedView.setVisibility(View.GONE);
+            holder.clShrinkView.setVisibility(View.VISIBLE);
+        });
 
-        holder.clShrinkView.setOnClickListener(
-                v -> {
-                    holder.clExpandedView.setVisibility(View.VISIBLE);
-                    holder.clShrinkView.setVisibility(View.GONE);
-                });
+        holder.clShrinkView.setOnClickListener(v -> {
+            holder.clExpandedView.setVisibility(View.VISIBLE);
+            holder.clShrinkView.setVisibility(View.GONE);
+        });
 
-        holder.btnUpdateUser.setOnClickListener(view ->
-        {
+        holder.btnUpdateUser.setOnClickListener(view -> {
             Intent intent = new Intent(context, UpdateUsersActivity.class);
             intent.putExtra("army_number", modal.armyNumber);
             context.startActivity(intent);

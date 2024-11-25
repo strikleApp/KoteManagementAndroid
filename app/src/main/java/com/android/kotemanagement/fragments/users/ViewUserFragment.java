@@ -32,10 +32,7 @@ public class ViewUserFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentViewUserBinding.inflate(inflater, container, false);
 
         adapter = new ViewUserAdapter(requireContext());
@@ -136,11 +133,7 @@ public class ViewUserFragment extends Fragment {
                 String lowerCaseQuery = query.toLowerCase();
 
                 for (Soldiers soldier : soldiersList) {
-                    if (soldier.getFirstName().toLowerCase().contains(lowerCaseQuery) ||
-                            soldier.getLastName().toLowerCase().contains(lowerCaseQuery) ||
-                            soldier.getRank().toLowerCase().contains(lowerCaseQuery) ||
-                            soldier.getArmyNumber().toLowerCase().contains(lowerCaseQuery) ||
-                            soldier.getDob().toLowerCase().contains(lowerCaseQuery)) {
+                    if (soldier.getFirstName().toLowerCase().contains(lowerCaseQuery) || soldier.getLastName().toLowerCase().contains(lowerCaseQuery) || soldier.getRank().toLowerCase().contains(lowerCaseQuery) || soldier.getArmyNumber().toLowerCase().contains(lowerCaseQuery) || soldier.getDob().toLowerCase().contains(lowerCaseQuery)) {
                         filteredList.add(soldier);
                     }
                 }

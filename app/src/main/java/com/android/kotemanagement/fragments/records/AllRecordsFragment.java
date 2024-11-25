@@ -92,6 +92,7 @@ public class AllRecordsFragment extends Fragment {
         binding.btnSort.setOnClickListener(view -> {
             binding.etSearchUser.setText("");
             binding.clSearchAndSort.setVisibility(View.GONE);
+            binding.btnCancel.setVisibility(View.VISIBLE);
             binding.clFilter.setVisibility(View.VISIBLE);
         });
 

@@ -40,6 +40,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
@@ -80,10 +84,6 @@ public class AddUserFragment extends Fragment {
         binding = FragmentAddUserBinding.inflate(inflater, container, false);
 
 
-        binding.btnVerifyFingerprint.setOnClickListener(v -> {
-            fingerprintAuth();
-        });
-
         soldiersViewModel = new ViewModelProvider(this).get(SoldiersViewModel.class);
         recordsViewModel = new ViewModelProvider(this).get(RecordsViewModel.class);
 
@@ -120,14 +120,9 @@ public class AddUserFragment extends Fragment {
         binding.btnAddUser.setOnClickListener(v -> {
             try {
                 getAndCheckDataFromUser();
-                insertDataToDatabase();
-                RecordFunctions.addUserRecord(armyNumber, firstName + " " + lastName, rank, recordsViewModel);
-                binding.ivUpload.setImageResource(R.drawable.soldierimage);
-                binding.etArmyNumber.setText("");
-                binding.etDob.setText("");
-                binding.etFirstName.setText("");
-                binding.etLastName.setText("");
+                fingerprintAuth();
             } catch (UserFieldBlankException e) {
+
                 Snackbar snackbar = Snackbar.make(binding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
                     @Override
@@ -157,9 +152,8 @@ public class AddUserFragment extends Fragment {
                 });
                 snackbar.setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red));
                 snackbar.show();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+
         });
 
 
@@ -174,14 +168,22 @@ public class AddUserFragment extends Fragment {
             if (isSuccess) {
                 // Authentication success
                 Toast.makeText(getContext(), "Authentication Successful", Toast.LENGTH_SHORT).show();
-                // Proceed with authenticated logic
-                binding.scrollView.setVisibility(View.VISIBLE);
-                binding.clFingerprintPrompt.setVisibility(View.INVISIBLE);
+                try {
+                    insertDataToDatabase();
+                    RecordFunctions.addUserRecord(armyNumber, firstName + " " + lastName, rank, recordsViewModel);
+                    binding.ivUpload.setImageResource(R.drawable.soldierimage);
+                    binding.etArmyNumber.setText("");
+                    binding.etDob.setText("");
+                    binding.etFirstName.setText("");
+                    binding.etLastName.setText("");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
 
             } else {
                 // Authentication failed
                 Toast.makeText(getContext(), "Authentication Failed", Toast.LENGTH_SHORT).show();
-                binding.tvAuthText.setText("Verification failed. Please verify again");
                 // Handle failure logic
             }
         });
@@ -218,6 +220,7 @@ public class AddUserFragment extends Fragment {
 
     }
 
+
     private void getAndCheckDataFromUser() throws UserFieldBlankException, UserFieldException, UsersExistsException, NullPointerException {
         armyNumber = (Objects.requireNonNull(binding.etArmyNumber.getText())).toString().trim();
         firstName = (Objects.requireNonNull(binding.etFirstName.getText())).toString().trim();
@@ -241,6 +244,12 @@ public class AddUserFragment extends Fragment {
             throw new UserFieldException();
         } else {
             try {
+                // Age validation
+                if (!isUserAbove18(dob)) {
+                    Toast.makeText(requireContext(), "Soldier should be 18 years or more.", Toast.LENGTH_SHORT).show();
+                    throw new UserFieldException();
+                }
+
                 if (doesUserExists()) {
                     throw new UsersExistsException();
                 }
@@ -248,8 +257,22 @@ public class AddUserFragment extends Fragment {
                 Toast.makeText(requireContext(), "Insertion Interrupted", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
+
+    private boolean isUserAbove18(String dob) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate birthDate = LocalDate.parse(dob, formatter);
+            LocalDate currentDate = LocalDate.now();
+            Period period = Period.between(birthDate, currentDate);
+            int age = period.getYears();
+            return age >= 18;
+        } catch (DateTimeParseException e) {
+            Toast.makeText(requireContext(), "Invalid Date Format. Please use dd/MM/yyyy.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
 
     private boolean doesUserExists() throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(1);

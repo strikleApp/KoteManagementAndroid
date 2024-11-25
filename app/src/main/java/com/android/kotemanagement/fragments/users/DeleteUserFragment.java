@@ -70,14 +70,22 @@ public class DeleteUserFragment extends Fragment {
                 CountDownLatch latch = new CountDownLatch(1);
                 Executors.newSingleThreadExecutor().execute(() -> {
                     soldiersViewModel.delete(searchedSoldier);
+
+                    RecordFunctions.removeUserRecord(searchedSoldier.getArmyNumber(),
+                            searchedSoldier.getFirstName() + " " + searchedSoldier.getLastName(),
+                            searchedSoldier.getRank(),
+                            recordsViewModel);
+
+                    getActivity().runOnUiThread(() -> {
+                        binding.clBody.setVisibility(View.GONE);  // Hide content
+                        Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                    });
                     latch.countDown();
                 });
-                try {
-                    latch.await();
-                    RecordFunctions.removeUserRecord(searchedSoldier.getArmyNumber(), searchedSoldier.getFirstName() + " " + searchedSoldier.getLastName(), searchedSoldier.getRank(), recordsViewModel);
-                    binding.clBody.setVisibility(View.GONE);
 
-                    Toast.makeText(requireContext(), "Deleted Successfully", Toast.LENGTH_SHORT).show();
+                try {
+                    // Wait until the background task is completed
+                    latch.await();
                 } catch (InterruptedException e) {
                     Log.e("Interrupted Exception", "Error occurred while deleting user in DeleteUserFragment.java.");
                 }

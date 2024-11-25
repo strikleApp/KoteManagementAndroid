@@ -88,6 +88,8 @@
             android:textColor="@color/textColor"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="1"
             app:layout_constraintBottom_toBottomOf="@id/tvNameText"
             app:layout_constraintEnd_toStartOf="@id/ivExpandIcon"
             app:layout_constraintStart_toStartOf="@id/tvDOB"
