@@ -36,8 +36,6 @@ public class SuperAdminHome extends AppCompatActivity {
         binding = ActivitySuperAdminHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
-
-        // Drawer setup
         drawerLayout = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
