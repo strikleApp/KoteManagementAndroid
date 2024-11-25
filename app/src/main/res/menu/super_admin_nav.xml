@@ -10,10 +10,7 @@
         android:title="@string/super_users" />
     <item
         android:id="@+id/Inventory"
-        android:icon="@drawable/inventory"
+        android:icon="@drawable/issue_inventory"
         android:title="@string/super_inventory" />
-    <item
-        android:id="@+id/Maintenance"
-        android:icon="@drawable/repair"
-        android:title="@string/super_maintenance" />
+
 </menu>

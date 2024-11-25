@@ -14,7 +14,7 @@
     </item>
     <item
         android:id="@+id/inventory"
-        android:icon="@drawable/inventory"
+        android:icon="@drawable/issue_inventory"
         android:title="Inventory">
 
     </item>

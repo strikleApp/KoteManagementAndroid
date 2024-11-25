@@ -25,7 +25,6 @@ public class InventoryActivity extends Fragment
     private static final int ISSUE_INVENTORY = R.id.issue_inventory;
 
 
-
     @Nullable
     @Override
     public View onCreateView(
@@ -54,7 +53,6 @@ public class InventoryActivity extends Fragment
 
         return view;
     }
-
 
 
     @Override

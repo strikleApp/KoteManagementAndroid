@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.databinding.ActivitySuperAdminHomeBinding;
 import com.android.kotemanagement.superadmin.activities.fragments.InventorySuperAdminFragment;
-import com.android.kotemanagement.superadmin.activities.fragments.MaintenanceSuperAdminFragment;
 import com.android.kotemanagement.superadmin.activities.fragments.RegisterAdminFragment;
 import com.android.kotemanagement.superadmin.activities.fragments.UserSuperAdminFragment;
 import com.google.android.material.navigation.NavigationView;
@@ -26,7 +25,6 @@ public class SuperAdminHome extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
 
     private final Fragment registerAdminFragment = new RegisterAdminFragment();
-    private final Fragment maintenanceSuperAdminFragment = new MaintenanceSuperAdminFragment();
     private final Fragment userSuperAdminFragment = new UserSuperAdminFragment();
     private final Fragment inventorySuperAdminFragment = new InventorySuperAdminFragment();
 
@@ -52,10 +50,8 @@ public class SuperAdminHome extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentLayoutSuperAdmin, registerAdminFragment, "REGISTER_ADMIN");
-        fragmentTransaction.add(R.id.fragmentLayoutSuperAdmin, maintenanceSuperAdminFragment, "MAINTENANCE");
         fragmentTransaction.add(R.id.fragmentLayoutSuperAdmin, userSuperAdminFragment, "USER");
         fragmentTransaction.add(R.id.fragmentLayoutSuperAdmin, inventorySuperAdminFragment, "INVENTORY");
-        fragmentTransaction.hide(maintenanceSuperAdminFragment);
         fragmentTransaction.hide(userSuperAdminFragment);
         fragmentTransaction.hide(inventorySuperAdminFragment);
         fragmentTransaction.commit();
@@ -70,9 +66,6 @@ public class SuperAdminHome extends AppCompatActivity {
                 showFragment(registerAdminFragment);
                 title = "Register Admin";
 
-            } else if (item.getItemId() == R.id.Maintenance) {
-                showFragment(maintenanceSuperAdminFragment);
-                title = "Maintenance";
             } else if (item.getItemId() == R.id.Users) {
                 showFragment(userSuperAdminFragment);
                 title = "Users";
@@ -92,7 +85,6 @@ public class SuperAdminHome extends AppCompatActivity {
 
         // Hide all fragments
         fragmentTransaction.hide(registerAdminFragment);
-        fragmentTransaction.hide(maintenanceSuperAdminFragment);
         fragmentTransaction.hide(userSuperAdminFragment);
         fragmentTransaction.hide(inventorySuperAdminFragment);
 

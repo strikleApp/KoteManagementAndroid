@@ -97,11 +97,11 @@
             android:id="@+id/civ2"
             android:layout_width="@dimen/_75sdp"
             android:layout_height="@dimen/_75sdp"
-            android:src="@drawable/soldierimage"
-            app:layout_constraintStart_toStartOf="parent"
+            android:src="@drawable/kote1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintHorizontal_bias="0.507"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSuperAdminLogin"
