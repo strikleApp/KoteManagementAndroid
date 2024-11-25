@@ -75,10 +75,7 @@ public class AddUserFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         binding = FragmentAddUserBinding.inflate(inflater, container, false);
 
@@ -93,13 +90,11 @@ public class AddUserFragment extends Fragment {
         //spinner
         binding.etDob.setEnabled(false);
 
-        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.army_ranks,
-                android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> arrayAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.army_ranks, android.R.layout.simple_spinner_item);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         binding.spinnerRank.setAdapter(arrayAdapter);
 
-        binding.tlDob.setEndIconOnClickListener(v ->
-                materialDatePicker());
+        binding.tlDob.setEndIconOnClickListener(v -> materialDatePicker());
 
 
         binding.btnUpload.setOnClickListener(v -> {
@@ -116,9 +111,7 @@ public class AddUserFragment extends Fragment {
                 snackbar.show();
             } else {
                 binding.btnUpload.setEnabled(false);
-                pickMedia.launch(new PickVisualMediaRequest.Builder()
-                        .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
-                        .build());
+                pickMedia.launch(new PickVisualMediaRequest.Builder().setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE).build());
             }
 
         });
@@ -200,11 +193,7 @@ public class AddUserFragment extends Fragment {
     }
 
     private void materialDatePicker() {
-        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Date Of Birth")
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .setInputMode(MaterialDatePicker.INPUT_MODE_TEXT)
-                .setTextInputFormat(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()))
-                .build();
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker().setTitleText("Date Of Birth").setSelection(MaterialDatePicker.todayInUtcMilliseconds()).setInputMode(MaterialDatePicker.INPUT_MODE_TEXT).setTextInputFormat(new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())).build();
         datePicker.addOnPositiveButtonClickListener(selection -> {
             binding.etDob.setText(formatDate(selection));
         });
@@ -219,14 +208,7 @@ public class AddUserFragment extends Fragment {
 
             imageAsString = ConvertImage.convertToString(selectedImage, requireContext());
 
-            Soldiers soldier = new Soldiers(
-                    imageAsString,
-                    armyNumber,
-                    firstName,
-                    lastName,
-                    rank,
-                    dob
-            );
+            Soldiers soldier = new Soldiers(imageAsString, armyNumber, firstName, lastName, rank, dob);
             soldiersViewModel.insert(soldier);
             latch.countDown();
         });
