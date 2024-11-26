@@ -1,5 +1,6 @@
 package com.android.kotemanagement.superadmin.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -65,13 +66,14 @@ public class SuperAdminHome extends AppCompatActivity {
             if (item.getItemId() == R.id.RegisterAdmin) {
                 showFragment(registerAdminFragment);
                 title = "Register Admin";
-
             } else if (item.getItemId() == R.id.Users) {
                 showFragment(userSuperAdminFragment);
                 title = "Users";
             } else if (item.getItemId() == R.id.Inventory) {
                 showFragment(inventorySuperAdminFragment);
                 title = "Inventory";
+            } else if (item.getItemId() == R.id.Logout) {
+                startActivity(new Intent(this, SuperAdminLogin.class));
             }
             binding.toolbar.setTitle(title);
             drawerLayout.closeDrawers();

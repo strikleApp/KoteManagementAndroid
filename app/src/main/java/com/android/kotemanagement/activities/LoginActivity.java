@@ -27,11 +27,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding bindingLogin;
 
-    private Executor biometricExecutor;
-    private BiometricPrompt biometricPrompt;
-    private BiometricPrompt.PromptInfo promptInfo;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,60 +40,15 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        ///TODO: Comment this code to show login screen
-//        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//        startActivity(intent);
-        ///
-
-        setBiometricExecutor();
-        setBiometricPromptInfo();
-
         bindingLogin.btnAdminLogin.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-            finish();
+            startActivity(new Intent(LoginActivity.this, AdminLogin.class));
         });
 
         bindingLogin.btnSuperAdminLogin.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, SuperAdminLogin.class));
-            finish();
         });
 
 
     }
 
-    private void setBiometricExecutor() {
-        biometricExecutor = ContextCompat.getMainExecutor(this);
-        biometricPrompt = new BiometricPrompt(LoginActivity.this, biometricExecutor,
-                new BiometricPrompt.AuthenticationCallback() {
-                    @Override
-                    public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                        super.onAuthenticationError(errorCode, errString);
-                        Toast.makeText(getApplicationContext(),
-                                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
-                                .show();
-                    }
-
-                    @Override
-                    public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                        super.onAuthenticationSucceeded(result);
-                        Toast.makeText(getApplicationContext(), "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                        finish();
-                    }
-
-                    @Override
-                    public void onAuthenticationFailed() {
-                        super.onAuthenticationFailed();
-                        Toast.makeText(LoginActivity.this, "Failed to authenticate.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private void setBiometricPromptInfo() {
-        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric Authentication")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Cancel")
-                .build();
-    }
 }

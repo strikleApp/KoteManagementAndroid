@@ -1,6 +1,8 @@
 package com.android.kotemanagement.activities;
 
 import android.Manifest;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
@@ -29,13 +31,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.authentication.LoginAuthentication;
 import com.android.kotemanagement.databinding.ActivityHomeBinding;
+import com.android.kotemanagement.databinding.NavigationHeaderBinding;
 import com.android.kotemanagement.fragments.dashboard.DashboardActivity;
 import com.android.kotemanagement.fragments.inventory.InventoryActivity;
 import com.android.kotemanagement.fragments.records.RecordsActivity;
 import com.android.kotemanagement.fragments.users.UsersActivity;
+import com.android.kotemanagement.room.viewmodel.AdminViewModel;
 import com.android.kotemanagement.utilities.ConvertImage;
 import com.android.kotemanagement.utilities.PermissionCheck;
 import com.github.mikephil.charting.data.PieEntry;
@@ -49,126 +55,148 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class HomeActivity extends AppCompatActivity {
-  private DrawerLayout drawerLayout;
-  private ActionBarDrawerToggle actionBarDrawerToggle;
-  private Toolbar toolbar;
-  private Fragment dashboardActivity = new DashboardActivity();
-  private Fragment usersActivity = new UsersActivity();
-  private Fragment inventoryActivity = new InventoryActivity();
-  private Fragment recordsActivity = new RecordsActivity();
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle actionBarDrawerToggle;
+    private Toolbar toolbar;
+    private Fragment dashboardActivity = new DashboardActivity();
+    private Fragment usersActivity = new UsersActivity();
+    private Fragment inventoryActivity = new InventoryActivity();
+    private Fragment recordsActivity = new RecordsActivity();
+    private AdminViewModel adminViewModel;
+    private NavigationHeaderBinding navigationHeaderBinding;
 
 
-  ActivityHomeBinding binding;
-  ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
-  private Bitmap selectedImage;
-  private boolean isImageLessThan1MB;
-  String imageAsString;
-  private boolean hasSelectedImage = false;
+    ActivityHomeBinding binding;
+    ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
+    private Bitmap selectedImage;
+    private boolean isImageLessThan1MB;
+    String imageAsString;
+    private boolean hasSelectedImage = false;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    binding = ActivityHomeBinding.inflate(getLayoutInflater());
-    setContentView(binding.getRoot());
-    // EdgeToEdge.enable(this);
-    //setContentView(R.layout.activity_home);
-    ViewCompat.setOnApplyWindowInsetsListener(
-        findViewById(R.id.main),
-        (v, insets) -> {
-          Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-          v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-          return insets;
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+
+        adminViewModel = new ViewModelProvider(this).get(AdminViewModel.class);
+
+
+        setContentView(binding.getRoot());
+        ViewCompat.setOnApplyWindowInsetsListener(
+                findViewById(R.id.main),
+                (v, insets) -> {
+                    Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                    return insets;
+                });
+
+        //Checking Permissions
+        checkingPermissions();
+
+        //Picking Media
+        pickVisualMediaResultLauncher();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.dlSideMenu);
+        NavigationView navView = findViewById(R.id.navView);
+        actionBarDrawerToggle =
+                new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+
+        navView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragmentLayout, dashboardActivity, "dashboard")
+                    .add(R.id.fragmentLayout, usersActivity, "users")
+                    .add(R.id.fragmentLayout, inventoryActivity, "inventory")
+                    .add(R.id.fragmentLayout, recordsActivity, "records")
+                    .hide(usersActivity)
+                    .hide(inventoryActivity)
+                    .hide(recordsActivity)
+                    .show(dashboardActivity)
+                    .commit();
+            setTitle("Dashboard");
+        }
+
+        navView.setNavigationItemSelectedListener(
+                item -> {
+                    String title = "Dashboard";
+                    int id = item.getItemId();
+
+                    if (id == R.id.dashboard) {
+                        showFragment(dashboardActivity);
+
+                    } else if (id == R.id.users) {
+                        showFragment(usersActivity);
+                        title = "Users";
+                    } else if (id == R.id.inventory) {
+                        showFragment(inventoryActivity);
+                        title = "Inventory";
+                    } else if (id == R.id.records) {
+                        showFragment(recordsActivity);
+                        title = "Records";
+                    } else if (id == R.id.logout) {
+                        LoginAuthentication.clearLoginInfo(this);
+                        startActivity(new Intent(this, LoginActivity.class));
+                        finish();
+                    }
+                    toolbar.setTitle(title);
+
+                    drawerLayout.closeDrawers();
+                    return true;
+                });
+
+
+        View headerView = navView.getHeaderView(0);
+
+        // Use View Binding for the header layout if required
+        NavigationHeaderBinding navigationHeaderBinding = NavigationHeaderBinding.bind(headerView);
+        String armyNumber = LoginAuthentication.getArmyNumber(this);
+        String username = LoginAuthentication.getUsername(this);
+        adminViewModel.getAdminByUsernameOrArmyNumber(username, armyNumber).observe(this, admin -> {
+            navigationHeaderBinding.tvArmyNumber.setText(admin.getArmyNumber());
+            navigationHeaderBinding.tvName.setText(admin.getName());
+            Bitmap bitmap = ConvertImage.convertToBitmap(admin.getImage());
+            navigationHeaderBinding.ivPhoto.setImageBitmap(bitmap);
         });
 
-    //Checking Permissions
-    checkingPermissions();
-
-    //Picking Media
-    pickVisualMediaResultLauncher();
-
-    toolbar = (Toolbar) findViewById(R.id.toolbar);
-    setSupportActionBar(toolbar);
-    drawerLayout = findViewById(R.id.dlSideMenu);
-    actionBarDrawerToggle =
-        new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
-    actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
-    drawerLayout.addDrawerListener(actionBarDrawerToggle);
-    actionBarDrawerToggle.syncState();
-
-    NavigationView navView = findViewById(R.id.navView);
-    navView.setNavigationItemSelectedListener(this::onOptionsItemSelected);
-    if (savedInstanceState == null) {
-      getSupportFragmentManager()
-          .beginTransaction()
-          .add(R.id.fragmentLayout, dashboardActivity, "dashboard")
-          .add(R.id.fragmentLayout, usersActivity, "users")
-          .add(R.id.fragmentLayout, inventoryActivity, "inventory")
-          .add(R.id.fragmentLayout, recordsActivity, "records")
-          .hide(usersActivity)
-          .hide(inventoryActivity)
-          .hide(recordsActivity)
-          .show(dashboardActivity)
-          .commit();
-      setTitle("Dashboard");
     }
 
-    navView.setNavigationItemSelectedListener(
-        item -> {
-          String title = "Dashboard";
-          int id = item.getItemId();
-
-          if (id == R.id.dashboard) {
-            showFragment(dashboardActivity);
-
-          } else if (id == R.id.users) {
-            showFragment(usersActivity);
-            title = "Users";
-          } else if (id == R.id.inventory) {
-            showFragment(inventoryActivity);
-            title = "Inventory";
-          } else if (id == R.id.records) {
-            showFragment(recordsActivity);
-            title = "Records";
-          }
-          toolbar.setTitle(title);
-
-          drawerLayout.closeDrawers();
-          return true;
-        });
-
-
-  }
-
-  private void showFragment(Fragment fragment) {
-    FragmentManager fragmentManager = getSupportFragmentManager();
-    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-    if (fragment == dashboardActivity) {
-      fragmentTransaction.hide(usersActivity);
-      fragmentTransaction.hide(inventoryActivity);
-      fragmentTransaction.hide(recordsActivity);
-    } else if (fragment == usersActivity) {
-      fragmentTransaction.hide(dashboardActivity);
-      fragmentTransaction.hide(inventoryActivity);
-      fragmentTransaction.hide(recordsActivity);
-    } else if (fragment == inventoryActivity) {
-      fragmentTransaction.hide(usersActivity);
-      fragmentTransaction.hide(dashboardActivity);
-      fragmentTransaction.hide(recordsActivity);
-    } else if (fragment == recordsActivity) {
-      fragmentTransaction.hide(usersActivity);
-      fragmentTransaction.hide(inventoryActivity);
-      fragmentTransaction.hide(dashboardActivity);
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (fragment == dashboardActivity) {
+            fragmentTransaction.hide(usersActivity);
+            fragmentTransaction.hide(inventoryActivity);
+            fragmentTransaction.hide(recordsActivity);
+        } else if (fragment == usersActivity) {
+            fragmentTransaction.hide(dashboardActivity);
+            fragmentTransaction.hide(inventoryActivity);
+            fragmentTransaction.hide(recordsActivity);
+        } else if (fragment == inventoryActivity) {
+            fragmentTransaction.hide(usersActivity);
+            fragmentTransaction.hide(dashboardActivity);
+            fragmentTransaction.hide(recordsActivity);
+        } else if (fragment == recordsActivity) {
+            fragmentTransaction.hide(usersActivity);
+            fragmentTransaction.hide(inventoryActivity);
+            fragmentTransaction.hide(dashboardActivity);
+        }
+        fragmentTransaction.show(fragment).commit();
     }
-    fragmentTransaction.show(fragment).commit();
-  }
 
-  @Override
-  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
-  }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return actionBarDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
+    }
 
-  private void checkingPermissions() {
+    private void checkingPermissions() {
 
         if (!PermissionCheck.checkPermissions(this)) {
             if (Build.VERSION.SDK_INT >= 34) {
@@ -191,7 +219,7 @@ public class HomeActivity extends AppCompatActivity {
                                            @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            Snackbar snackbar = Snackbar.make(binding.getRoot(),"Storage Permission is required for this app to function. Allow this in settings.", Snackbar.LENGTH_SHORT);
+            Snackbar snackbar = Snackbar.make(binding.getRoot(), "Storage Permission is required for this app to function. Allow this in settings.", Snackbar.LENGTH_SHORT);
             snackbar.setAction("Dismiss", new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -289,7 +317,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        if(hasSelectedImage) {
+        if (hasSelectedImage) {
             return imageAsString;
         } else {
             return null;
@@ -297,9 +325,4 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    private void pieChart() {
-        ArrayList<PieEntry> entries = new ArrayList<>();
-
-
-    }
 }

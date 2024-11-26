@@ -4,29 +4,26 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.android.kotemanagement.room.entities.Admin;
 import com.android.kotemanagement.room.repository.AdminRepository;
 
-import java.util.concurrent.Executors;
-
 public class AdminViewModel extends AndroidViewModel {
-    private AdminRepository adminRepository;
+    private final AdminRepository adminRepository;
 
     public AdminViewModel(@NonNull Application application) {
         super(application);
         adminRepository = new AdminRepository(application);
     }
 
-    public void insert(Admin admin) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            adminRepository.insert(admin);
-        });
+    // Method to register a new admin
+    public void registerAdmin(Admin admin) {
+        adminRepository.register(admin); // Calls repository to insert the admin
     }
 
-    public void remove(Admin admin) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            adminRepository.remove(admin);
-        });
+    // Method to get an admin by username or army number
+    public LiveData<Admin> getAdminByUsernameOrArmyNumber(String username, String armyNumber) {
+        return adminRepository.getAdminByUsernameOrArmyNumber(username, armyNumber); // Returns LiveData to observe
     }
 }

@@ -15,12 +15,15 @@ import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.entities.Records; // Import the new entity
 import com.android.kotemanagement.room.entities.Soldiers;
 
-@Database(entities = {Soldiers.class, IssueWeapons.class, Records.class, Admin.class}, version = 4)
+@Database(entities = {Soldiers.class, IssueWeapons.class, Records.class, Admin.class}, version = 5)
 public abstract class KoteDatabase extends RoomDatabase {
 
     abstract public SoldiersDao getSoldiersDao();
+
     abstract public IssueWeaponsDao getIssueWeaponsDao();
+
     abstract public RecordsDao getRecordsDao();
+
     abstract public AdminDao getAdminDao();
 
     private static volatile KoteDatabase instance = null;

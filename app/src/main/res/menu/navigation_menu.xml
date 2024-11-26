@@ -21,9 +21,11 @@
     <item
         android:id="@+id/records"
         android:icon="@drawable/records"
-        android:title="Records">
-
-    </item>
+        android:title="Records"></item>
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/logout"
+        android:title="Logout"></item>
 
 
 </menu>

@@ -3,6 +3,10 @@ package com.android.kotemanagement.utilities;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.widget.Toast;
 
@@ -13,10 +17,10 @@ public class ConvertImage {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         boolean resultCompress = bitmap.compress(Bitmap.CompressFormat.PNG, 90, byteArrayOutputStream);
-        if(resultCompress) {
+        if (resultCompress) {
             byte[] byteArray = byteArrayOutputStream.toByteArray();
-            if(byteArray.length > 1000000) {
-                Toast.makeText(context, "Image Size should be less than 1MB." ,Toast.LENGTH_SHORT).show();
+            if (byteArray.length > 1000000) {
+                Toast.makeText(context, "Image Size should be less than 1MB.", Toast.LENGTH_SHORT).show();
                 return null;
             } else {
                 return Base64.encodeToString(byteArray, Base64.DEFAULT);
@@ -34,13 +38,14 @@ public class ConvertImage {
     public static boolean isImageLessThan1MB(Bitmap bitmapImage) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         boolean resultCompress = bitmapImage.compress(Bitmap.CompressFormat.PNG, 90, byteArrayOutputStream);
-        if(resultCompress) {
+        if (resultCompress) {
             byte[] byteArray = byteArrayOutputStream.toByteArray();
-            if(byteArray.length > 1000000) {
+            if (byteArray.length > 1000000) {
                 return false;
             }
         }
         return true;
     }
+
 
 }

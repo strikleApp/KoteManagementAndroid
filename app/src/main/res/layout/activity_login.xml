@@ -1,120 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cl_registerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/backgroundColor"
-    tools:context=".activities.LoginActivity">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+        android:id="@+id/cl_registerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        tools:context=".activities.LoginActivity">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/materialToolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="?attr/colorPrimary"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/materialToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="?attr/colorPrimary"
+                android:elevation="7dp"
+                android:gravity="center"
+                app:title="E-KOTE MANAGEMENT"
+                app:titleCentered="true"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:titleTextColor="?attr/colorOnPrimary"
+                tools:ignore="MissingConstraints" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="50dp"
             android:elevation="7dp"
             android:gravity="center"
-            app:title="KOTE MANAGEMENT"
-            app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:titleTextColor="?attr/colorOnPrimary"
-            tools:ignore="MissingConstraints" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="50dp"
-        android:elevation="7dp"
-        android:gravity="center"
-        android:text="@string/welcome"
-        android:textColor="?attr/colorSecondary"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/border"
-        android:padding="@dimen/_20sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ1"
-            android:layout_width="@dimen/_75sdp"
-            android:layout_height="@dimen/_75sdp"
-            android:src="@drawable/soldierimage"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/welcome"
+            android:textColor="?attr/colorSecondary"
+            android:textSize="32sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAdminLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Admin Login"
-            android:textSize="@dimen/_14ssp"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/civ1"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15ssp"
+            android:layout_marginTop="36dp"
+            android:background="@drawable/border"
+            android:padding="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <TextView
+                android:id="@+id/tvAdminLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Login as Admin."
+                android:textColor="?attr/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ1"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/soldierimage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvAdminLogin" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAdminLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="Admin Login"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/civ1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_15ssp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/border"
+            android:padding="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clLogin">
+
+            <TextView
+                android:id="@+id/tvSuperAdminLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Login as Super Admin."
+                android:textColor="?attr/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ2"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_80sdp"
+                android:src="@drawable/kote1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSuperAdminLogin" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSuperAdminLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:text="Super Admin Login"
+                android:textSize="@dimen/_16ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/civ2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/footerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl2">
+
+            <TextView
+                android:id="@+id/footerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="© 2024 E-Kote Management"
+                android:textColor="?attr/colorSecondary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:padding="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clLogin">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ2"
-            android:layout_width="@dimen/_75sdp"
-            android:layout_height="@dimen/_75sdp"
-            android:src="@drawable/kote1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.507"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSuperAdminLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Super Admin Login"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@id/civ2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 4,
-    "identityHash": "ba50719059ec27c1eaad9c48eaeb5b95",
+    "identityHash": "aff516e047f13e673863f14cd5228e55",
     "entities": [
       {
         "tableName": "soldiers_table",
@@ -156,7 +156,7 @@
       },
       {
         "tableName": "admin",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`armyNumber` TEXT NOT NULL, `password` TEXT, PRIMARY KEY(`armyNumber`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`armyNumber` TEXT NOT NULL, `password` TEXT NOT NULL, `username` TEXT NOT NULL, `name` TEXT NOT NULL, `rank` TEXT NOT NULL, PRIMARY KEY(`armyNumber`, `username`))",
         "fields": [
           {
             "fieldPath": "armyNumber",
@@ -168,13 +168,32 @@
             "fieldPath": "password",
             "columnName": "password",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rank",
+            "columnName": "rank",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
           "autoGenerate": false,
           "columnNames": [
-            "armyNumber"
+            "armyNumber",
+            "username"
           ]
         },
         "indices": [],
@@ -184,7 +203,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ba50719059ec27c1eaad9c48eaeb5b95')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aff516e047f13e673863f14cd5228e55')"
     ]
   }
 }

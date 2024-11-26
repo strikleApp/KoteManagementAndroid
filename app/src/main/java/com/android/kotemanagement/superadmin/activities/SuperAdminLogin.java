@@ -17,8 +17,10 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
+import com.android.kotemanagement.activities.AdminLogin;
 import com.android.kotemanagement.activities.HomeActivity;
 import com.android.kotemanagement.activities.LoginActivity;
+import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.ActivitySuperAdminLoginBinding;
 import com.android.kotemanagement.room.viewmodel.AdminViewModel;
 
@@ -33,9 +35,6 @@ public class SuperAdminLogin extends AppCompatActivity {
 
     private int countBackPress = 0;
     private boolean hasFilledArmyNumber = false;
-    private Executor biometricExecutor;
-    private BiometricPrompt biometricPrompt;
-    private BiometricPrompt.PromptInfo promptInfo;
 
     private static final String SUPER_ADMIN_ARMY_NUMBER = "SUPERADMIN123";
     private static final String SUPER_ADMIN_PASSWORD = "password";
@@ -60,7 +59,7 @@ public class SuperAdminLogin extends AppCompatActivity {
             @Override
             public void handleOnBackPressed() {
                 countBackPress++;
-                if(countBackPress == 1 && hasFilledArmyNumber) {
+                if (countBackPress == 1 && hasFilledArmyNumber) {
                     binding.tlPassword.setVisibility(View.GONE);
                     binding.btnLogin.setVisibility(View.GONE);
                     binding.btnVerify.setVisibility(View.VISIBLE);
@@ -75,78 +74,59 @@ public class SuperAdminLogin extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this, callback);
 
-        // setting up biometric
-        setBiometricExecutor();
-        setBiometricPromptInfo();
-
         //AdminViewModel
         adminViewModel = new ViewModelProvider(this).get(AdminViewModel.class);
 
-        binding.btnVerify.setOnClickListener(v-> {
+        binding.btnVerify.setOnClickListener(v -> {
             String armyNumber = Objects.requireNonNull(binding.etArmyNumber.getText()).toString().trim();
-            if(armyNumber.equals(SUPER_ADMIN_ARMY_NUMBER)) {
+            if (armyNumber.equals(SUPER_ADMIN_ARMY_NUMBER)) {
                 binding.tlPassword.setVisibility(View.VISIBLE);
                 binding.btnLogin.setVisibility(View.VISIBLE);
                 binding.btnVerify.setVisibility(View.GONE);
                 binding.tlArmyNumber.setEnabled(false);
                 hasFilledArmyNumber = true;
-                Toast.makeText(SuperAdminLogin.this,"Successfully Verified", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SuperAdminLogin.this, "Successfully Verified", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(SuperAdminLogin.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
             }
         });
 
-        binding.btnLogin.setOnClickListener(v-> {
+        binding.btnLogin.setOnClickListener(v -> {
             String password = Objects.requireNonNull(binding.etPassword.getText()).toString().trim();
-            if(SUPER_ADMIN_PASSWORD.equals(password)) {
-                Toast.makeText(SuperAdminLogin.this, "Successfully Logged In", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(SuperAdminLogin.this, SuperAdminHome.class));
+            if (SUPER_ADMIN_PASSWORD.equals(password)) {
+                fingerprintAuth();
+            } else {
+                Toast.makeText(SuperAdminLogin.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+            }
+
+        });
+        binding.btnAdminLogin.setOnClickListener(v -> {
+            startActivity(new Intent(this, AdminLogin.class));
+            finish();
+        });
+
+    }
+
+    private void fingerprintAuth() {
+        // Initialize FingerprintAuthenticator
+        FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(this);
+
+        fingerprintAuthenticator.authenticate(this, isSuccess -> {
+            if (isSuccess) {
+                // Authentication success
+                Toast.makeText(this, "Authentication Successful", Toast.LENGTH_SHORT).show();
+                // Proceed with authenticated logic
+                Intent intent = new Intent(this, SuperAdminHome.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
             } else {
-                Toast.makeText(SuperAdminLogin.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                // Authentication failed
+                Toast.makeText(this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                // Handle failure logic
             }
-
-            //biometricPrompt.authenticate(promptInfo);
         });
-
     }
-
-    private void setBiometricExecutor() {
-        biometricExecutor = ContextCompat.getMainExecutor(this);
-        biometricPrompt = new BiometricPrompt(SuperAdminLogin.this, biometricExecutor,
-                new BiometricPrompt.AuthenticationCallback() {
-                    @Override
-                    public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                        super.onAuthenticationError(errorCode, errString);
-                        Toast.makeText(getApplicationContext(),
-                                        "Authentication error: " + errString, Toast.LENGTH_SHORT)
-                                .show();
-                    }
-
-                    @Override
-                    public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                        super.onAuthenticationSucceeded(result);
-                        Toast.makeText(getApplicationContext(), "Authentication succeeded!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SuperAdminLogin.this, HomeActivity.class));
-                        finish();
-                    }
-
-                    @Override
-                    public void onAuthenticationFailed() {
-                        super.onAuthenticationFailed();
-                        Toast.makeText(SuperAdminLogin.this, "Failed to authenticate.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-    private void setBiometricPromptInfo() {
-        promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                .setTitle("Biometric Authentication")
-                .setSubtitle("Log in using your biometric credential")
-                .setNegativeButtonText("Cancel")
-                .build();
-    }
-
 
 
 }

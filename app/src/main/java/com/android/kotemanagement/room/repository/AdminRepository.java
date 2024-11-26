@@ -2,31 +2,31 @@ package com.android.kotemanagement.room.repository;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.android.kotemanagement.room.dao.AdminDao;
 import com.android.kotemanagement.room.database.KoteDatabase;
 import com.android.kotemanagement.room.entities.Admin;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AdminRepository {
-    private AdminDao adminDao;
-    private KoteDatabase koteDatabase;
+    private final AdminDao adminDao;
+    private final ExecutorService executorService;
 
     public AdminRepository(Application application) {
-        koteDatabase = KoteDatabase.getDatabaseInstance(application);
-        adminDao = koteDatabase.getAdminDao();;
+        KoteDatabase koteDatabase = KoteDatabase.getDatabaseInstance(application);
+        adminDao = koteDatabase.getAdminDao();
+        executorService = Executors.newSingleThreadExecutor();
     }
 
-    public void insert(Admin admin) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            adminDao.insert(admin);
-        });
+    public void register(Admin admin) {
+        executorService.execute(() -> adminDao.insert(admin)); // Inserts the new admin into the database
     }
 
-    public void remove(Admin admin) {
-        Executors.newSingleThreadExecutor().execute(() -> {
-            adminDao.remove(admin);
-        });
+    public LiveData<Admin> getAdminByUsernameOrArmyNumber(String username, String armyNumber) {
+        return adminDao.getAdminByUsernameOrArmyNumber(username, armyNumber); // This will observe the result
     }
 
 }
