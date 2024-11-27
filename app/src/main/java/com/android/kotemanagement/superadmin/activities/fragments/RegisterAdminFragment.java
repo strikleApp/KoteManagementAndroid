@@ -72,9 +72,18 @@ public class RegisterAdminFragment extends Fragment {
         if (requestCode == 100 && resultCode == Activity.RESULT_OK && data != null) {
             Uri selectedImageUri = data.getData();
             if (selectedImageUri != null) {
-                binding.photoImageView.setImageURI(selectedImageUri);
                 Bitmap bitmap = getBitmapFromUri(selectedImageUri);
-                image = ConvertImage.convertToString(bitmap, getContext());
+                if (bitmap != null) {
+                    boolean isLessThan1MB = ConvertImage.isImageLessThan1MB(bitmap);
+                    if (isLessThan1MB) {
+                        binding.photoImageView.setImageURI(selectedImageUri);
+                        image = ConvertImage.convertToString(bitmap, getContext());
+                    } else {
+                        Toast.makeText(getContext(), "Image size exceeds 1MB. Please select a smaller image.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(getContext(), "Failed to load image. Please try again.", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -161,7 +170,8 @@ public class RegisterAdminFragment extends Fragment {
             binding.etPassword.setError("Password must be at least 8 characters long, contain one letter, one number, and one special character!");
             valid = false;
         }
-        if (image.isEmpty()) {
+        if (image == null || image.isEmpty()) {
+            Toast.makeText(getContext(), "Please select an image.", Toast.LENGTH_SHORT).show();
             valid = false;
         }
 
@@ -178,7 +188,6 @@ public class RegisterAdminFragment extends Fragment {
             } else {
                 // If no admin exists with the same username or army number, register the new admin
                 FingerprintAuthenticator fingerprintAuthenticator = new FingerprintAuthenticator(getContext());
-
                 fingerprintAuthenticator.authenticate(requireActivity(), isSuccess -> {
                     if (isSuccess) {
                         // Authentication success
@@ -206,6 +215,7 @@ public class RegisterAdminFragment extends Fragment {
 
 
     private void clearFields() {
+        image = null;
         binding.photoImageView.setImageResource(R.drawable.kote1);
         binding.etName.setText("");
         binding.etRank.setText("");
@@ -215,7 +225,6 @@ public class RegisterAdminFragment extends Fragment {
     }
 
     private void checkingPermissions() {
-
         if (!PermissionCheck.checkPermissions(getContext())) {
             if (Build.VERSION.SDK_INT >= 34) {
                 requestPermissions(new String[]{
@@ -258,9 +267,6 @@ public class RegisterAdminFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
-
-
 
 
 }

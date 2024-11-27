@@ -80,8 +80,6 @@ public class AdminLogin extends AppCompatActivity {
                             // Handle failure logic
                         }
                     });
-
-
                 } else {
                     adminLoginBinding.etPasswordLogin.setError("Incorrect password");
                 }
