@@ -147,19 +147,50 @@ public class AllRecordsFragment extends Fragment {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
+        // If it's the start date, restrict it to today's date at most
+        if (isStartDate) {
+            calendar.set(Calendar.HOUR_OF_DAY, 0); // Set the time to 00:00:00 to avoid time issues
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+        }
+
+        // Create DatePickerDialog
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), (view, selectedYear, selectedMonth, selectedDay) -> {
             Calendar selectedDate = Calendar.getInstance();
             selectedDate.set(selectedYear, selectedMonth, selectedDay);
 
+            // Format the selected date
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String formattedDate = sdf.format(selectedDate.getTime());
             button.setText(formattedDate);
 
+            // If it's the end date, validate that it is not before the start date
             if (!isStartDate && !isEndDateValid()) {
                 Toast.makeText(getContext(), "End date cannot be earlier than start date", Toast.LENGTH_SHORT).show();
                 button.setText(isStartDate ? "Start Date" : "End Date");
             }
         }, year, month, dayOfMonth);
+
+        // Set the max date to today for the start date
+        if (isStartDate) {
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()); // Today's date as max
+        } else {
+            // For the end date, use the start date from the UI as the minimum date
+            String startDateText = binding.btnStartDate.getText().toString();
+            if (!startDateText.isEmpty()) {
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    Date startDate = sdf.parse(startDateText);
+                    if (startDate != null) {
+                        datePickerDialog.getDatePicker().setMinDate(startDate.getTime());
+                    }
+                } catch (ParseException e) {
+                    // Handle the exception if start date parsing fails
+                    e.printStackTrace();
+                }
+            }
+        }
 
         datePickerDialog.show();
     }
@@ -167,9 +198,22 @@ public class AllRecordsFragment extends Fragment {
     private boolean isEndDateValid() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+            // Parse the start and end dates
             Date startDate = sdf.parse(binding.btnStartDate.getText().toString());
             Date endDate = sdf.parse(binding.btnEndDate.getText().toString());
-            return startDate != null && endDate != null && !endDate.before(startDate);
+
+            // Get today's date
+            Date today = new Date();
+
+            // Check if the start date is not null and is not after today
+            if (startDate == null || startDate.after(today)) {
+                Toast.makeText(getContext(), "Start date cannot be after today", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            // Check if the end date is valid (not null and after or equal to the start date)
+            return endDate != null && !endDate.before(startDate);
         } catch (ParseException e) {
             return false;
         }

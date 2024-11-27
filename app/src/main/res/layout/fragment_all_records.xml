@@ -32,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvAuthText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!--Records-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clMainContent"
         android:layout_width="0dp"
@@ -97,11 +97,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <Button
                     android:id="@+id/btnStartDate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:backgroundTint="@color/secondaryColor"
@@ -124,7 +125,7 @@
 
                 <Button
                     android:id="@+id/btnEndDate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/secondaryColor"
                     android:onClick="onEndDateClick"
@@ -140,6 +141,7 @@
                     android:layout_marginStart="4dp"
                     android:onClick="onApplyClearClick"
                     android:text="Apply"
+                    app:layout_constraintBottom_toBottomOf="@id/btnEndDate"
                     app:layout_constraintEnd_toStartOf="@id/btnCancel"
                     app:layout_constraintStart_toEndOf="@id/btnEndDate"
                     app:layout_constraintTop_toTopOf="@id/btnStartDate" />
@@ -156,10 +158,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/btnApplyClear"
                     app:layout_constraintTop_toTopOf="@id/btnApplyClear" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <!-- RecyclerView Section -->
         <androidx.recyclerview.widget.RecyclerView
