@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.IssueInventoryFragmentBinding;
-import com.android.kotemanagement.exceptions.CheckWeaponAlreadyIssued;
 import com.android.kotemanagement.exceptions.UserDoesNotExistsException;
 import com.android.kotemanagement.exceptions.UserFieldBlankException;
 import com.android.kotemanagement.exceptions.UserFieldException;
@@ -36,7 +35,6 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class IssueInventoryFragment extends Fragment {
 
