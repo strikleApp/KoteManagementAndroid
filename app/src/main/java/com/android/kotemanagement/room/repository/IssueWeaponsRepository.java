@@ -24,13 +24,13 @@ public class IssueWeaponsRepository {
         allIssueWeaponsList = issueWeaponsDao.getAllIssueWeaponsList();
     }
 
-    public void insert(IssueWeapons issueWeapons){
+    public void insert(IssueWeapons issueWeapons) {
         Executors.newSingleThreadExecutor().execute(() -> {
             issueWeaponsDao.insert(issueWeapons);
         });
     }
 
-    public void delete(IssueWeapons issueWeapons){
+    public void delete(IssueWeapons issueWeapons) {
         Executors.newSingleThreadExecutor().execute(() -> {
             issueWeaponsDao.delete(issueWeapons);
         });
@@ -40,15 +40,17 @@ public class IssueWeaponsRepository {
         return issueWeaponsDao.getWeaponBySerialNumber(serialNumber);
     }
 
-    public LiveData<IssueWeapons> checkIfWeaponExists(String sno){
-        return  issueWeaponsDao.checkIfWeaponExists(sno);
+    public LiveData<IssueWeapons> checkIfWeaponExists(String sno) {
+        return issueWeaponsDao.checkIfWeaponExists(sno);
     }
 
     public LiveData<List<IssueWeapons>> getAllIssueWeaponsList() {
         return allIssueWeaponsList;
     }
 
-
+    public IssueWeapons getWeaponByArmyNumber(String armyNumber) {
+        return issueWeaponsDao.getWeaponByArmyNumber(armyNumber);
+    }
 
 
 }

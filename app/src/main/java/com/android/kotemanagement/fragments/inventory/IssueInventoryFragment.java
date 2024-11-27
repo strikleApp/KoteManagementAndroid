@@ -80,7 +80,7 @@ public class IssueInventoryFragment extends Fragment {
                 armyNumber = Objects.requireNonNull(binding.etArmyNumber.getText()).toString();
 
                 isAllFieldsCorrect();
-                checkIfWeaponAlreadyIssued();
+                checkingWeaponsAndExistingWeapon();
             } catch (UserFieldBlankException e) {
                 Snackbar snackbar = Snackbar.make(binding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
@@ -118,27 +118,21 @@ public class IssueInventoryFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void checkIfWeaponAlreadyIssued() {
-        final boolean[] isObserved = {false};
-        Observer<IssueWeapons> weaponObserver = new Observer<IssueWeapons>() {
-            @Override
-            public void onChanged(IssueWeapons issueWeapons) {
-                if (isObserved[0]) {
+    void checkingWeaponsAndExistingWeapon() {
+        //Checking if this weapon is already issued.
+        IssueWeapons isWeaponAlreadyIssued = issueWeaponsViewModel.checkIfWeaponExists(serialNumber);
+        if (isWeaponAlreadyIssued != null) {
+            new DialogBox().showDialog(getContext(), "Weapon with S no. " + isWeaponAlreadyIssued.serialNumber + " is already issued. Please return the weapon first before issuing!");
+        } else {
+            // Checking if this user already have an issued weapon.
+            IssueWeapons isWeaponAlreadyAssignToThisUser = issueWeaponsViewModel.checkWeaponByArmyNumber(armyNumber);
+            if (isWeaponAlreadyAssignToThisUser != null) {
+                new DialogBox().showDialog(getContext(), soldier.getFirstName() + " " + soldier.getLastName() + " have an issued weapon with S no. " + isWeaponAlreadyAssignToThisUser.serialNumber + ". Please return the weapon first before issuing!");
 
-                }
-                isObserved[0] = true;
-                issueWeaponsViewModel.checkIfWeaponExists(serialNumber).removeObserver(this);
-
-                if (issueWeapons != null) {
-
-                    new DialogBox().showDialog(getContext(), "Weapon number: " + serialNumber + " is already issued to " + soldier.getFirstName() + " " + soldier.getLastName() + ". Please return the weapon first.");
-                } else {
-                    fingerprintAuth();
-                }
+            } else {
+                fingerprintAuth();
             }
-        };
-
-        issueWeaponsViewModel.checkIfWeaponExists(serialNumber).observe(getViewLifecycleOwner(), weaponObserver);
+        }
     }
 
     private void fingerprintAuth() {
