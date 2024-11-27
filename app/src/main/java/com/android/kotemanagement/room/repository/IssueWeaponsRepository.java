@@ -40,6 +40,10 @@ public class IssueWeaponsRepository {
         return issueWeaponsDao.getWeaponBySerialNumber(serialNumber);
     }
 
+    public LiveData<IssueWeapons> checkIfWeaponExists(String sno){
+        return  issueWeaponsDao.checkIfWeaponExists(sno);
+    }
+
     public LiveData<List<IssueWeapons>> getAllIssueWeaponsList() {
         return allIssueWeaponsList;
     }

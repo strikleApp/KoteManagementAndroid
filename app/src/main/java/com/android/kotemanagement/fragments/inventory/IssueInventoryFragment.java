@@ -13,11 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
 import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.IssueInventoryFragmentBinding;
+import com.android.kotemanagement.exceptions.CheckWeaponAlreadyIssued;
 import com.android.kotemanagement.exceptions.UserDoesNotExistsException;
 import com.android.kotemanagement.exceptions.UserFieldBlankException;
 import com.android.kotemanagement.exceptions.UserFieldException;
@@ -28,11 +30,13 @@ import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
 import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
 import com.android.kotemanagement.utilities.CheckingUserInput;
+import com.android.kotemanagement.utilities.DialogBox;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class IssueInventoryFragment extends Fragment {
 
@@ -78,7 +82,7 @@ public class IssueInventoryFragment extends Fragment {
                 armyNumber = Objects.requireNonNull(binding.etArmyNumber.getText()).toString();
 
                 isAllFieldsCorrect();
-                fingerprintAuth();
+                checkIfWeaponAlreadyIssued();
             } catch (UserFieldBlankException e) {
                 Snackbar snackbar = Snackbar.make(binding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
@@ -114,6 +118,29 @@ public class IssueInventoryFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    private void checkIfWeaponAlreadyIssued() {
+        final boolean[] isObserved = {false};
+        Observer<IssueWeapons> weaponObserver = new Observer<IssueWeapons>() {
+            @Override
+            public void onChanged(IssueWeapons issueWeapons) {
+                if (isObserved[0]) {
+
+                }
+                isObserved[0] = true;
+                issueWeaponsViewModel.checkIfWeaponExists(serialNumber).removeObserver(this);
+
+                if (issueWeapons != null) {
+
+                    new DialogBox().showDialog(getContext(), "Weapon number: " + serialNumber + " is already issued to " + soldier.getFirstName() + " " + soldier.getLastName() + ". Please return the weapon first.");
+                } else {
+                    fingerprintAuth();
+                }
+            }
+        };
+
+        issueWeaponsViewModel.checkIfWeaponExists(serialNumber).observe(getViewLifecycleOwner(), weaponObserver);
     }
 
     private void fingerprintAuth() {

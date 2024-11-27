@@ -39,6 +39,10 @@ public class IssueWeaponsViewModel extends AndroidViewModel {
         return issueWeaponsRepository.getWeaponBySerialNumber(serialNumber);
     }
 
+    public LiveData<IssueWeapons> checkIfWeaponExists(String serialNumber) {
+        return issueWeaponsRepository.checkIfWeaponExists(serialNumber);
+    }
+
     public LiveData<List<IssueWeapons>> getAllIssuedWeaponsList() {
         return allIssuedWeaponsList;
     }

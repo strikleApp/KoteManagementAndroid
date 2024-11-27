@@ -24,4 +24,7 @@ public interface IssueWeaponsDao {
 
     @Query("SELECT * FROM issue_weapons WHERE serialNumber = :serialNumber")
     IssueWeapons getWeaponBySerialNumber(String serialNumber);
+
+    @Query("SELECT * FROM issue_weapons WHERE serialNumber = :sno LIMIT 1")
+    LiveData<IssueWeapons> checkIfWeaponExists(String sno);
 }
