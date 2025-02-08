@@ -15,9 +15,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.android.kotemanagement.authentication.FingerprintAuthenticator;
 import com.android.kotemanagement.databinding.FragmentDeleteUserBinding;
 import com.android.kotemanagement.fragments.records.RecordFunctions;
+import com.android.kotemanagement.room.entities.IssueWeapons;
 import com.android.kotemanagement.room.entities.Soldiers;
+import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
 import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
+import com.android.kotemanagement.utilities.ConvertImage;
+import com.android.kotemanagement.utilities.DialogBox;
 
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
@@ -29,6 +33,7 @@ public class DeleteUserFragment extends Fragment {
     Soldiers searchedSoldier;
     SoldiersViewModel soldiersViewModel;
     RecordsViewModel recordsViewModel;
+    IssueWeaponsViewModel issueWeaponsViewModel;
 
     @Nullable
     @Override
@@ -38,7 +43,7 @@ public class DeleteUserFragment extends Fragment {
             @Nullable Bundle savedInstanceState) {
         binding = FragmentDeleteUserBinding.inflate(inflater, container, false);
         recordsViewModel = new ViewModelProvider(this).get(RecordsViewModel.class);
-
+        issueWeaponsViewModel = new ViewModelProvider(this).get(IssueWeaponsViewModel.class);
 
         binding.clBody.setVisibility(View.GONE);
 
@@ -52,8 +57,14 @@ public class DeleteUserFragment extends Fragment {
         });
 
         binding.btnDelete.setOnClickListener(v -> {
-            fingerprintAuth();
+            IssueWeapons weaponExist = issueWeaponsViewModel.checkWeaponByArmyNumber(searchedSoldier.getArmyNumber());
+            if (weaponExist == null) {
+                fingerprintAuth();
+            } else {
+                new DialogBox().showDialog(getContext(), searchedSoldier.getFirstName() + " " + searchedSoldier.getLastName() + " have an issued weapon with S no. " + weaponExist.serialNumber + " .Please return the weapon first before removing!");
+            }
         });
+
 
         return binding.getRoot();
     }
@@ -116,11 +127,12 @@ public class DeleteUserFragment extends Fragment {
 
         if (searchedSoldier != null) {
             binding.clBody.setVisibility(View.VISIBLE);
-
             binding.tvName.setText(searchedSoldier.firstName + " " + searchedSoldier.lastName);
             binding.tvRank.setText(searchedSoldier.rank);
             binding.tvDateOfJoining.setText(searchedSoldier.dob);
             binding.tvID.setText(searchedSoldier.armyNumber);
+            binding.ivUserImage.setImageBitmap(ConvertImage.convertToBitmap(searchedSoldier.getImage()));
+
         }
     }
 

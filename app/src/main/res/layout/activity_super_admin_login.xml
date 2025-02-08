@@ -15,18 +15,20 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
+
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/mtRegister"
+            android:id="@+id/materialToolbar"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:elevation="7dp"
+            android:elevation="4dp"
             android:gravity="center"
-            app:title="KOTE MANAGEMENT"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:title="E-KOTE MANAGEMENT"
             app:titleCentered="true"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:titleTextColor="?attr/colorOnPrimary"
-            tools:ignore="MissingConstraints" />
+            app:titleTextAppearance="@style/ToolbarTitleStyle"
+            app:titleTextColor="?attr/colorOnPrimary" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

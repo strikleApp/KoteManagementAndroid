@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.android.kotemanagement.R;
@@ -28,6 +29,7 @@ import com.android.kotemanagement.room.viewmodel.IssueWeaponsViewModel;
 import com.android.kotemanagement.room.viewmodel.RecordsViewModel;
 import com.android.kotemanagement.room.viewmodel.SoldiersViewModel;
 import com.android.kotemanagement.utilities.CheckingUserInput;
+import com.android.kotemanagement.utilities.DialogBox;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
@@ -78,7 +80,7 @@ public class IssueInventoryFragment extends Fragment {
                 armyNumber = Objects.requireNonNull(binding.etArmyNumber.getText()).toString();
 
                 isAllFieldsCorrect();
-                fingerprintAuth();
+                checkingWeaponsAndExistingWeapon();
             } catch (UserFieldBlankException e) {
                 Snackbar snackbar = Snackbar.make(binding.getRoot(), e.message(), Snackbar.LENGTH_SHORT);
                 snackbar.setAction("Dismiss", new View.OnClickListener() {
@@ -114,6 +116,23 @@ public class IssueInventoryFragment extends Fragment {
         });
 
         return binding.getRoot();
+    }
+
+    void checkingWeaponsAndExistingWeapon() {
+        //Checking if this weapon is already issued.
+        IssueWeapons isWeaponAlreadyIssued = issueWeaponsViewModel.checkIfWeaponExists(serialNumber);
+        if (isWeaponAlreadyIssued != null) {
+            new DialogBox().showDialog(getContext(), "Weapon with S no. " + isWeaponAlreadyIssued.serialNumber + " is already issued. Please return the weapon first before issuing!");
+        } else {
+            // Checking if this user already have an issued weapon.
+            IssueWeapons isWeaponAlreadyAssignToThisUser = issueWeaponsViewModel.checkWeaponByArmyNumber(armyNumber);
+            if (isWeaponAlreadyAssignToThisUser != null) {
+                new DialogBox().showDialog(getContext(), soldier.getFirstName() + " " + soldier.getLastName() + " have an issued weapon with S no. " + isWeaponAlreadyAssignToThisUser.serialNumber + ". Please return the weapon first before issuing!");
+
+            } else {
+                fingerprintAuth();
+            }
+        }
     }
 
     private void fingerprintAuth() {
